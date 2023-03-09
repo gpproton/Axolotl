@@ -1,0 +1,11 @@
+{
+  "sdk": {
+    "version": "7.0.200",
+    "rollForward": "latestPatch"
+  },
+  "scripts": {
+    "build": "dotnet build --configuration Release",
+    "test": "dotnet test --configuration Release",
+    "ci": "dotnet r build && dotnet r test"
+  }
+}
