@@ -15,5 +15,5 @@ namespace Proton.Common.Entity.Converters;
 
 public class JsonValueConverter<T> : ValueConverter<T, string> {
     public JsonValueConverter() : base(v => JsonConvert.SerializeObject(v),
-        v => JsonConvert.DeserializeObject<T>(v) ?? (T) new object()) { }
+        v => JsonConvert.DeserializeObject<T>(v) ?? (T)new object()) { }
 }

@@ -13,8 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Proton.Common.Standard.Extensions;
 
 public static class LazyResolutionExtension {
-    public static IServiceCollection AddLazyResolution(this IServiceCollection services)
-    {
+    public static IServiceCollection AddLazyResolution(this IServiceCollection services) {
         return services.AddTransient(
             typeof(Lazy<>),
             typeof(LazilyResolved<>));
@@ -22,8 +21,7 @@ public static class LazyResolutionExtension {
 
     private class LazilyResolved<T> : Lazy<T> where T : notnull {
         public LazilyResolved(IServiceProvider serviceProvider)
-        : base(serviceProvider.GetRequiredService<T>)
-        {
+        : base(serviceProvider.GetRequiredService<T>) {
         }
     }
 }

@@ -23,7 +23,7 @@ public interface IReadRepository<T> : IReadRepositoryBase<T> where T : class, IA
     /// The IQueryable result contains the <typeparamref name="T" />, or <see langword="null"/>.
     /// </returns>
     IQueryable<T> GetAll(CancellationToken cancellationToken = default);
-    
+
     /// <summary>
     /// Returns the all element of a sequence, or a default value if the sequence contains no elements.
     /// </summary>
@@ -34,7 +34,7 @@ public interface IReadRepository<T> : IReadRepositoryBase<T> where T : class, IA
     /// The IQueryable result contains the <typeparamref name="T>" />, or <see langword="null"/>.
     /// </returns>
     IQueryable<T> GetAll(ISpecification<T> specification, CancellationToken cancellationToken = default);
-    
+
     /// <summary>
     /// Returns the all element of a sequence, or a default value if the sequence contains no elements.
     /// </summary>
@@ -44,7 +44,7 @@ public interface IReadRepository<T> : IReadRepositoryBase<T> where T : class, IA
     /// The sequence result contains the <typeparamref name="T" />, or <see langword="null"/>.
     /// </returns>
     IEnumerable<T> Find(Expression<Func<T, bool>> expression);
-    
+
     /// <summary>
     /// Returns the first element of a sequence, or a default value if the sequence contains no elements.
     /// </summary>

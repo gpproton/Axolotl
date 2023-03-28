@@ -18,7 +18,8 @@ public static class StringHelpers {
         if (f == null || l == null) return "FL";
         try {
             return string.Concat(f[0], l[0]);
-        } catch (Exception) {
+        }
+        catch (Exception) {
             // ignore
         }
         return string.Empty;
