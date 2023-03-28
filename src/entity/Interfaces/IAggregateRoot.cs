@@ -10,6 +10,6 @@
 
 namespace Proton.Common.Entity.Interfaces {
     public interface IAggregateRoot {
-        
+
     }
 }
