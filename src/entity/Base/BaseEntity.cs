@@ -10,6 +10,4 @@
 
 namespace Proton.Common.Entity.Base;
 
-public abstract class BaseEntity<TKey> : CoreEntity<TKey> {
-    public string Attributes { get; set; } = null!;
-}
+public abstract class BaseEntity<TKey> : CoreEntity<TKey> { }
