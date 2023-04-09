@@ -1,0 +1,31 @@
+<Project>
+    <PropertyGroup>
+        <Title>Proton.Common</Title>
+        <Version>0.1</Version>
+        <Authors>radioActive DROID</Authors>
+        <Description>Personal shared utility library</Description>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>Library, Utility</PackageTags>
+        <RepositoryUrl>https://github.com/gpproton/Proton.Common</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/gpproton/Proton.Common</PackageProjectUrl>
+        <LicenseFile>$(MSBuildThisFileDirectory)LICENSE</LicenseFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Copyright>© Proton.Common Contributors. All rights reserved.</Copyright>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <AspCoreVersion>8.0.0-preview.2.23153.2</AspCoreVersion>
+        <ArdalisVersion>6.1.0</ArdalisVersion>
+        <DotnetVersion>8.0.0-preview.2.23128.3</DotnetVersion>
+        <NextendedVersion>7.0.21</NextendedVersion>
+    </PropertyGroup>
+
+</Project>
