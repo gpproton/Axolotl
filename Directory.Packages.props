@@ -3,7 +3,7 @@
         <PackageVersion Include="Ardalis.Specification" Version="$(ArdalisVersion)" />
         <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="$(ArdalisVersion)" />
         <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspCoreVersion)" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(DotnetVersion)" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfcoreVersion)" />
         <PackageVersion Include="Microsoft.Extensions.Primitives" Version="$(DotnetVersion)" />
         <PackageVersion Include="Nextended.Core" Version="$(NextendedVersion)" />
     </ItemGroup>
