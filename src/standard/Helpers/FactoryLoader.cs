@@ -11,10 +11,16 @@
 namespace Proton.Common.Standard.Helpers;
 
 public class FactoryLoader {
-    public static IEnumerable<T> Load<T>() =>
-    typeof(T).Assembly
-    .GetTypes()
-    .Where(p => p is { IsClass: true, IsAbstract: false } && p.IsAssignableTo(typeof(T)))
-    .Select(Activator.CreateInstance)
-    .Cast<T>();
+    public static IEnumerable<T> LoadClassInstances<T>() =>
+        typeof(T).Assembly
+        .GetTypes()
+        .Where(p => p is { IsClass: true, IsAbstract: false } && p.IsAssignableTo(typeof(T)))
+        .Select(Activator.CreateInstance)
+        .Cast<T>();
+
+    public static IEnumerable<string> LoadClassNames<T>() =>
+        typeof(T).Assembly
+        .GetTypes()
+        .Where(p => p is { IsClass: true, IsAbstract: false } && p.IsAssignableTo(typeof(T)))
+        .Select(type => type.Name);
 }
