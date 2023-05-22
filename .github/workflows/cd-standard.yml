@@ -38,10 +38,14 @@ jobs:
       - name: Pack
         run: dotnet pack --no-build $BUILD_PATH -c $BUILD_CONFIG -o ./artifacts
 
-      - name: Add source
+      - name: Update source and publish
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: dotnet nuget update source --source "https://nuget.pkg.github.com/gpproton/index.json" github --username gpproton --password "$NUGET_AUTH_TOKEN" --store-password-in-clear-text
+        run: |
+          dotnet nuget update source --source "https://nuget.pkg.github.com/gpproton/index.json" github --username gpproton --password "$NUGET_AUTH_TOKEN" --store-password-in-clear-text
+          dotnet nuget push artifacts/*.nupkg --source "github" --api-key "$NUGET_AUTH_TOKEN"
 
-      - name: Publish
-        run: dotnet nuget push artifacts/*.nupkg --source "github"
+      # - name: Publish
+      #   env:
+      #     NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: dotnet nuget push artifacts/*.nupkg --source "github" --api-key "$NUGET_AUTH_TOKEN"
