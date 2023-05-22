@@ -7,6 +7,8 @@
 
 Proton.Common:
 
+Proton.Common.Http:
+
 Proton.Common.EFCore:
 
 Proton.Common.Razor:
@@ -28,6 +30,7 @@ To install support for serialization, AutoFixture, EF Core, Model Binding, or Da
 
 ```
 Install-Package Proton.Common
+Install-Package Proton.Common.Http
 Install-Package Proton.Common.EFCore
 Install-Package Proton.Common.Razor
 Install-Package Proton.Common.Maui
