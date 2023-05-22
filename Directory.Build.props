@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup>
         <Title>Proton.Common</Title>
-        <Version>8.0</Version>
+        <Version>8.0-preview</Version>
         <Authors>radioActive DROID</Authors>
         <Description>Personal shared utility library</Description>
         <RepositoryType>git</RepositoryType>
@@ -21,10 +21,11 @@
         <DebugType>embedded</DebugType>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <NoWarn>$(NoWarn);5104</NoWarn>        <!--TODO: temporary solution-->
     </PropertyGroup>
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFrameworks>net8.0;net7.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>preview</LangVersion>
