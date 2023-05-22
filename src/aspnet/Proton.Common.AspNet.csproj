@@ -1,9 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <PackageId>Proton.Common.AspNet</PackageId>
+    <Title>Proton.Common.AspNet</Title>
+    <Description>Classes and extensions to help simplify using ASP.NET.</Description>
+    <Summary>Classes and extensions to help simplify using ASP.NET.</Summary>
+    <PackageTags>aspnet;library;proton</PackageTags>
+    <AssemblyName>Proton.Common.AspNet</AssemblyName>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\standard\Proton.Common.csproj" />
+  </ItemGroup>
 
 </Project>

@@ -22,8 +22,12 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.Contains('net8'))">
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.Contains('net7'))">
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" VersionOverride="7.0.5" />
   </ItemGroup>
 
   <ItemGroup>

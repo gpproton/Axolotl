@@ -12,6 +12,17 @@ using System.Web;
 
 namespace Proton.Common.Extensions {
     public static class ObjectExtensions {
+        private static string? EncodeUrl(System.Reflection.PropertyInfo? obj) {
+            object? value = obj!.GetValue(obj, null);
+            if (value is null) {
+                return string.Empty;
+            }
+
+            string? result = HttpUtility.UrlEncode(value!.ToString());
+
+            return result;
+        }
+
         public static string GetQueryString(this object? obj) {
             if (obj == null) {
                 return string.Empty;
@@ -19,7 +30,7 @@ namespace Proton.Common.Extensions {
 
             IEnumerable<string> properties = from p in obj.GetType().GetProperties()
                                              where p.GetValue(obj, null) != null
-                                             select p.Name + "=" + HttpUtility.UrlEncode(p!.GetValue(obj, null).ToString());
+                                             select p.Name + "=" + EncodeUrl(p);
 
             return "?" + String.Join("&", properties.ToArray());
         }
