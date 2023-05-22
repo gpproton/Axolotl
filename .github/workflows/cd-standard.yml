@@ -46,4 +46,4 @@ jobs:
           nuget-api-key: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish
-        run: nuget push artifacts/*.nupkg --source github --api-key $NUGET_AUTH_TOKEN --skip-duplicate
+        run: nuget push artifacts/*.nupkg
