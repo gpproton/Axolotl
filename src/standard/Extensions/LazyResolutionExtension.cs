@@ -10,18 +10,18 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Proton.Common.Standard.Extensions;
+namespace Proton.Common.Extensions {
+    public static class LazyResolutionExtension {
+        public static IServiceCollection AddLazyResolution(this IServiceCollection services) {
+            return services.AddTransient(
+                typeof(Lazy<>),
+                typeof(LazilyResolved<>));
+        }
 
-public static class LazyResolutionExtension {
-    public static IServiceCollection AddLazyResolution(this IServiceCollection services) {
-        return services.AddTransient(
-            typeof(Lazy<>),
-            typeof(LazilyResolved<>));
-    }
-
-    private class LazilyResolved<T> : Lazy<T> where T : notnull {
-        public LazilyResolved(IServiceProvider serviceProvider)
-        : base(serviceProvider.GetRequiredService<T>) {
+        private class LazilyResolved<T> : Lazy<T> where T : notnull {
+            public LazilyResolved(IServiceProvider serviceProvider)
+            : base(serviceProvider.GetRequiredService<T>) {
+            }
         }
     }
 }

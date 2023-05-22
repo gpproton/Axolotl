@@ -8,12 +8,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Newtonsoft.Json;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Proton.Common.Entity.Converters;
+namespace Proton.Common.EFCore.Converters;
 
-public class JsonValueConverter<T> : ValueConverter<T, string> {
-    public JsonValueConverter() : base(v => JsonConvert.SerializeObject(v),
-        v => JsonConvert.DeserializeObject<T>(v) ?? (T)new object()) { }
+public class CollectionValueComparer<T> : ValueComparer<ICollection<T>> {
+    public CollectionValueComparer() : base((c1, c2) => c1!.SequenceEqual(c2!),
+        c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v!.GetHashCode())), c => (ICollection<T>)c.ToHashSet()) {
+    }
 }

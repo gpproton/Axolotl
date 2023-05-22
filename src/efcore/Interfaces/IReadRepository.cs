@@ -11,7 +11,7 @@
 using System.Linq.Expressions;
 using Ardalis.Specification;
 
-namespace Proton.Common.Entity.Interfaces;
+namespace Proton.Common.EFCore.Interfaces;
 
 public interface IReadRepository<T> : IReadRepositoryBase<T> where T : class, IAggregateRoot {
     /// <summary>

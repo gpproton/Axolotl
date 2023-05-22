@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Proton.Common.EFCore</PackageId>
+    <Title>Proton.Common.EFCore</Title>
+    <Description>Classes and extensions to help simplify efcore usage in .NET.</Description>
+    <Summary>Classes and extensions to help simplify efcore usage in .NET.</Summary>
+    <PackageTags>efcore;entity;proton</PackageTags>
+    <AssemblyName>Proton.Common.EFCore</AssemblyName>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ardalis.Specification" />
+    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.Extensions.Primitives" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\standard\Proton.Common.csproj" />
+  </ItemGroup>
+
+</Project>

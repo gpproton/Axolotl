@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Proton.Common</PackageId>
+    <Title>Proton.Common</Title>
+    <Description>Classes and extensions to help simplify using .NET.</Description>
+    <Summary>Classes and extensions to help simplify using .NET.</Summary>
+    <PackageTags>standard;library;proton</PackageTags>
+    <AssemblyName>Proton.Common</AssemblyName>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nextended.Core" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,6 +1,6 @@
 // Copyright 2022 - 2023 Godwin peter .O (me@godwin.dev)
 // 
-// Licensed under the Reciprocal Public License (RPL-1.5) and Trace License;
+// Licensed under the MIT License;
 // you may not use this file except in compliance with the License.
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -8,13 +8,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.Entity.Interfaces;
+namespace Proton.Common.EFCore.Interfaces {
+    public interface IAggregateRoot {
 
-public interface IAuditableEntity<TKey> {
-    public TKey? CreatedBy { get; set; }
-    public DateTimeOffset CreatedAt { get; set; }
-    public TKey? UpdatedBy { get; set; }
-    public DateTimeOffset? UpdatedAt { get; set; }
-    public TKey? DeletedBy { get; set; }
-    public DateTimeOffset? DeletedAt { get; set; }
+    }
 }

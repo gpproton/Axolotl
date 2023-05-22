@@ -1,16 +1,20 @@
 <Project>
     <PropertyGroup>
         <Title>Proton.Common</Title>
-        <Version>0.1</Version>
+        <Version>8.0</Version>
         <Authors>radioActive DROID</Authors>
         <Description>Personal shared utility library</Description>
         <RepositoryType>git</RepositoryType>
         <PackageTags>Library, Utility</PackageTags>
+        <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <RepositoryUrl>https://github.com/gpproton/Proton.Common</RepositoryUrl>
         <PackageProjectUrl>https://github.com/gpproton/Proton.Common</PackageProjectUrl>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <LicenseFile>$(MSBuildThisFileDirectory)LICENSE</LicenseFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <Copyright>© Proton.Common Contributors. All rights reserved.</Copyright>
+        <Features>strict</Features>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -22,11 +26,23 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <AspCoreVersion>8.0.0-preview.3.23177.8</AspCoreVersion>
+        <AspCoreVersion>8.0.0-preview.4.23260.4</AspCoreVersion>
         <ArdalisVersion>6.1.0</ArdalisVersion>
-        <DotnetVersion>8.0.0-preview.3.23174.8</DotnetVersion>
-        <EfcoreVersion>8.0.0-preview.3.23174.2</EfcoreVersion>
-        <NextendedVersion>7.0.21</NextendedVersion>
+        <DotnetVersion>8.0.0-preview.4.23259.5</DotnetVersion>
+        <EfcoreVersion>8.0.0-preview.4.23259.3</EfcoreVersion>
+        <NextendedVersion>7.0.22</NextendedVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <RepoRelativeProjectDir>$([MSBuild]::MakeRelative($(RepoRoot), $(MSBuildProjectDirectory)))</RepoRelativeProjectDir>
+
+        <!-- Define useful flags based on project name conventions -->
+        <IsUnitTestProject>false</IsUnitTestProject>
+        <IsUnitTestProject Condition="$(MSBuildProjectName.EndsWith('Tests')) or $(MSBuildProjectName.EndsWith('.Test')) or $(MSBuildProjectName.EndsWith('.FunctionalTest'))">true</IsUnitTestProject>
+        <IsTestAssetProject Condition="$(RepoRelativeProjectDir.Contains('testassets'))">true</IsTestAssetProject>
+        <IsSampleProject Condition="$(RepoRelativeProjectDir.Contains('sample'))">true</IsSampleProject>
+        <IsAnalyzersProject Condition="$(MSBuildProjectName.EndsWith('.Analyzers'))">true</IsAnalyzersProject>
+        <IsShipping Condition="'$(IsSampleProject)' == 'true' or '$(IsTestAssetProject)' == 'true' or '$(IsBenchmarkProject)' == 'true' or '$(IsUnitTestProject)' == 'true'">false</IsShipping>
     </PropertyGroup>
 
 </Project>

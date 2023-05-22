@@ -8,8 +8,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.Entity.Interfaces;
+namespace Proton.Common.EFCore.Base;
 
-public interface IHasKey<T> {
-    T Id { get; set; }
-}
+public abstract class BaseEntity<TKey> : CoreEntity<TKey> { }
