@@ -46,7 +46,7 @@ jobs:
           nuget-api-key: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set API Key
-        run: nuget setApiKey ${{ secrets.GITHUB_TOKEN }} -source github
+        run: nuget setApiKey ${{ secrets.GITHUB_TOKEN }} -source https://nuget.pkg.github.com/gpproton/index.json
 
       - name: Publish
         run: nuget push artifacts/*.nupkg
