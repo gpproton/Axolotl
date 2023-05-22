@@ -24,7 +24,7 @@ jobs:
             7.0.x
             8.0.x
         env:
-          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Restore
         run: dotnet restore $BUILD_PATH
@@ -38,7 +38,9 @@ jobs:
       - name: Pack
         run: dotnet pack --no-build $BUILD_PATH -c $BUILD_CONFIG -o ./artifacts
 
+      - name: Add source
+        run: dotnet nuget update source --source "https://nuget.pkg.github.com/gpproton/index.json" github --username gpproton --password "$GITHUB_TOKEN" --store-password-in-clear-text
       - name: Publish
         env:
-          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: dotnet nuget push artifacts/*.nupkg
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: dotnet nuget push artifacts/*.nupkg --source "github" --api-key "$GITHUB_TOKEN"
