@@ -42,10 +42,6 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo "=======> Token: $NUGET_AUTH_TOKEN"
           dotnet nuget update source --source "https://nuget.pkg.github.com/gpproton/index.json" github --username gpproton --password "$NUGET_AUTH_TOKEN" --store-password-in-clear-text
           dotnet nuget push artifacts/*.nupkg --source "github" --api-key "$NUGET_AUTH_TOKEN"
-
-      # - name: Publish
-      #   env:
-      #     NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: dotnet nuget push artifacts/*.nupkg --source "github" --api-key "$NUGET_AUTH_TOKEN"
