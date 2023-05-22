@@ -24,8 +24,6 @@ jobs:
           dotnet-version: |
             7.0.x
             8.0.x
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Restore
         run: dotnet restore $BUILD_PATH
@@ -39,13 +37,5 @@ jobs:
       - name: Pack
         run: dotnet pack --no-build $BUILD_PATH -c $BUILD_CONFIG -o ./artifacts
 
-      - name: Setup NuGet
-        uses: nuget/setup-nuget@v1
-        with:
-          nuget-version: preview
-
-      - name: Set API Key
-        run: nuget setApiKey ${{ secrets.GITHUB_TOKEN }} -Source https://nuget.pkg.github.com/gpproton/index.json
-
       - name: Publish
-        run: nuget push artifacts/*.nupkg
+        run: dotnet nuget push artifacts/*.nupkg --source github --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
