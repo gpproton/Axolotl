@@ -19,7 +19,6 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          config-file: nuget.config
           source-url: https://nuget.pkg.github.com/gpproton/index.json
           dotnet-version: |
             7.0.x
@@ -42,4 +41,4 @@ jobs:
       - name: Publish
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: dotnet nuget push artifacts/*.nupkg --source github --api-key $NUGET_AUTH_TOKEN --skip-duplicate
+        run: dotnet nuget push artifacts/*.nupkg
