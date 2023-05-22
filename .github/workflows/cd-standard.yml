@@ -45,7 +45,7 @@ jobs:
           nuget-version: preview
 
       - name: Set API Key
-        run: nuget setApiKey $NUGET_AUTH_TOKEN -source https://nuget.pkg.github.com/gpproton/index.json
+        run: nuget setApiKey ${{ secrets.GITHUB_TOKEN }} -Source https://nuget.pkg.github.com/gpproton/index.json
 
       - name: Publish
         run: nuget push artifacts/*.nupkg
