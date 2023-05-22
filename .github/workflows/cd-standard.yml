@@ -45,5 +45,8 @@ jobs:
           nuget-version: preview
           nuget-api-key: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set API Key
+        run: nuget setApiKey ${{ secrets.GITHUB_TOKEN }} -source github
+
       - name: Publish
         run: nuget push artifacts/*.nupkg
