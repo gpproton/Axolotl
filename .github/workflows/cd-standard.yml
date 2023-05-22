@@ -40,4 +40,6 @@ jobs:
         run: dotnet pack --no-build $BUILD_PATH -c $BUILD_CONFIG -o ./artifacts
 
       - name: Publish
-        run: dotnet nuget push artifacts/*.nupkg --source github --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: dotnet nuget push artifacts/*.nupkg --source github --api-key $NUGET_AUTH_TOKEN --skip-duplicate
