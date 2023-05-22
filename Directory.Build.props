@@ -21,7 +21,6 @@
         <DebugType>embedded</DebugType>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <NoWarn>$(NoWarn);5104</NoWarn>        <!--TODO: temporary solution-->
     </PropertyGroup>
 
     <PropertyGroup>
