@@ -33,7 +33,7 @@ jobs:
         run: dotnet test $BUILD_PATH -c $BUILD_CONFIG --no-build
 
       - name: Pack
-        run: dotnet --no-build $BUILD_PATH -c $BUILD_CONFIG -o ./artifacts
+        run: dotnet pack --no-build $BUILD_PATH -c $BUILD_CONFIG -o ./artifacts
 
       - name: Publish
         run: dotnet nuget push artifacts/*.nupkg --source github --api-key ${{secrets.GITHUB_TOKEN}}
