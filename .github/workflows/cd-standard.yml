@@ -24,6 +24,8 @@ jobs:
           dotnet-version: |
             7.0.x
             8.0.x
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Restore
         run: dotnet restore $BUILD_PATH
