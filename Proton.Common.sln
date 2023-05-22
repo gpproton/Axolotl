@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proton.Common.Standard", "src\standard\Proton.Common.Standard.csproj", "{35A8373A-2302-4825-B033-6DC50BFFFCFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proton.Common", "src\standard\Proton.Common.csproj", "{35A8373A-2302-4825-B033-6DC50BFFFCFD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proton.Common.Entity", "src\entity\Proton.Common.Entity.csproj", "{F1E34D40-E9C9-4B0A-A2EF-6F52A99E1962}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proton.Common.EFCore", "src\efcore\Proton.Common.EFCore.csproj", "{F1E34D40-E9C9-4B0A-A2EF-6F52A99E1962}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proton.Common.Razor", "src\razor\Proton.Common.Razor.csproj", "{0902199C-330C-47B5-A87F-633633CC866E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proton.Common.Maui", "src\maui\Proton.Common.Maui.csproj", "{1A095423-9911-4C0E-95FC-7C71250A1F7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{0902199C-330C-47B5-A87F-633633CC866E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0902199C-330C-47B5-A87F-633633CC866E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0902199C-330C-47B5-A87F-633633CC866E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A095423-9911-4C0E-95FC-7C71250A1F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A095423-9911-4C0E-95FC-7C71250A1F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A095423-9911-4C0E-95FC-7C71250A1F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A095423-9911-4C0E-95FC-7C71250A1F7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

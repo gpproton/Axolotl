@@ -12,9 +12,9 @@ using System.Linq.Expressions;
 using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Proton.Common.Entity.Interfaces;
+using Proton.Common.EFCore.Interfaces;
 
-namespace Proton.Common.Entity;
+namespace Proton.Common.EFCore;
 
 public abstract class GenericBaseRepository<T, TContext> : RepositoryBase<T>, IReadRepository<T>, IRepository<T> where T : class, IAggregateRoot
     where TContext : DbContext {

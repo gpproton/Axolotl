@@ -10,16 +10,18 @@
 
 using System.Text.Json;
 
-namespace Proton.Common.Standard.Extensions;
+namespace Proton.Common.Extensions {
+    public static class JsonExtensions {
+        private static readonly JsonSerializerOptions JsonOptions = new() {
+            PropertyNameCaseInsensitive = true
+        };
 
-public static class JsonExtensions {
-    private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions {
-        PropertyNameCaseInsensitive = true
-    };
+        public static T? FromJson<T>(this string json) {
+            return JsonSerializer.Deserialize<T>(json, JsonOptions);
+        }
 
-    public static T? FromJson<T>(this string json) =>
-    JsonSerializer.Deserialize<T>(json, JsonOptions);
-
-    public static string ToJson<T>(this T obj) =>
-    JsonSerializer.Serialize<T>(obj, JsonOptions);
+        public static string ToJson<T>(this T obj) {
+            return JsonSerializer.Serialize(obj, JsonOptions);
+        }
+    }
 }

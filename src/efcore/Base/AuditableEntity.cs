@@ -8,17 +8,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.Entity.Response;
+using Proton.Common.EFCore.Interfaces;
 
-public class PagedResponse<T> : BaseResponse<T> {
-    public int Page { get; set; }
-    public int PerPage { get; set; }
-    public int Total { get; set; }
+namespace Proton.Common.EFCore.Base;
 
-    public int TotalPages {
-        get {
-            var total = ((double)this.Total / this.PerPage);
-            return Convert.ToInt32(Math.Ceiling(total));
-        }
-    }
+public abstract class AuditableEntity<TKey> : BaseEntity<TKey>, IAuditableEntity<TKey> {
+    public TKey? CreatedBy { get; set; }
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
+    public TKey? UpdatedBy { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
+    public TKey? DeletedBy { get; set; }
+    public DateTimeOffset? DeletedAt { get; set; }
 }

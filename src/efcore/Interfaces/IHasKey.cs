@@ -8,12 +8,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+namespace Proton.Common.EFCore.Interfaces;
 
-namespace Proton.Common.Entity.Converters;
-
-public class CollectionValueComparer<T> : ValueComparer<ICollection<T>> {
-    public CollectionValueComparer() : base((c1, c2) => c1!.SequenceEqual(c2!),
-        c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v!.GetHashCode())), c => (ICollection<T>)c.ToHashSet()) {
-    }
+public interface IHasKey<T> {
+    T Id { get; set; }
 }

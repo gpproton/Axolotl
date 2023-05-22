@@ -11,13 +11,9 @@
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
 
-namespace Proton.Common.Entity.Converters;
+namespace Proton.Common.EFCore.Converters;
 
-public class EnumCollectionJsonValueConverter<T> : ValueConverter<ICollection<T>, string> where T : Enum {
-    public EnumCollectionJsonValueConverter() : base(
-        v => JsonConvert
-        .SerializeObject(v.Select(e => e.ToString()).ToList()),
-        v => JsonConvert
-        .DeserializeObject<ICollection<string>>(v)!
-        .Select(e => (T)Enum.Parse(typeof(T), e)).ToList()) { }
+public class JsonValueConverter<T> : ValueConverter<T, string> {
+    public JsonValueConverter() : base(v => JsonConvert.SerializeObject(v),
+        v => JsonConvert.DeserializeObject<T>(v) ?? (T)new object()) { }
 }

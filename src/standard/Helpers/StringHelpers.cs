@@ -8,20 +8,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.Standard.Helpers;
+namespace Proton.Common.Helpers {
+    public static class StringHelpers {
+        public static string GetInitialsText(string?[] value) {
+            if (value.Length < 2) {
+                return "FL";
+            }
 
-public static class StringHelpers {
-    public static string GetInitialsText(string?[] value) {
-        if (value.Length < 2) return "FL";
-        var f = value[0]?.ToUpper();
-        var l = value[^1]?.ToUpper();
-        if (f == null || l == null) return "FL";
-        try {
-            return string.Concat(f[0], l[0]);
+            string? f = value[0]?.ToUpper(System.Globalization.CultureInfo.CurrentCulture);
+            string? l = value[^1]?.ToUpper(System.Globalization.CultureInfo.CurrentCulture);
+            if (f == null || l == null) {
+                return "FL";
+            }
+
+            try {
+                return string.Concat(f[0], l[0]);
+            }
+            catch (Exception) {
+                // ignore
+            }
+            return string.Empty;
         }
-        catch (Exception) {
-            // ignore
-        }
-        return string.Empty;
     }
 }

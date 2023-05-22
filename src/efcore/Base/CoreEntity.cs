@@ -8,8 +8,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Ardalis.Specification;
+using System.ComponentModel.DataAnnotations;
+using Proton.Common.EFCore.Interfaces;
 
-namespace Proton.Common.Entity.Interfaces;
+namespace Proton.Common.EFCore.Base;
 
-public interface IRepository<T> : IRepositoryBase<T> where T : class, IAggregateRoot { }
+public abstract class CoreEntity<TKey> : IHasKey<TKey>, IAggregateRoot {
+    [Key]
+    public TKey Id { get; set; } = default!;
+}

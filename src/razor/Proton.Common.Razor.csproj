@@ -1,11 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <LangVersion>preview</LangVersion>
+    <PackageId>Proton.Common.Razor</PackageId>
+    <Title>Proton.Common.Razor</Title>
+    <Description>Components to help simplify razor and blazor usage in .NET.</Description>
+    <Summary>Components to help simplify razor and blazor usage in .NET.</Summary>
+    <PackageTags>razor;components;proton</PackageTags>
+    <AssemblyName>Proton.Common.Razor</AssemblyName>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 
   <ItemGroup>
@@ -17,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\standard\Proton.Common.Standard.csproj" />
+    <ProjectReference Include="..\standard\Proton.Common.csproj" />
   </ItemGroup>
 
 </Project>
