@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>Proton.Common.Http</PackageId>
+    <Title>Proton.Common.Http</Title>
+    <Description>Classes help to simplify HTTP usage in .NET.</Description>
+    <Summary>Classes help to simplify HTTP usage in .NET.</Summary>
+    <PackageTags>http;callback;proton</PackageTags>
+    <AssemblyName>Proton.Common.Http</AssemblyName>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\standard\Proton.Common.csproj" />
+  </ItemGroup>
+
+</Project>
