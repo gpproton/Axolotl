@@ -9,7 +9,18 @@
 // limitations under the License.
 
 using Ardalis.Specification;
+using Proton.Common.Filters;
+using Proton.Common.Interfaces;
 
-namespace Proton.Common.EFCore.Interfaces;
+namespace Proton.Common.AspNet.Service;
 
-public interface IRepository<T> : IRepositoryBase<T> where T : class, IAggregateRoot { }
+public sealed class GenericListSpec<TEntity> : Specification<TEntity>{
+    public GenericListSpec(IPageFilter? filter) {
+        var check = filter ?? new PageFilter();
+        var size = check.PageSize;
+        var page = check.Page;
+        // var search = check.Search?.Split(" ").ToList().Select(x => x.ToLower());
+
+        Query.Take(size).Take(page - 1 * size);
+    }
+}
