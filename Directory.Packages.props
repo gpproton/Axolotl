@@ -4,13 +4,27 @@
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     </PropertyGroup>
 
+    <!-- Shared packages -->
     <ItemGroup>
-        <PackageVersion Include="Ardalis.Specification" Version="$(ArdalisVersion)" />
-        <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="$(ArdalisVersion)" />
-        <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspCoreVersion)" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfcoreVersion)" />
         <PackageVersion Include="Microsoft.Extensions.Primitives" Version="$(DotnetVersion)" />
         <PackageVersion Include="Nextended.Core" Version="$(NextendedVersion)" />
+    </ItemGroup>
+
+    <!-- EFCore packages -->
+    <ItemGroup>
+        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfcoreVersion)" />
+        <PackageVersion Include="Ardalis.Specification" Version="$(ArdalisVersion)" />
+        <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="$(ArdalisVersion)" />
+    </ItemGroup>
+
+    <!-- Razor packages -->
+    <ItemGroup>
+        <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspCoreVersion)" />
+    </ItemGroup>
+
+    <!-- Asp.net packages -->
+    <ItemGroup>
+        <PackageVersion Include="MR.AspNetCore.Pagination" Version="2.1.0" />
     </ItemGroup>
 
     <!-- Test packages -->
