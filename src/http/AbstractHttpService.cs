@@ -13,7 +13,7 @@ using Proton.Common.Filters;
 
 namespace Proton.Common.Http;
 
-public abstract class HttpService (HttpClient http) : BaseHttpService(http), IHttpService {
+public abstract class AbstractHttpService (HttpClient http) : BaseHttpService(http), IHttpService {
     public async Task<T> Get<T>(string uri) {
         var request = new HttpRequestMessage(HttpMethod.Get, uri);
         return await SendRequest<T>(request);
@@ -64,6 +64,10 @@ public abstract class HttpService (HttpClient http) : BaseHttpService(http), IHt
     public async Task<T> Delete<T>(string uri) {
         var request = CreateRequest(HttpMethod.Delete, uri);
         return await SendRequest<T>(request);
+    }
+
+    public Task<T> Delete<T>(string uri, IEnumerable values) {
+        throw new NotImplementedException();
     }
 
     public async Task<T> Delete<T>(string uri, ICollection? values) {
