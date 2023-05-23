@@ -1,4 +1,4 @@
-name: Standard library deployment
+name: Standard libraries deployment
 
 on:
   push:
@@ -26,7 +26,6 @@ jobs:
           - path: "./src/standard/Proton.Common.csproj"
           - path: "./src/http/Proton.Common.Http.csproj"
           - path: "./src/efcore/Proton.Common.EFCore.csproj"
-          - path: "./src/aspnet/Proton.Common.AspNet.csproj"
 
     steps:
       - uses: actions/checkout@v3
