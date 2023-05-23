@@ -10,8 +10,9 @@
 
 using System.Linq.Expressions;
 using Ardalis.Specification;
+using Proton.Common.EFCore.Interfaces;
 
-namespace Proton.Common.EFCore.Interfaces;
+namespace Proton.Common.EFCore.Repository;
 
 public interface IReadRepository<T> : IReadRepositoryBase<T> where T : class, IAggregateRoot {
     /// <summary>

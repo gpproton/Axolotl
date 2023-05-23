@@ -8,17 +8,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.EFCore.Response;
+using Ardalis.Specification;
+using Proton.Common.EFCore.Interfaces;
+using Proton.Common.Interfaces;
 
-public class PagedResponse<T> : BaseResponse<T> {
-    public int Page { get; set; }
-    public int PerPage { get; set; }
-    public int Total { get; set; }
+namespace Proton.Common.EFCore.Repository;
 
-    public int TotalPages {
-        get {
-            var total = ((double)this.Total / this.PerPage);
-            return Convert.ToInt32(Math.Ceiling(total));
-        }
-    }
+public interface IRepository<TEntity> : IReadRepository<TEntity>, IRepositoryBase<TEntity> where TEntity : class, IAggregateRoot {
+    IQueryable<TEntity> GetQueryable(CancellationToken cancellationToken = default);
+    Task ClearAsync(CancellationToken cancellationToken = default);
 }

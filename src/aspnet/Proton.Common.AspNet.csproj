@@ -18,9 +18,11 @@
 
   <ItemGroup>
     <PackageReference Include="MR.AspNetCore.Pagination" />
+    <PackageReference Include="Ardalis.Specification" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\efcore\Proton.Common.EFCore.csproj" />
     <ProjectReference Include="..\standard\Proton.Common.csproj" />
   </ItemGroup>
 
