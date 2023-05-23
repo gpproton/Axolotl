@@ -8,8 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.Filters;
+namespace Proton.Common.Interfaces;
 
-public class SearchFilter : PageFilter {
+public interface IPageFilter {
     public string? Search { get; set; }
+    public int Page { get; set; }
+    public int PageSize { get; set; }
 }

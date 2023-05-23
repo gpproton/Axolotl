@@ -8,11 +8,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Proton.Common.Interfaces;
+
 namespace Proton.Common.Filters;
 
-public class PageFilter {
+public class PageFilter : IPageFilter {
+    public string? Search { get; set; }
     public int Page { get; set; } = 1;
-    public int PerPage { get; set; } = 25;
-    public string SortBy { get; set; } = "Ascending";
-    public string CombineWith { get; set; } = "Or";
+    public int PageSize { get; set; }
 }

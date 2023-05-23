@@ -10,7 +10,7 @@
 
 namespace Proton.Common.Filters;
 
-public class DateFilter : SearchFilter {
+public class DateFilter : PageFilter {
     public DateTimeOffset? StartDate { get; set; } = DateTimeOffset.Now.AddDays(-1);
     public DateTimeOffset? EndDate { get; set; } = DateTimeOffset.Now;
 }
