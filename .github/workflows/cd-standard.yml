@@ -38,7 +38,7 @@ jobs:
         run: dotnet pack --no-build ${{ env.BUILD_PATH }} -c ${{ env.BUILD_CONFIG }} -o ./artifacts
 
       - name: Update nuget source
-        run: dotnet nuget update source --source ${{ env.NUGET_URL }} github --username gpproton --password ${{ env.NUGET_AUTH_TOKEN }} --store-password-in-clear-text
+        run: dotnet nuget update source -s ${{ env.NUGET_URL }} -u ${{ github.repository_owner }} -p ${{ env.NUGET_AUTH_TOKEN }} --store-password-in-clear-text github
 
       - name: Publish nuget package
-        run: dotnet nuget push artifacts/*.nupkg --source "github" --api-key ${{ env.NUGET_AUTH_TOKEN }}
+        run: dotnet nuget push artifacts/*.nupkg -s ${{ env.NUGET_URL }} -k ${{ env.NUGET_AUTH_TOKEN }} --skip-duplicate
