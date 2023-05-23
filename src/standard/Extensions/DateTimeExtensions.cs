@@ -10,30 +10,24 @@
 
 namespace Proton.Common.Extensions {
     public static class DateTimeExtensions {
-        public static TimeOnly ToTimeOnly(this DateTime dateTime) {
-            return TimeOnly.FromDateTime(dateTime);
-        }
+        public static TimeOnly ToTimeOnly(this DateTime dateTime) => TimeOnly.FromDateTime(dateTime);
 
-        public static DateOnly ToDateOnly(this DateTime dateTime) {
-            return DateOnly.FromDateTime(dateTime);
-        }
+        public static DateOnly ToDateOnly(this DateTime dateTime) => DateOnly.FromDateTime(dateTime);
+        
+        public static DateTimeOffset Parse(this DateTimeOffset offset, DateTime time) => new(time, TimeSpan.Zero);
 
         public static string TimeAgo(this DateTime dateTime) {
             string result;
             TimeSpan timeSpan = DateTime.Now.Subtract(dateTime);
 
-            if (timeSpan <= TimeSpan.FromSeconds(60)) {
+            if (timeSpan <= TimeSpan.FromSeconds(60))
                 result = $"{timeSpan.Seconds} seconds ago";
-            }
-            else if (timeSpan <= TimeSpan.FromMinutes(60)) {
+            else if (timeSpan <= TimeSpan.FromMinutes(60))
                 result = timeSpan.Minutes > 1 ? $"{timeSpan.Minutes} minutes ago" : "a minute ago";
-            }
-            else if (timeSpan <= TimeSpan.FromHours(24)) {
+            else if (timeSpan <= TimeSpan.FromHours(24))
                 result = timeSpan.Hours > 1 ? $"{timeSpan.Hours} hours ago" : "an hour ago";
-            }
-            else if (timeSpan <= TimeSpan.FromDays(30)) {
+            else if (timeSpan <= TimeSpan.FromDays(30))
                 result = timeSpan.Days > 1 ? $"{timeSpan.Days} days ago" : "yesterday";
-            }
             else {
                 result = timeSpan <= TimeSpan.FromDays(365)
                 ? timeSpan.Days > 30 ? $"{timeSpan.Days / 30} months ago" : "a month ago"
