@@ -10,19 +10,10 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Nextended.Core" />
-  </ItemGroup>
+  <Import Project="..\..\Common.props" />
 
   <ItemGroup>
-    <None Include="..\..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\..\assets\icon.jpg">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
+    <PackageReference Include="Nextended.Core" />
   </ItemGroup>
 
 </Project>
