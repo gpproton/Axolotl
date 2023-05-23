@@ -1,4 +1,4 @@
-name: Standard library deployment
+name: Razor library deployment
 
 on:
   push:
@@ -10,6 +10,7 @@ jobs:
   build:
     env:
       BUILD_CONFIG: Release
+      BUILD_PATH: "./src/razor/Proton.Common.Razor.csproj"
       NUGET_URL: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
       NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -18,16 +19,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - path: "./src/standard/Proton.Common.csproj"
-          - path: "./src/http/Proton.Common.Http.csproj"
-          - path: "./src/efcore/Proton.Common.EFCore.csproj"
-          - path: "./src/aspnet/Proton.Common.AspNet.csproj"
-          - path: "./src/razor/Proton.Common.Razor.csproj"
 
     steps:
       - uses: actions/checkout@v3
@@ -38,17 +29,20 @@ jobs:
           dotnet-version: 8.0.x
           source-url: ${{ env.NUGET_URL }}
 
+      - name: Restore Workloads
+        run: dotnet workload restore ${{ env.BUILD_PATH }}
+
       - name: Restore
-        run: dotnet restore ${{ matrix.path }}
+        run: dotnet restore ${{ env.BUILD_PATH }}
 
       - name: Build
-        run: dotnet build --no-restore ${{ matrix.path }} -c ${{ env.BUILD_CONFIG }}
+        run: dotnet build --no-restore ${{ env.BUILD_PATH }} -c ${{ env.BUILD_CONFIG }}
 
       - name: Test
-        run: dotnet test ${{ matrix.path }} -c ${{ env.BUILD_CONFIG }} --no-build
+        run: dotnet test ${{ env.BUILD_PATH }} -c ${{ env.BUILD_CONFIG }} --no-build
 
       - name: Pack
-        run: dotnet pack --no-build ${{ matrix.path }} -c ${{ env.BUILD_CONFIG }} -o ./artifacts
+        run: dotnet pack --no-build ${{ env.BUILD_PATH }} -c ${{ env.BUILD_CONFIG }} -o ./artifacts
 
       - name: Update nuget source
         run: dotnet nuget update source -s ${{ env.NUGET_URL }} -u ${{ github.repository_owner }} -p ${{ env.NUGET_AUTH_TOKEN }} --store-password-in-clear-text github
