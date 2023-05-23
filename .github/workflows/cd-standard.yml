@@ -18,6 +18,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
@@ -36,9 +37,8 @@ jobs:
       - name: Pack
         run: dotnet pack --no-build ${{ env.BUILD_PATH }} -c ${{ env.BUILD_CONFIG }} -o ./artifacts
 
-      - name: Update source and publish
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          dotnet nuget update source --source ${{ env.NUGET_URL }} github --username gpproton --password ${{ env.NUGET_AUTH_TOKEN }} --store-password-in-clear-text
-          dotnet nuget push artifacts/*.nupkg --source "github" --api-key ${{ env.NUGET_AUTH_TOKEN }}
+      - name: Update nuget source
+        run: dotnet nuget update source --source ${{ env.NUGET_URL }} github --username gpproton --password ${{ env.NUGET_AUTH_TOKEN }} --store-password-in-clear-text
+
+      - name: Publish nuget package
+        run: dotnet nuget push artifacts/*.nupkg --source "github" --api-key ${{ env.NUGET_AUTH_TOKEN }}
