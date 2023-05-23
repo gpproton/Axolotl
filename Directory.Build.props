@@ -13,6 +13,7 @@
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <LicenseFile>$(MSBuildThisFileDirectory)LICENSE</LicenseFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <IncludeSymbols>true</IncludeSymbols>
         <Copyright>© Proton.Common Contributors. All rights reserved.</Copyright>
         <Features>strict</Features>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
