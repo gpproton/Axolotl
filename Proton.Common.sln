@@ -23,6 +23,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proton.Common.Tests", "test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proton.Common.EFCore.Tests", "tests\efcore\Proton.Common.EFCore.Tests.csproj", "{66143E10-5BD0-4187-9549-21E1C7C896C1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{0B9746CD-4E97-45F3-823D-B681283B6B96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proton.Common.AspNetSample", "samples\aspnet-sample\Proton.Common.AspNetSample.csproj", "{4742C2A6-438B-4B32-A0B4-E879520312A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proton.Common.EFCoreSample", "samples\efcore-sample\Proton.Common.EFCoreSample.csproj", "{D761DE0C-E506-4C0C-BFC1-90F4A3FD51D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +67,14 @@ Global
 		{66143E10-5BD0-4187-9549-21E1C7C896C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66143E10-5BD0-4187-9549-21E1C7C896C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66143E10-5BD0-4187-9549-21E1C7C896C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4742C2A6-438B-4B32-A0B4-E879520312A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4742C2A6-438B-4B32-A0B4-E879520312A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4742C2A6-438B-4B32-A0B4-E879520312A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4742C2A6-438B-4B32-A0B4-E879520312A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D761DE0C-E506-4C0C-BFC1-90F4A3FD51D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D761DE0C-E506-4C0C-BFC1-90F4A3FD51D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D761DE0C-E506-4C0C-BFC1-90F4A3FD51D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D761DE0C-E506-4C0C-BFC1-90F4A3FD51D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,5 +91,7 @@ Global
 		{1A095423-9911-4C0E-95FC-7C71250A1F7C} = {7F47F798-AB03-4FB1-87EC-DCA13A34DBEC}
 		{4CA1AAAB-731F-41C4-84CF-7090EC6D745D} = {0C0199C1-2155-43BD-BC55-A426D813D94A}
 		{66143E10-5BD0-4187-9549-21E1C7C896C1} = {0C0199C1-2155-43BD-BC55-A426D813D94A}
+		{4742C2A6-438B-4B32-A0B4-E879520312A3} = {0B9746CD-4E97-45F3-823D-B681283B6B96}
+		{D761DE0C-E506-4C0C-BFC1-90F4A3FD51D2} = {0B9746CD-4E97-45F3-823D-B681283B6B96}
 	EndGlobalSection
 EndGlobal
