@@ -17,20 +17,20 @@ namespace Proton.Common.AspNet.Filters;
 
 public class PagedFilter : PageFilter, IPageFilter {
     public PagedFilter() { }
-    public PagedFilter(int page = 1, int pageSize = 25, string search = "") {
+    public PagedFilter(int page = 1, int size = 25, string search = "") {
         Page = page;
-        PageSize = pageSize;
+        Size = size;
         Search = search;
     }
     
     public static ValueTask<PageFilter?> BindAsync(HttpContext httpContext, ParameterInfo parameter) {
         int.TryParse(httpContext.Request.Query["page"], out var page);
-        int.TryParse(httpContext.Request.Query["page-size"], out var pageSize);
+        int.TryParse(httpContext.Request.Query["size"], out var size);
         var search = httpContext.Request.Query["search"].ToString();
         return ValueTask.FromResult<PageFilter?>(
             new PagedFilter(
                 page == 0 ? 1 : page,
-                pageSize == 0 ? 10 : pageSize,
+                size == 0 ? 10 : size,
                 search
             )
         );

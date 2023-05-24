@@ -7,10 +7,22 @@
   <Import Project="..\..\Common.props" />
   <Import Project="..\Sample.props" />
 
-
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Swashbuckle.AspNetCore" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+    <PackageReference Include="MR.AspNetCore.Pagination" />
+    <PackageReference Include="MR.AspNetCore.Pagination.Swashbuckle" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\aspnet\Proton.Common.AspNet.csproj" />
+    <ProjectReference Include="..\..\src\efcore\Proton.Common.EFCore.csproj" />
   </ItemGroup>
 
 </Project>

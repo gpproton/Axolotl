@@ -8,12 +8,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.Interfaces;
+using Proton.Common.AspNet.Feature;
 
-namespace Proton.Common.Filters;
+namespace Proton.Common.AspNetSample.Features.CategoryModule;
 
-public class PageFilter : IPageFilter {
-    public string? Search { get; set; }
-    public int? Page { get; set; } = 1;
-    public int? Size { get; set; } = 25;
+public class CategoryFeature : GenericFeature, IFeature {
+    public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
+        var group = SetupGroup<Category>(endpoints);
+
+        return group;
+    }
 }

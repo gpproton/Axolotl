@@ -8,12 +8,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
+using Proton.Common.AspNet.Feature;
 
-namespace Proton.Common.AspNet.Feature;
+namespace Proton.Common.AspNetSample.Features.PostModule;
 
-public interface IModule {
-    IServiceCollection RegisterModule(IServiceCollection services);
-    IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
+public class PostFeature : GenericFeature, IFeature {
+    public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
+        var group = SetupGroup<Post>(endpoints);
+
+        return group;
+    }
 }

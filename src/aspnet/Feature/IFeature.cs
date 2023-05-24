@@ -10,16 +10,10 @@
 
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Proton.Common.AspNet.Feature;
 
-namespace Proton.Common.AspNet.Service;
+namespace Proton.Common.AspNet.Feature;
 
-public abstract class GenericModule : IModule {
-    public IServiceCollection RegisterModule(IServiceCollection services) {
-        throw new NotImplementedException();
-    }
-
-    public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
-        throw new NotImplementedException();
-    }
+public interface IFeature {
+    IServiceCollection RegisterModule(IServiceCollection services);
+    IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
 }

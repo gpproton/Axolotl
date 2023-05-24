@@ -17,8 +17,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MR.AspNetCore.Pagination" />
     <PackageReference Include="Ardalis.Specification" />
+    <PackageReference Include="MR.AspNetCore.Pagination" />
+    <PackageReference Include="MR.AspNetCore.Pagination.Swashbuckle" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.Contains('net8'))">
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.Contains('net7'))">
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" VersionOverride="7.0.5" />
   </ItemGroup>
 
   <ItemGroup>

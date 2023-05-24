@@ -8,12 +8,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Proton.Common.Filters;
+namespace Proton.Common.EFCore;
 
-public class PageFilter : IPageFilter {
-    public string? Search { get; set; }
-    public int? Page { get; set; } = 1;
-    public int? Size { get; set; } = 25;
+public static class ServiceCollectionExtensions {
+    public static IServiceCollection RegisterGenericRepositories<TRepository>(this IServiceCollection services)
+    where TRepository : class {
+        // services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+        // services.AddScoped(typeof(IReadRepository<>), typeof(GenericRepository<>));
+        
+        return services;
+    }
 }

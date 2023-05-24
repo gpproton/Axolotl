@@ -14,13 +14,12 @@ using Proton.Common.Interfaces;
 
 namespace Proton.Common.AspNet.Service;
 
-public sealed class GenericListSpec<TEntity> : Specification<TEntity>{
+public sealed class GenericListSpec<TEntity> : Specification<TEntity> {
     public GenericListSpec(IPageFilter? filter) {
         var check = filter ?? new PageFilter();
-        var size = check.PageSize;
-        var page = check.Page;
+        var page = check.Page ?? 1;
+        var size = check.Size ?? 25;
         // var search = check.Search?.Split(" ").ToList().Select(x => x.ToLower());
-
-        Query.Take(size).Take(page - 1 * size);
+        // Query.Take(size).Take(page - 1 * size);
     }
 }
