@@ -6,6 +6,8 @@
   "scripts": {
     "build": "dotnet build --configuration Release",
     "test": "dotnet test --configuration Release",
-    "ci": "dotnet r build && dotnet r test"
+    "ci": "dotnet r build && dotnet r test",
+    "opt:migrate": "dotnet ef migrations add --project samples/aspnet-sample/Proton.Common.AspNetSample.csproj --configuration Debug Initial --output-dir Migrations",
+    "opt:update": "dotnet ef database update --project samples/aspnet-sample/Proton.Common.AspNetSample.csproj --configuration Debug"
   }
 }
