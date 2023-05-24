@@ -12,12 +12,12 @@ namespace Proton.Common.Response;
 
 public class PagedResponse<T> : Response<T> {
     public int Page { get; set; } = 1;
-    private int PageSize { get; set; } = 10;
+    private int Size { get; set; } = 10;
     private int Total { get; set; }
     
     public new IEnumerable<T>? Data { get; set; }
 
-    public int Pages => Convert.ToInt32(Math.Ceiling((double)this.Total / this.PageSize));
+    public int Pages => Convert.ToInt32(Math.Ceiling((double)this.Total / this.Size));
 
     public PagedResponse() { }
 
@@ -27,7 +27,7 @@ public class PagedResponse<T> : Response<T> {
         Message = message;
         Data = data;
         Page = page;
-        PageSize = size;
+        Size = size;
         Total = total;
         Success = success;
     }

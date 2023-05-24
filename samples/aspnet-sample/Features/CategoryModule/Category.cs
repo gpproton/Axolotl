@@ -8,12 +8,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.Interfaces;
+using Proton.Common.AspNetSample.Features.PostModule;
+using Proton.Common.EFCore.Base;
 
-namespace Proton.Common.Filters;
+namespace Proton.Common.AspNetSample.Features.CategoryModule;
 
-public class PageFilter : IPageFilter {
-    public string? Search { get; set; }
-    public int? Page { get; set; } = 1;
-    public int? Size { get; set; } = 25;
+public class Category : AuditableEntity<Guid> {
+    public string Name { get; set; } = null!;
+    public virtual ICollection<Post>? Type { get; set; }
 }

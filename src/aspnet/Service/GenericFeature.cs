@@ -8,12 +8,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.Interfaces;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
+using Proton.Common.AspNet.Feature;
 
-namespace Proton.Common.Filters;
+namespace Proton.Common.AspNet.Service;
 
-public class PageFilter : IPageFilter {
-    public string? Search { get; set; }
-    public int? Page { get; set; } = 1;
-    public int? Size { get; set; } = 25;
+public abstract class GenericFeature : IFeature {
+    public IServiceCollection RegisterModule(IServiceCollection services) {
+        throw new NotImplementedException();
+    }
+
+    public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
+        throw new NotImplementedException();
+    }
 }

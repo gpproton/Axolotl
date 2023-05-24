@@ -8,21 +8,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.Helpers {
-    public class FactoryLoader {
-        public static IEnumerable<T> LoadClassInstances<T>() {
-            return typeof(T).Assembly
-            .GetTypes()
-            .Where(p => p is { IsClass: true, IsAbstract: false } && p.IsAssignableTo(typeof(T)))
-            .Select(Activator.CreateInstance)
-            .Cast<T>();
-        }
+using System.Reflection;
 
-        public static IEnumerable<string> LoadClassNames<T>() {
-            return typeof(T).Assembly
-            .GetTypes()
-            .Where(p => p is { IsClass: true, IsAbstract: false } && p.IsAssignableTo(typeof(T)))
-            .Select(type => type.Name);
+namespace Proton.Common.Helpers {
+    public static class FactoryLoader {
+        public static IEnumerable<T> LoadClassInstances<T>(Assembly? assembly = null) =>
+            ResolveAssembly<T>(assembly)
+                .Select(Activator.CreateInstance)
+                .Cast<T>();
+
+        public static IEnumerable<string> LoadClassNames<T>(Assembly? assembly = null) =>
+            ResolveAssembly<T>(assembly).Select(t => t.Name);
+
+        private static IEnumerable<Type> ResolveAssembly<T>(Assembly? assembly = null) {
+            var type = typeof(T);
+            var value = assembly ?? type.Assembly;
+
+            return value
+                .GetTypes()
+                .Where(p => p is { IsClass: true, IsAbstract: false } && p.IsAssignableTo(type));
         }
     }
 }
