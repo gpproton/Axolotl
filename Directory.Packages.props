@@ -12,9 +12,11 @@
 
     <!-- EFCore packages -->
     <ItemGroup>
-        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfcoreVersion)" />
         <PackageVersion Include="Ardalis.Specification" Version="$(ArdalisVersion)" />
         <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="$(ArdalisVersion)" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfcoreVersion)" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EfcoreVersion)" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfcoreVersion)" />
     </ItemGroup>
 
     <!-- Razor packages -->
@@ -26,6 +28,7 @@
     <ItemGroup>
         <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="$(AspCoreVersion)" />
         <PackageVersion Include="MR.AspNetCore.Pagination" Version="2.1.0" />
+        <PackageVersion Include="MR.AspNetCore.Pagination.Swashbuckle" Version="2.1.0" />
         <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
