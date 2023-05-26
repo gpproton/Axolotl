@@ -29,24 +29,27 @@ public class GenericHttpService<TEntity> : IGenericHttpService<TEntity> where TE
     public async Task<PagedResponse<TEntity>> GetAllAsync(object? query = null) =>
         await _http.Get<PagedResponse<TEntity>>(_path, query);
 
-    public async Task<Response<TEntity>> GetByIdAsync(Guid id) =>
-        await _http.Get<Response<TEntity>>($"{_path}/{id}");
+    public async Task<Response<TEntity?>> GetByIdAsync<TId>(TId id) where TId : notnull =>
+        await _http.Get<Response<TEntity?>>($"{_path}/{id}");
 
     public async Task<Response<TEntity>> CreateAsync(TEntity value) =>
         await _http.Post<Response<TEntity>>(_path, value);
 
-    public async Task<Response<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values) =>
-        await _http.Post<PagedResponse<TEntity>>(_path, values);
+    public async Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values) =>
+        await _http.Post<PagedResponse<TEntity>>($"{_path}/multiple", values);
 
     public async Task<Response<TEntity>> UpdateAsync(TEntity value) =>
         await _http.Put<Response<TEntity>>(_path, value);
 
-    public async Task<Response<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values) =>
-        await _http.Put<PagedResponse<TEntity>>(_path, values);
+    public async Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values) =>
+        await _http.Put<PagedResponse<TEntity>>($"{_path}/multiple", values);
 
-    public async Task<Response<TEntity>> DeleteAsync(Guid id) =>
-        await _http.Delete<Response<TEntity>>($"{_path}/{id}");
+    public async Task<Response<TEntity?>> DeleteAsync<TId>(TId id) where TId : notnull =>
+        await _http.Delete<Response<TEntity?>>($"{_path}/{id}");
 
-    public async Task<Response<TEntity>> DeleteRangeAsync(IEnumerable<Guid> items) =>
-        await _http.Delete<PagedResponse<TEntity>>(_path, items);
+    public async Task<PagedResponse<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> items) =>
+        await _http.Delete<PagedResponse<TEntity>>($"{_path}/multiple", items);
+
+    public async Task<PagedResponse<TEntity>> DeleteRangeAsync<TId>(IEnumerable<TId> ids) where TId : notnull =>
+        await _http.Delete<PagedResponse<TEntity>>($"{_path}/multiple", ids);
 }
