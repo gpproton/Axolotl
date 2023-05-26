@@ -21,6 +21,10 @@ using Proton.Common.Filters;
 
 namespace Proton.Common.AspNet.Feature;
 
+public class TempParam<TId> where TId : notnull {
+    public TId Id { get; set; } = default!;
+}
+
 public abstract class GenericFeature : IFeature {
     public virtual IServiceCollection RegisterModule(IServiceCollection services) => services;
 
@@ -44,10 +48,9 @@ public abstract class GenericFeature : IFeature {
         }
 
         if (active.Contains(EndpointType.GetById)) {
-            group.MapGet("/{id}", async (IGenericService<TEntity> sv, HttpRequest request) => {
-                    var id = (TId) request.RouteValues["id"]!;
-                return await sv.GetByIdAsync(id);
-            }).WithName($"Get{name}ById");
+            group.MapGet("/{id}", async (IGenericService<TEntity> sv, [AsParameters] TempParam<TId> parameters) =>
+            await sv.GetByIdAsync(parameters.Id)
+            ).WithName($"Get{name}ById");
         }
 
         if (defaults) return group;
@@ -82,10 +85,8 @@ public abstract class GenericFeature : IFeature {
 
         // Delete item by id
         if (active.Contains(EndpointType.Delete)) {
-            group.MapDelete("/{id}", async (IGenericService<TEntity> sv, HttpRequest request) => {
-                var id = (TId) request.RouteValues["id"]!;
-                return await sv.GetByIdAsync(id);
-            })
+            group.MapDelete("/{id}", async (IGenericService<TEntity> sv, [AsParameters] TempParam<TId> parameters) =>
+                await sv.GetByIdAsync(parameters.Id))
             .WithName($"Delete{name}");
         }
 
