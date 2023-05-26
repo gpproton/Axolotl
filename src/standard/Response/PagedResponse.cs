@@ -12,8 +12,8 @@ namespace Proton.Common.Response;
 
 public class PagedResponse<T> : Response<T> {
     public int Page { get; set; } = 1;
-    private int Size { get; set; } = 10;
-    private int Total { get; set; }
+    public int Size { get; set; } = 25;
+    public int Total { get; set; }
     
     public new IEnumerable<T>? Data { get; set; }
 

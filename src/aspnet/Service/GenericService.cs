@@ -9,6 +9,7 @@
 // limitations under the License.
 
 
+using Ardalis.Specification;
 using Microsoft.EntityFrameworkCore;
 using Proton.Common.EFCore.Interfaces;
 using Proton.Common.EFCore.Repository;
@@ -17,50 +18,29 @@ using Proton.Common.Response;
 
 namespace Proton.Common.AspNet.Service;
 
-public sealed class GenericService<TEntity>(IRepository<TEntity> repo) :
-    IGenericService<TEntity> where TEntity : class, IAggregateRoot {
+public sealed class GenericService<TEntity>(IRepository<TEntity> repo, IGenericService<TEntity, TEntity> root) :
+    IGenericService<TEntity> where TEntity : class, IAggregateRoot, IResponse {
 
-    public async Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter) {
-        var count = await repo.GetQueryable().CountAsync();
-        var result = await repo.GetAll(new GenericListSpec<TEntity>(filter)).ToListAsync();
-        var page = filter!.Page ?? 1;
-        var size = filter!.Size ?? 25;
-        return new PagedResponse<TEntity>(result, page, size, count);
-    }
+    public async Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter, Type? type) =>
+        await root.GetAllAsync(filter, type);
 
-    public async Task<Response<TEntity?>> GetByIdAsync<TId>(TId id) where TId : notnull {
-        var result = await repo.GetByIdAsync(id);
-        return new Response<TEntity?>(result);
-    }
+    public async Task<Response<TEntity?>> GetByIdAsync<TId>(TId id) where TId : notnull =>
+        await root.GetByIdAsync(id);
 
-    public async Task<Response<TEntity>> CreateAsync(TEntity value) {
-        var result = await repo.AddAsync(value);
-        return new Response<TEntity>(result);
-    }
+    public async Task<Response<TEntity>> CreateAsync(TEntity value) =>
+        await root.CreateAsync(value);
 
-    public async Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values) {
-        var result = await repo.AddRangeAsync(values);
-        return new PagedResponse<TEntity>(result);
-    }
+    public async Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values) =>
+        await root.CreateRangeAsync(values);
 
-    public async Task<Response<TEntity?>> UpdateAsync(TEntity value) {
-        await repo.UpdateAsync(value);
-        return new Response<TEntity?>(value);
-    }
+    public async Task<Response<TEntity>> UpdateAsync(TEntity value) =>
+        await root.UpdateAsync(value);
 
-    public async Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values) {
-        IEnumerable<TEntity> aggregateRoots = values.ToList();
-        await repo.UpdateRangeAsync(aggregateRoots);
+    public async Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values) =>
+        await root.UpdateRangeAsync(values);
 
-        return new PagedResponse<TEntity>(aggregateRoots);
-    }
-
-    public async Task<Response<TEntity?>> DeleteAsync<TId>(TId id) where TId : notnull {
-        var item = await repo.GetByIdAsync(id);
-        if (item is not null) await repo.DeleteAsync(item);
-
-        return new Response<TEntity?>(item, "", item != null);
-    }
+    public async Task<Response<TEntity?>> DeleteAsync<TId>(TId id) where TId : notnull =>
+        await root.DeleteAsync(id);
 
     public async Task<PagedResponse<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> values) {
         IEnumerable<TEntity> aggregateRoots = values.ToList();
@@ -69,7 +49,5 @@ public sealed class GenericService<TEntity>(IRepository<TEntity> repo) :
         return new PagedResponse<TEntity>(aggregateRoots);
     }
 
-    public async Task ClearAsync() {
-        await repo.ClearAsync();
-    }
+    public async Task ClearAsync() => await root.ClearAsync();
 }

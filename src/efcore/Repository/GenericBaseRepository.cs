@@ -32,6 +32,9 @@ public abstract class GenericBaseRepository<TEntity, TContext> : RepositoryBase<
     public IQueryable<TEntity> GetQueryable(CancellationToken cancellationToken = default) =>
         _context.Set<TEntity>().AsQueryable();
 
+    public DbSet<TEntity> GetContext(CancellationToken cancellationToken = default) =>
+        _context.Set<TEntity>();
+
     public async Task ClearAsync(CancellationToken cancellationToken = default) {
         var items = await _context.Set<TEntity>().ToListAsync(cancellationToken);
         _context.Set<TEntity>().RemoveRange(items);

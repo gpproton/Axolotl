@@ -21,5 +21,5 @@ public interface IHttpService {
     Task<T> Put<T>(string uri, object? value);
     Task Delete(string uri);
     Task<T> Delete<T>(string uri);
-    Task<T> Delete<T>(string uri, IEnumerable values);
+    Task<T> Delete<T>(string uri, object? value);
 }

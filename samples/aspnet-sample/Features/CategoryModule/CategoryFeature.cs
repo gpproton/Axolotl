@@ -10,6 +10,7 @@
 
 using Proton.Common.AspNet.Feature;
 using Proton.Common.Enums;
+using Proton.Common.Filters;
 
 namespace Proton.Common.AspNetSample.Features.CategoryModule;
 
@@ -25,7 +26,7 @@ public class CategoryFeature : GenericFeature, IFeature {
             EndpointType.Delete,
             EndpointType.DeleteRange
         };
-        var group = SetupGroup<Category, Guid>(endpoints, types);
+        var group = SetupGroup<Category, Guid>(endpoints, types, specType: typeof(CategorySpec));
 
         return group;
     }

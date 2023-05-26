@@ -38,6 +38,7 @@
         <DotnetVersion>8.0.0-preview.4.23259.5</DotnetVersion>
         <EfcoreVersion>8.0.0-preview.4.23259.3</EfcoreVersion>
         <NextendedVersion>7.0.22</NextendedVersion>
+        <Net7Version>7.0.5</Net7Version>
     </PropertyGroup>
 
     <PropertyGroup>

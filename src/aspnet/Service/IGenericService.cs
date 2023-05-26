@@ -8,18 +8,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Ardalis.Specification;
 using Proton.Common.EFCore.Interfaces;
 using Proton.Common.Interfaces;
 using Proton.Common.Response;
 
 namespace Proton.Common.AspNet.Service;
 
-public interface IGenericService<TEntity> where TEntity : class, IAggregateRoot {
-    Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter);
+public interface IGenericService<TEntity> where TEntity : class, IAggregateRoot, IResponse {
+    Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter, Type? type);
     Task<Response<TEntity?>> GetByIdAsync<TId>(TId id) where TId : notnull;
     Task<Response<TEntity>> CreateAsync(TEntity value);
     Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values);
-    Task<Response<TEntity?>> UpdateAsync(TEntity value);
+    Task<Response<TEntity>> UpdateAsync(TEntity value);
     Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values);
     Task<Response<TEntity?>> DeleteAsync<TId>(TId id) where TId : notnull;
     Task<PagedResponse<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> values);

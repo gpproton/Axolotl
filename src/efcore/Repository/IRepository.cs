@@ -9,14 +9,13 @@
 // limitations under the License.
 
 using Ardalis.Specification;
+using Microsoft.EntityFrameworkCore;
 using Proton.Common.EFCore.Interfaces;
-using Proton.Common.Interfaces;
 
 namespace Proton.Common.EFCore.Repository;
 
 public interface IRepository<TEntity> : IReadRepository<TEntity>, IRepositoryBase<TEntity> where TEntity : class, IAggregateRoot {
     IQueryable<TEntity> GetQueryable(CancellationToken cancellationToken = default);
-    // Task<IEnumerable<TEntity>> DeleteRangeAsync<TId, TModel>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) 
-    //     where TId : notnull where TModel : TEntity, IHasKey<TId>;
+    DbSet<TEntity> GetContext(CancellationToken cancellationToken = default);
     Task ClearAsync(CancellationToken cancellationToken = default);
 }
