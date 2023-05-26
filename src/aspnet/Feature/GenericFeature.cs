@@ -10,6 +10,7 @@
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Nextended.Core.Extensions;
@@ -25,7 +26,7 @@ public abstract class GenericFeature : IFeature {
 
     public abstract IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
 
-    protected virtual IEndpointRouteBuilder SetupGroup<TEntity, TId>(IEndpointRouteBuilder endpoints, List<EndpointType>? types = null, string root = "/api/v1") 
+    protected virtual IEndpointRouteBuilder SetupGroup<TEntity, TId>(IEndpointRouteBuilder endpoints, List<EndpointType>? types = null, string root = "/api/v1")
         where TEntity : class, IAggregateRoot
         where TId : notnull {
         var type = typeof(TEntity);
@@ -33,57 +34,61 @@ public abstract class GenericFeature : IFeature {
         var url = $"{root}/{name}";
         var group = endpoints.MapGroup(url).WithTags(name.Capitalize());
 
+        var defaults = types is null;
         var active = types ?? new List<EndpointType> { EndpointType.GetAll, EndpointType.GetById };
-        
+
         if (active.Contains(EndpointType.GetAll)) {
             group.MapGet(String.Empty, async (IGenericService<TEntity> sv, [AsParameters] PageFilter filter) =>
                 await sv.GetAllAsync(filter))
                 .WithName($"GetAll{name}");
         }
-        
+
         if (active.Contains(EndpointType.GetById)) {
-            group.MapGet("/{id}", async (IGenericService<TEntity> sv, TId id) =>
-                await sv.GetByIdAsync(id))
-                .WithName($"Get{name}ById");
+            group.MapGet("/{id}", async (IGenericService<TEntity> sv, HttpRequest request) => {
+                    var id = (TId) request.RouteValues["id"]!;
+                return await sv.GetByIdAsync(id);
+            }).WithName($"Get{name}ById");
         }
 
-        if (types is null) return group;
-        
+        if (defaults) return group;
+
         // Create item
         if (active.Contains(EndpointType.Create)) {
             group.MapPost(String.Empty, async (IGenericService<TEntity> sv, TEntity value) =>
                     await sv.CreateAsync(value))
                 .WithName($"Create{name}");
         }
-        
+
         // Create multiple items
         if (active.Contains(EndpointType.CreateRange)) {
             group.MapPost("/multiple", async (IGenericService<TEntity> sv, IEnumerable<TEntity> values) =>
                     await sv.CreateRangeAsync(values))
                 .WithName($"CreateMultiple{name}");
         }
-        
+
         // Update item
         if (active.Contains(EndpointType.Update)) {
             group.MapPut(String.Empty, async (IGenericService<TEntity> sv, TEntity value) =>
                     await sv.UpdateAsync(value))
                 .WithName($"Update{name}");
         }
-        
+
         // Update multiple items
         if (active.Contains(EndpointType.UpdateRange)) {
             group.MapPut("/multiple", async (IGenericService<TEntity> sv, IEnumerable<TEntity> values) =>
                     await sv.UpdateRangeAsync(values))
                 .WithName($"UpdateMultiple{name}");
         }
-        
+
         // Delete item by id
         if (active.Contains(EndpointType.Delete)) {
-            group.MapDelete("/{id}", async (IGenericService<TEntity> sv, TId id) =>
-                    await sv.DeleteAsync(id))
-                .WithName($"Delete{name}");
+            group.MapDelete("/{id}", async (IGenericService<TEntity> sv, HttpRequest request) => {
+                var id = (TId) request.RouteValues["id"]!;
+                return await sv.GetByIdAsync(id);
+            })
+            .WithName($"Delete{name}");
         }
-        
+
         // Delete multiple items
         if (active.Contains(EndpointType.DeleteRange)) {
             group.MapDelete("/multiple", async (IGenericService<TEntity> sv, IEnumerable<TEntity> values) =>

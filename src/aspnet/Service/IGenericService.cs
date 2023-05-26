@@ -21,7 +21,7 @@ public interface IGenericService<TEntity> where TEntity : class, IAggregateRoot 
     Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values);
     Task<Response<TEntity?>> UpdateAsync(TEntity value);
     Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values);
-    Task<Response<TEntity?>> DeleteAsync<TId>(TId value) where TId : notnull;
+    Task<Response<TEntity?>> DeleteAsync<TId>(TId id) where TId : notnull;
     Task<PagedResponse<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> values);
     Task ClearAsync();
 }

@@ -19,7 +19,7 @@ namespace Proton.Common.AspNet.Service;
 
 public sealed class GenericService<TEntity>(IRepository<TEntity> repo) :
     IGenericService<TEntity> where TEntity : class, IAggregateRoot {
-    
+
     public async Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter) {
         var count = await repo.GetQueryable().CountAsync();
         var result = await repo.GetAll(new GenericListSpec<TEntity>(filter)).ToListAsync();
@@ -55,9 +55,9 @@ public sealed class GenericService<TEntity>(IRepository<TEntity> repo) :
         return new PagedResponse<TEntity>(aggregateRoots);
     }
 
-    public async Task<Response<TEntity?>> DeleteAsync<TId>(TId value) where TId : notnull {
-        var item = await repo.GetByIdAsync<TId>(value);
-        if(item is not null) await repo.DeleteAsync(item);
+    public async Task<Response<TEntity?>> DeleteAsync<TId>(TId id) where TId : notnull {
+        var item = await repo.GetByIdAsync(id);
+        if (item is not null) await repo.DeleteAsync(item);
 
         return new Response<TEntity?>(item, "", item != null);
     }
