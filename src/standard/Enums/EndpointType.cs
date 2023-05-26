@@ -10,7 +10,7 @@
 
 namespace Proton.Common.Enums;
 
-public enum HttpEndpoint {
+public enum EndpointType {
     GetAll,
     GetById,
     Create,

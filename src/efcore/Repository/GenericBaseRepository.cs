@@ -16,7 +16,8 @@ using Proton.Common.EFCore.Interfaces;
 
 namespace Proton.Common.EFCore.Repository;
 
-public abstract class GenericBaseRepository<TEntity, TContext> : RepositoryBase<TEntity>, IRepository<TEntity> where TEntity : class, IAggregateRoot
+public abstract class GenericBaseRepository<TEntity, TContext> : RepositoryBase<TEntity>, IRepository<TEntity>
+    where TEntity : class, IAggregateRoot
     where TContext : DbContext {
     private readonly TContext _context;
     protected GenericBaseRepository(TContext context) : base(context) => _context = context;
@@ -31,7 +32,9 @@ public abstract class GenericBaseRepository<TEntity, TContext> : RepositoryBase<
     public IQueryable<TEntity> GetQueryable(CancellationToken cancellationToken = default) =>
         _context.Set<TEntity>().AsQueryable();
 
-    public Task ClearAsync(CancellationToken cancellationToken = default) {
-        throw new NotImplementedException();
+    public async Task ClearAsync(CancellationToken cancellationToken = default) {
+        var items = await _context.Set<TEntity>().ToListAsync(cancellationToken);
+        _context.Set<TEntity>().RemoveRange(items);
+        await SaveChangesAsync(cancellationToken);
     }
 }

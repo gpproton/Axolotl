@@ -14,11 +14,12 @@ namespace Proton.Common.Http;
 
 public interface IGenericHttpService<TEntity> where TEntity : class {
     Task<PagedResponse<TEntity>> GetAllAsync(object? query = null);
-    Task<Response<TEntity>> GetByIdAsync(Guid id);
+    Task<Response<TEntity?>> GetByIdAsync<TId>(TId id) where TId : notnull;
     Task<Response<TEntity>> CreateAsync(TEntity value);
-    Task<Response<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values);
+    Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values);
     Task<Response<TEntity>> UpdateAsync(TEntity value);
-    Task<Response<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values);
-    Task<Response<TEntity>> DeleteAsync(Guid id);
-    Task<Response<TEntity>> DeleteRangeAsync(IEnumerable<Guid> items);
+    Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values);
+    Task<Response<TEntity?>> DeleteAsync<TId>(TId id) where TId : notnull;
+    Task<PagedResponse<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> values);
+    Task<PagedResponse<TEntity>> DeleteRangeAsync<TId>(IEnumerable<TId> ids) where TId : notnull;
 }

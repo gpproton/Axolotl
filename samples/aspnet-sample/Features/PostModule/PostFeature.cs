@@ -14,7 +14,7 @@ namespace Proton.Common.AspNetSample.Features.PostModule;
 
 public class PostFeature : GenericFeature, IFeature {
     public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
-        var group = SetupGroup<Post>(endpoints);
+        var group = SetupGroup<Post, Guid>(endpoints);
 
         return group;
     }
