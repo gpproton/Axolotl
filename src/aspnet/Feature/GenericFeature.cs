@@ -18,6 +18,7 @@ using Proton.Common.AspNet.Service;
 using Proton.Common.EFCore.Interfaces;
 using Proton.Common.Enums;
 using Proton.Common.Filters;
+using Proton.Common.Response;
 
 namespace Proton.Common.AspNet.Feature;
 
@@ -31,7 +32,7 @@ public abstract class GenericFeature : IFeature {
     public abstract IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
 
     protected virtual IEndpointRouteBuilder SetupGroup<TEntity, TId>(IEndpointRouteBuilder endpoints, List<EndpointType>? types = null, string root = "/api/v1")
-        where TEntity : class, IAggregateRoot
+        where TEntity : class, IAggregateRoot, IResponse
         where TId : notnull {
         var type = typeof(TEntity);
         var name = type.Name.ToLower();

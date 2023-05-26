@@ -50,6 +50,7 @@ public static class ServiceCollectionExtensions {
             options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         });
         services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+        services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
         services.AddPagination(options => {
             options.PageQueryParameterName = "page";
             options.DefaultSize = 25;

@@ -8,13 +8,4 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.ComponentModel.DataAnnotations;
-using Proton.Common.EFCore.Interfaces;
-using Proton.Common.Response;
-
-namespace Proton.Common.EFCore.Base;
-
-public abstract class CoreEntity<TKey> : IHasKey<TKey>, IAggregateRoot, IResponse {
-    [Key]
-    public TKey Id { get; set; } = default!;
-}
+global using Nextended.Core.Extensions;
