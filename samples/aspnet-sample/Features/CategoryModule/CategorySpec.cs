@@ -9,13 +9,17 @@
 // limitations under the License.
 
 using Ardalis.Specification;
-using Proton.Common.Filters;
+using Microsoft.EntityFrameworkCore;
 using Proton.Common.Interfaces;
 
-namespace Proton.Common.AspNet.Service;
+namespace Proton.Common.AspNetSample.Features.CategoryModule;
 
-public sealed class GenericListSpec<TEntity> : Specification<TEntity> {
-    public GenericListSpec() {
-        Query.Where(x => x != null);
+public sealed class CategorySpec : Specification<Category> {
+    public CategorySpec(IPageFilter filter) {
+        var search = filter.Search ?? string.Empty;
+        var text = search.ToLower().Split(" ").ToList().Select(x => x);
+        
+        Query.Where(x =>  x.Name != String.Empty && x.Name.Length > 3 && text.Any(p => EF.Functions.Like(x.Name.ToLower(), $"%" + p + "%")))
+        .OrderByDescending(b => b.CreatedAt);
     }
 }

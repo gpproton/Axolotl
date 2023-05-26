@@ -9,6 +9,7 @@
 // limitations under the License.
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proton.Common.AspNetSample.Features.CategoryModule;
 using Proton.Common.AspNetSample.Features.PostModule;
 
@@ -16,7 +17,21 @@ namespace Proton.Common.AspNetSample.Data;
 
 public class ServiceContext : DbContext {
     public ServiceContext(DbContextOptions<ServiceContext> options) : base(options) { }
-    protected override void OnModelCreating(ModelBuilder modelBuilder) { }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder) {
+        if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite") {
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes()) {
+                var properties = entityType.ClrType.GetProperties()
+                    .Where(p => p.PropertyType == typeof(DateTimeOffset)
+                     || p.PropertyType == typeof(DateTimeOffset?));
+                foreach (var property in properties)
+                    modelBuilder
+                        .Entity(entityType.Name)
+                        .Property(property.Name)
+                        .HasConversion(new DateTimeOffsetToBinaryConverter());
+            }
+        }
+    }
 
     public virtual DbSet<Category> Categories { get; set; } = null!;
     public virtual DbSet<Post> Posts { get; set; } = null!;

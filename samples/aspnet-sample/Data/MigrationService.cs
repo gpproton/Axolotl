@@ -9,6 +9,7 @@
 // limitations under the License.
 
 using Microsoft.EntityFrameworkCore;
+using Proton.Common.AspNetSample.Features.CategoryModule;
 
 namespace Proton.Common.AspNetSample.Data;
 
@@ -31,8 +32,15 @@ public class MigrationService : BackgroundService {
         if (context.Database.IsRelational())
             await context.Database.MigrateAsync(cancellationToken);
         
-        // TODO: Setup sample data seeding.
-        // await context.SaveChangesAsync(cancellationToken);
+        var anyCategory = await context.Categories.AnyAsync(cancellationToken);
+        if (!anyCategory) {
+            await context.Categories.AddRangeAsync(new List<Category> {
+                new() { Name = "test-1" },
+                new() { Name = "test-2" },
+                new() { Name = "test-3" }
+            }, cancellationToken);
+        }
+        await context.SaveChangesAsync(cancellationToken);
         
         _logger.LogInformation("Completed migration & Seed process...");
     }

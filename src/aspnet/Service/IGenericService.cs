@@ -16,7 +16,7 @@ using Proton.Common.Response;
 namespace Proton.Common.AspNet.Service;
 
 public interface IGenericService<TEntity> where TEntity : class, IAggregateRoot, IResponse {
-    Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter, Specification<TEntity>? specification);
+    Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter, Type? type);
     Task<Response<TEntity?>> GetByIdAsync<TId>(TId id) where TId : notnull;
     Task<Response<TEntity>> CreateAsync(TEntity value);
     Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values);

@@ -28,8 +28,8 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Contains('net7'))">
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" VersionOverride="$(Net7Version)" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" VersionOverride="$(Net7Version)" />
+    <!-- <PackageReference Include="Microsoft.AspNetCore.OpenApi" VersionOverride="$(Net7Version)" /> -->
+    <!-- <PackageReference Include="Microsoft.EntityFrameworkCore" VersionOverride="$(Net7Version)" /> -->
   </ItemGroup>
 
   <ItemGroup>

@@ -13,10 +13,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using Proton.Common.AspNet.Filters;
 using Proton.Common.AspNet.Service;
 using Proton.Common.EFCore.Interfaces;
 using Proton.Common.Enums;
-using Proton.Common.Filters;
 using Proton.Common.Response;
 
 namespace Proton.Common.AspNet.Feature;
@@ -34,15 +34,15 @@ public abstract class GenericFeature : IFeature {
         IEndpointRouteBuilder endpoints,
         List<EndpointType>? types = null,
         string root = "/api/v1",
-        Specification<TEntity>? specification = null)
+        Type? specType = null)
         where TEntity : class, IAggregateRoot, IResponse
-        where TId : notnull => SetupGroup<TEntity, TEntity, TId>(endpoints, types, root);
+        where TId : notnull => SetupGroup<TEntity, TEntity, TId>(endpoints, types, root, specType);
 
     protected virtual IEndpointRouteBuilder SetupGroup<TEntity, TResponse, TId>(
         IEndpointRouteBuilder endpoints,
         List<EndpointType>? types = null,
         string root = "/api/v1",
-        Specification<TEntity>? specification = null)
+        Type? specType = null)
         where TEntity : class, IAggregateRoot, IResponse
         where TResponse : class, IResponse
         where TId : notnull {
@@ -55,8 +55,8 @@ public abstract class GenericFeature : IFeature {
         var active = types ?? new List<EndpointType> { EndpointType.GetAll, EndpointType.GetById };
 
         if (active.Contains(EndpointType.GetAll)) {
-            group.MapGet(String.Empty, async (IGenericService<TEntity, TResponse> sv, [AsParameters] PageFilter filter) =>
-                await sv.GetAllAsync(filter, specification))
+            group.MapGet(String.Empty, async (IGenericService<TEntity, TResponse> sv, [AsParameters] PagedFilter filter) =>
+                await sv.GetAllAsync(filter, specType))
                 .WithName($"GetAll{name}");
         }
 
