@@ -66,12 +66,8 @@ public abstract class AbstractHttpService (HttpClient http) : BaseHttpService(ht
         return await SendRequest<T>(request);
     }
 
-    public Task<T> Delete<T>(string uri, IEnumerable values) {
-        throw new NotImplementedException();
-    }
-
-    public async Task<T> Delete<T>(string uri, ICollection? values) {
-        var request = CreateRequest(HttpMethod.Delete, uri, values);
+    public async Task<T> Delete<T>(string uri, object? value) {
+        var request = CreateRequest(HttpMethod.Delete, uri, value);
         return await SendRequest<T>(request);
     }
 }

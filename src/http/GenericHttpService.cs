@@ -14,7 +14,7 @@ namespace Proton.Common.Http;
 
 public class GenericHttpService<TEntity> : IGenericHttpService<TEntity> where TEntity : class {
     private string _path = String.Empty;
-    private IHttpService _http;
+    private readonly IHttpService _http;
 
     protected GenericHttpService(IHttpService http) {
         _http = http;
