@@ -9,6 +9,7 @@
 // limitations under the License.
 
 
+using Ardalis.Specification;
 using Microsoft.EntityFrameworkCore;
 using Proton.Common.EFCore.Interfaces;
 using Proton.Common.EFCore.Repository;
@@ -20,8 +21,8 @@ namespace Proton.Common.AspNet.Service;
 public sealed class GenericService<TEntity>(IRepository<TEntity> repo, IGenericService<TEntity, TEntity> root) :
     IGenericService<TEntity> where TEntity : class, IAggregateRoot, IResponse {
 
-    public async Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter) =>
-        await root.GetAllAsync(filter);
+    public async Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter, Specification<TEntity>? specification) =>
+        await root.GetAllAsync(filter, specification);
 
     public async Task<Response<TEntity?>> GetByIdAsync<TId>(TId id) where TId : notnull =>
         await root.GetByIdAsync(id);

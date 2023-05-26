@@ -24,10 +24,12 @@
 
   <ItemGroup Condition="$(TargetFramework.Contains('net8'))">
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" VersionOverride="$(EfcoreVersion)" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Contains('net7'))">
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" VersionOverride="7.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" VersionOverride="$(Net7Version)" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" VersionOverride="$(Net7Version)" />
   </ItemGroup>
 
   <ItemGroup>

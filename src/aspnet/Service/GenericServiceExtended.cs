@@ -8,6 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Ardalis.Specification;
 using Microsoft.EntityFrameworkCore;
 using Proton.Common.EFCore.Interfaces;
 using Proton.Common.EFCore.Repository;
@@ -20,13 +21,14 @@ public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
     IGenericService<TEntity, TResponse> 
     where TEntity : class, IAggregateRoot
     where TResponse : class, IResponse {
-    public async Task<PagedResponse<TResponse>> GetAllAsync(IPageFilter? filter) {
-        var count = await repo.GetQueryable().CountAsync();
-        var result = await repo.GetAll(new GenericListSpec<TEntity>(filter)).ToListAsync();
-        var output = result.MapTo<List<TResponse>>();
+    public async Task<PagedResponse<TResponse>> GetAllAsync(IPageFilter? filter, Specification<TEntity>? specification) {
         var page = filter!.Page ?? 1;
         var size = filter.Size ?? 25;
-        
+        var count = await repo.GetQueryable().CountAsync();
+        var spec = specification ?? new GenericListSpec<TEntity>(filter); 
+        var result = await repo.GetAll(spec).ToListAsync();
+        var output = result.MapTo<List<TResponse>>();
+
         return new PagedResponse<TResponse>(output, page, size, count);
     }
 

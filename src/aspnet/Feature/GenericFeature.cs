@@ -8,6 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Ardalis.Specification;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -29,12 +30,19 @@ public abstract class GenericFeature : IFeature {
 
     public abstract IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
 
-    protected virtual IEndpointRouteBuilder SetupGroup<TEntity, TId>(IEndpointRouteBuilder endpoints,
-        List<EndpointType>? types = null, string root = "/api/v1")
+    protected virtual IEndpointRouteBuilder SetupGroup<TEntity, TId>(
+        IEndpointRouteBuilder endpoints,
+        List<EndpointType>? types = null,
+        string root = "/api/v1",
+        Specification<TEntity>? specification = null)
         where TEntity : class, IAggregateRoot, IResponse
         where TId : notnull => SetupGroup<TEntity, TEntity, TId>(endpoints, types, root);
 
-    protected virtual IEndpointRouteBuilder SetupGroup<TEntity, TResponse, TId>(IEndpointRouteBuilder endpoints, List<EndpointType>? types = null, string root = "/api/v1")
+    protected virtual IEndpointRouteBuilder SetupGroup<TEntity, TResponse, TId>(
+        IEndpointRouteBuilder endpoints,
+        List<EndpointType>? types = null,
+        string root = "/api/v1",
+        Specification<TEntity>? specification = null)
         where TEntity : class, IAggregateRoot, IResponse
         where TResponse : class, IResponse
         where TId : notnull {
@@ -48,7 +56,7 @@ public abstract class GenericFeature : IFeature {
 
         if (active.Contains(EndpointType.GetAll)) {
             group.MapGet(String.Empty, async (IGenericService<TEntity, TResponse> sv, [AsParameters] PageFilter filter) =>
-                await sv.GetAllAsync(filter))
+                await sv.GetAllAsync(filter, specification))
                 .WithName($"GetAll{name}");
         }
 
