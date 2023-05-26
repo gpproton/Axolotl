@@ -19,11 +19,11 @@ public interface IGenericService<in TEntity, TResponse>
     where TResponse : class, IResponse {
     Task<PagedResponse<TResponse>> GetAllAsync(IPageFilter? filter);
     Task<Response<TResponse?>> GetByIdAsync<TId>(TId id) where TId : notnull;
-    Task<Response<TResponse>> CreateAsync(TResponse value);
-    Task<PagedResponse<TResponse>> CreateRangeAsync(IEnumerable<TResponse> values);
-    Task<Response<TResponse>> UpdateAsync(TResponse value);
-    Task<PagedResponse<TResponse>> UpdateRangeAsync(IEnumerable<TResponse> values);
+    Task<Response<TResponse>> CreateAsync(IResponse value);
+    Task<PagedResponse<TResponse>> CreateRangeAsync(IEnumerable<IResponse> values);
+    Task<Response<TResponse>> UpdateAsync(IResponse value);
+    Task<PagedResponse<TResponse>> UpdateRangeAsync(IEnumerable<IResponse> values);
     Task<Response<TResponse?>> DeleteAsync<TId>(TId id) where TId : notnull;
-    Task<PagedResponse<TResponse>> DeleteRangeAsync(IEnumerable<TResponse> values);
+    Task<PagedResponse<TResponse>> DeleteRangeAsync(IEnumerable<IResponse> values);
     Task ClearAsync();
 }

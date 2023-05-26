@@ -37,14 +37,14 @@ public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
         return new Response<TResponse?>(output);
     }
 
-    public async Task<Response<TResponse>> CreateAsync(TResponse value) {
+    public async Task<Response<TResponse>> CreateAsync(IResponse value) {
         var result = await repo.AddAsync(value.MapTo<TEntity>());
         var output = result.MapTo<TResponse>();
         
         return new Response<TResponse>(output);
     }
 
-    public async Task<PagedResponse<TResponse>> CreateRangeAsync(IEnumerable<TResponse> values) {
+    public async Task<PagedResponse<TResponse>> CreateRangeAsync(IEnumerable<IResponse> values) {
         var convertedValues = values.MapTo<IEnumerable<TEntity>>();
         var result = await repo.AddRangeAsync(convertedValues);
         var output = result.MapTo<IEnumerable<TResponse>>();
@@ -52,13 +52,13 @@ public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
         return new PagedResponse<TResponse>(output);
     }
 
-    public async Task<Response<TResponse>> UpdateAsync(TResponse value) {
+    public async Task<Response<TResponse>> UpdateAsync(IResponse value) {
         await repo.UpdateAsync(value.MapTo<TEntity>());
         
-        return new Response<TResponse>(value);
+        return new Response<TResponse>((TResponse?)value);
     }
 
-    public async Task<PagedResponse<TResponse>> UpdateRangeAsync(IEnumerable<TResponse> values) {
+    public async Task<PagedResponse<TResponse>> UpdateRangeAsync(IEnumerable<IResponse> values) {
         var valueConverted = values.MapTo<IEnumerable<TEntity>>();
         var valueAggregate = valueConverted.ToList();
         await repo.UpdateRangeAsync(valueAggregate);
@@ -75,7 +75,7 @@ public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
         return new Response<TResponse?>(output, "", item != null);
     }
 
-    public async Task<PagedResponse<TResponse>> DeleteRangeAsync(IEnumerable<TResponse> values) {
+    public async Task<PagedResponse<TResponse>> DeleteRangeAsync(IEnumerable<IResponse> values) {
         var valueConverted = values.MapTo<IEnumerable<TEntity>>();
         var valueAggregate = valueConverted.ToList();
         await repo.DeleteRangeAsync(valueAggregate);
