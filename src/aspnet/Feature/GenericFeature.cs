@@ -99,7 +99,7 @@ public abstract class GenericFeature : IFeature {
         // Delete item by id
         if (active.Contains(EndpointType.Delete)) {
             group.MapDelete("/{id}", async (IGenericService<TEntity, TResponse> sv, [AsParameters] EndpointParam<TId> parameters) =>
-                await sv.GetByIdAsync(parameters.Id))
+                await sv.DeleteAsync(parameters.Id))
             .WithName($"Delete{name}");
         }
 

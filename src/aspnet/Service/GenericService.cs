@@ -8,9 +8,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-using Ardalis.Specification;
-using Microsoft.EntityFrameworkCore;
 using Proton.Common.EFCore.Interfaces;
 using Proton.Common.EFCore.Repository;
 using Proton.Common.Interfaces;
