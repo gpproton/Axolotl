@@ -18,8 +18,6 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.Specification" />
-    <PackageReference Include="MR.AspNetCore.Pagination" />
-    <PackageReference Include="MR.AspNetCore.Pagination.Swashbuckle" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Contains('net8'))">
