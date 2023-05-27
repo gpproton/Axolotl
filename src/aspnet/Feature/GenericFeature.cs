@@ -8,7 +8,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Ardalis.Specification;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
