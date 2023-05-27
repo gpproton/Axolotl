@@ -37,9 +37,10 @@ public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
             (Specification<TEntity>)Activator.CreateInstance(type, check)!;
         var count = await repo.GetQueryable().WithSpecification(specification).CountAsync();
         var result = await repo.GetQueryable()
+            .WithSpecification(specification)
             .Take(size)
             .Skip(page - 1 * size)
-            .WithSpecification(specification).ToListAsync();
+            .ToListAsync();
         
         var output = result.MapTo<List<TResponse>>();
 

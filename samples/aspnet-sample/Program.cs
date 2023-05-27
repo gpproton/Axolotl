@@ -14,9 +14,7 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options => {
-    // options.ConfigurePagination();
-});
+builder.Services.AddSwaggerGen(options => { });
 
 // Proton.Common services
 builder.Services.RegisterFeatures(typeof(Program).Assembly);

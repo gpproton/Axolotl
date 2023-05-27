@@ -20,8 +20,8 @@ using Proton.Common.Helpers;
 namespace Proton.Common.AspNet;
 
 public static class ServiceCollectionExtensions {
-    private static readonly List<IFeature> RegisteredFeatures = new ();
-    private static readonly List<IFeature> RegisteredEndpoints = new ();
+    private static readonly List<IFeature> RegisteredFeatures = new();
+    private static readonly List<IFeature> RegisteredEndpoints = new();
 
     public static IServiceCollection RegisterFeatures(this IServiceCollection services, Assembly assembly) {
         var modules = FactoryLoader.LoadClassInstances<IFeature>(assembly);
@@ -51,14 +51,7 @@ public static class ServiceCollectionExtensions {
         });
         services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
         services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
-        services.AddPagination(options => {
-            options.PageQueryParameterName = "page";
-            options.DefaultSize = 25;
-            options.MaxSize = 250;
-            options.PageSizeQueryParameterName = "size";
-            options.CanChangeSizeFromQuery = true;
-        });
-        
+
         return services;
     }
 }

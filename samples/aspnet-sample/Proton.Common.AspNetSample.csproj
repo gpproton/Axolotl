@@ -16,8 +16,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
-    <PackageReference Include="MR.AspNetCore.Pagination" />
-    <PackageReference Include="MR.AspNetCore.Pagination.Swashbuckle" />
   </ItemGroup>
 
   <ItemGroup>
