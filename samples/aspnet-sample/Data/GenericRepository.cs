@@ -8,11 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.AspNetSample.Data;
 using Proton.Common.EFCore.Interfaces;
 using Proton.Common.EFCore.Repository;
 
-namespace Proton.Common.AspNetSample;
+namespace Proton.Common.AspNetSample.Data;
 
 public class GenericRepository<T> : GenericBaseRepository<T, ServiceContext> where T : class, IAggregateRoot {
     public GenericRepository(ServiceContext context) : base(context) { }

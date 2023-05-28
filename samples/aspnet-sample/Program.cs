@@ -10,7 +10,7 @@
 
 using Proton.Common.AspNet;
 using Proton.Common.AspNetSample.Data;
-using Microsoft.OpenApi.Models;
+using Proton.Common.EFCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
@@ -22,6 +22,8 @@ builder.Services.RegisterGenericServices();
 
 // Sample services
 builder.Services.RegisterDataContext();
+builder.Services.RegisterGenericRepositories(typeof(GenericRepository<>));
+builder.Services.AddHostedService<MigrationService>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment()) {

@@ -20,6 +20,6 @@ public sealed class CategorySpec : Specification<Category> {
         var text = search.ToLower().Split(" ").ToList().Select(x => x);
         
         Query.Where(x =>  x.Name != String.Empty && x.Name.Length > 3 && text.Any(p => EF.Functions.Like(x.Name.ToLower(), $"%" + p + "%")))
-            .OrderByDescending(b => b.CreatedAt);
+            .OrderBy(b => b.Name);
     }
 }
