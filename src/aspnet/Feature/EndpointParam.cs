@@ -8,14 +8,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Ardalis.Specification;
-using Proton.Common.Filters;
-using Proton.Common.Interfaces;
+namespace Proton.Common.AspNet.Feature;
 
-namespace Proton.Common.AspNet.Service;
-
-public sealed class GenericListSpec<TEntity> : Specification<TEntity> {
-    public GenericListSpec() {
-        Query.Where(x => x != null);
-    }
+internal sealed class EndpointParam<TId> where TId : notnull {
+    public TId Id { get; set; } = default!;
 }

@@ -8,14 +8,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
+using Ardalis.Specification;
 
-namespace Proton.Common.AspNet.Feature;
+namespace Proton.Common.AspNet.Service;
 
-public abstract partial class GenericFeature : IFeature {
-    public virtual IServiceCollection RegisterModule(IServiceCollection services) => services;
-
-    public abstract IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
-    
+public sealed class GenericSpec<TEntity> : Specification<TEntity> {
+    public GenericSpec() {
+        Query.Where(x => true);
+    }
 }

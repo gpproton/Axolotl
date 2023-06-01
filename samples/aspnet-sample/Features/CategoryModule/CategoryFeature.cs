@@ -25,7 +25,7 @@ public class CategoryFeature : GenericFeature, IFeature {
             RouteType.Delete,
             RouteType.DeleteRange
         };
-        var group = SetupGroup<Category, Guid>(endpoints, types, specType: typeof(CategorySpec));
+        var group = SetupGroup<Category, Guid>(endpoints, types, spec: typeof(CategorySpec));
 
         return group;
     }
