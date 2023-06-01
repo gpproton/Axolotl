@@ -10,21 +10,20 @@
 
 using Proton.Common.AspNet.Feature;
 using Proton.Common.Enums;
-using Proton.Common.Filters;
 
 namespace Proton.Common.AspNetSample.Features.CategoryModule;
 
 public class CategoryFeature : GenericFeature, IFeature {
     public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
-        var types = new List<EndpointType> {
-            EndpointType.GetAll,
-            EndpointType.GetById,
-            EndpointType.Create,
-            EndpointType.CreateRange,
-            EndpointType.Update,
-            EndpointType.UpdateRange,
-            EndpointType.Delete,
-            EndpointType.DeleteRange
+        var types = new List<RouteType> {
+            RouteType.GetAll,
+            RouteType.GetById,
+            RouteType.Create,
+            RouteType.CreateRange,
+            RouteType.Update,
+            RouteType.UpdateRange,
+            RouteType.Delete,
+            RouteType.DeleteRange
         };
         var group = SetupGroup<Category, Guid>(endpoints, types, specType: typeof(CategorySpec));
 
