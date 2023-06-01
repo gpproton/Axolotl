@@ -76,8 +76,8 @@ public sealed class CategorySpec : Specification<Post> {
     public CategorySpec(IPageFilter filter) {
         var search = filter.Search ?? string.Empty;
         var text = search.ToLower().Split(" ").ToList().Select(x => x);
-        Query.AsNoTracking()
-            .Where(x =>  x.Title != String.Empty && x.Title.Length > 3 && text.Any(p => EF.Functions.Like(x.Title.ToLower(), $"%" + p + "%")))
+        Query.Where(x =>  x.Title != String.Empty && x.Title.Length > 3 && text.Any(p => EF.Functions.Like(x.Title.ToLower(), $"%" + p + "%")))
+            .AsNoTracking()
             .OrderBy(b => b.Title);
     }
 }
