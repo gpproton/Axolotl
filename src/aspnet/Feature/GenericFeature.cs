@@ -11,6 +11,7 @@
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Proton.Common.EFCore.Interfaces;
+using Proton.Common.Response;
 
 namespace Proton.Common.AspNet.Feature;
 
@@ -21,35 +22,33 @@ public abstract partial class GenericFeature<TFeature> : IFeature where  TFeatur
 
     public abstract IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
 
-    protected GenericFeature<TFeature> AddGetAll<TEntity>(RouteState state) where TEntity : IAggregateRoot {
-        throw new NotImplementedException();
-    }
+    protected GenericFeature<TFeature> AddGetAll<TEntity>(RouteState state) where TEntity : class, IAggregateRoot, IResponse =>
+        this.AddGetAll<TEntity, TEntity>(state);
 
-    protected GenericFeature<TFeature> AddGetById<TEntity, TId>(RouteState state) where TEntity : IAggregateRoot where TId : notnull {
-        throw new NotImplementedException();
-    }
+    protected GenericFeature<TFeature> AddGetById<TEntity, TId>(RouteState state)
+        where TEntity : class, IAggregateRoot, IResponse where TId : notnull =>
+        this.AddGetById<TEntity, TEntity, TId>(state);
 
-    protected GenericFeature<TFeature> AddCreate<TEntity>(RouteState state) where TEntity : IAggregateRoot {
-        throw new NotImplementedException();
-    }
+    protected GenericFeature<TFeature> AddCreate<TEntity>(RouteState state)
+        where TEntity : class, IAggregateRoot, IResponse => this.AddCreate<TEntity, TEntity>(state);
 
-    protected GenericFeature<TFeature> AddCreateRange<TEntity>(RouteState state) where TEntity : IAggregateRoot {
-        throw new NotImplementedException();
-    }
+    protected GenericFeature<TFeature> AddCreateRange<TEntity>(RouteState state)
+        where TEntity : class, IAggregateRoot, IResponse =>
+        this.AddCreateRange<TEntity, TEntity>(state);
 
-    protected GenericFeature<TFeature> AddUpdate<TEntity>(RouteState state) where TEntity : IAggregateRoot {
-        throw new NotImplementedException();
-    }
+    protected GenericFeature<TFeature> AddUpdate<TEntity>(RouteState state)
+        where TEntity : class, IAggregateRoot, IResponse =>
+        this.AddUpdate<TEntity, TEntity>(state);
 
-    protected GenericFeature<TFeature> AddUpdateRange<TEntity>(RouteState state) where TEntity : IAggregateRoot {
-        throw new NotImplementedException();
-    }
+    protected GenericFeature<TFeature> AddUpdateRange<TEntity>(RouteState state)
+        where TEntity : class, IAggregateRoot, IResponse =>
+        this.AddUpdateRange<TEntity, TEntity>(state);
 
-    protected GenericFeature<TFeature> AddDelete<TEntity, TId>(RouteState state) where TEntity : IAggregateRoot where TId : notnull {
-        throw new NotImplementedException();
-    }
+    protected GenericFeature<TFeature> AddDelete<TEntity, TId>(RouteState state)
+        where TEntity : class, IAggregateRoot, IResponse where TId : notnull =>
+        this.AddDelete<TEntity, TEntity, TId>(state);
 
-    protected GenericFeature<TFeature> AddDeleteRange<TEntity>(RouteState state) where TEntity : IAggregateRoot {
-        throw new NotImplementedException();
-    }
+    protected GenericFeature<TFeature> AddDeleteRange<TEntity>(RouteState state)
+        where TEntity : class, IAggregateRoot, IResponse =>
+        this.AddDeleteRange<TEntity, TEntity>(state);
 }

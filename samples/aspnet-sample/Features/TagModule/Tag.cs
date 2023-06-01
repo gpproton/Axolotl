@@ -8,10 +8,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Proton.Common.AspNetSample.Features.PostModule;
 using Proton.Common.EFCore.Base;
 
 namespace Proton.Common.AspNetSample.Features.TagModule;
 
 public class Tag : BaseEntity<Guid> {
     public string Name { get; set; } = null!;
+    public ICollection<Post> Posts { get; set; } = null!;
 }

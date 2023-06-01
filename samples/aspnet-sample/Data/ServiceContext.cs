@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proton.Common.AspNetSample.Features.CategoryModule;
 using Proton.Common.AspNetSample.Features.PostModule;
+using Proton.Common.AspNetSample.Features.TagModule;
 
 namespace Proton.Common.AspNetSample.Data;
 
@@ -35,4 +36,6 @@ public class ServiceContext : DbContext {
 
     public virtual DbSet<Category> Categories { get; set; } = null!;
     public virtual DbSet<Post> Posts { get; set; } = null!;
+    public virtual DbSet<Tag> Tags { get; set; } = null!;
+    
 }

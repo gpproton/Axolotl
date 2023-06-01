@@ -15,7 +15,7 @@ using Proton.Common.EFCore.Interfaces;
 namespace Proton.Common.AspNet.Helpers;
 
 public static class GenerateSpec {
-    public static Specification<TEntity> Build<TEntity>(Type? spec, object? param = null) where TEntity : IAggregateRoot {
+    public static Specification<TEntity> Build<TEntity>(Type? spec, params object[] param) where TEntity : IAggregateRoot {
         return spec == null ? 
             new GenericSpec<TEntity>() :
             (Specification<TEntity>)Activator.CreateInstance(spec, param)!;

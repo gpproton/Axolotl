@@ -9,6 +9,7 @@
 // limitations under the License.
 
 using Proton.Common.AspNetSample.Features.CategoryModule;
+using Proton.Common.AspNetSample.Features.TagModule;
 using Proton.Common.EFCore.Base;
 
 namespace Proton.Common.AspNetSample.Features.PostModule;
@@ -16,4 +17,5 @@ namespace Proton.Common.AspNetSample.Features.PostModule;
 public sealed class Post : AuditableEntity<Guid> {
     public string Title { get; set; } = null!;
     public Category Category { get; set; } = null!;
+    public ICollection<Tag> Tags { get; set; } = null!;
 }

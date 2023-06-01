@@ -36,6 +36,6 @@ app.UseHttpsRedirection();
 // Proton.Common app DI
 app.RegisterFeatureEndpoints();
 
-app.MapGet("/", () => "x");
+app.MapGet("/", () => "x").WithName("Default").WithTags("Root");
 
 app.Run();
