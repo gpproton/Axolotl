@@ -8,11 +8,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.AspNet.Feature;
+using Proton.Common.EFCore.Interfaces;
+using Proton.Common.EFCore.Repository;
 
-namespace Proton.Common.AspNetSample.Features.PostModule;
+namespace Proton.Common.AspNetSample.Data;
 
-public class PostFeature : GenericFeature<PostFeature> {
-    public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) =>
-        SetupGroup<PostFeature, Post, Guid>(endpoints);
+public class GenericRepository<T> : GenericBaseRepository<T, ServiceContext> where T : class, IAggregateRoot {
+    public GenericRepository(ServiceContext context) : base(context) { }
 }

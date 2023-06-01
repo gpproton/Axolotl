@@ -16,13 +16,13 @@ using Proton.Common.Response;
 namespace Proton.Common.AspNet.Service;
 
 public interface IGenericService<TEntity> where TEntity : class, IAggregateRoot, IResponse {
-    Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter, Type? type);
-    Task<Response<TEntity?>> GetByIdAsync<TId>(TId id) where TId : notnull;
-    Task<Response<TEntity>> CreateAsync(TEntity value);
-    Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values);
-    Task<Response<TEntity>> UpdateAsync(TEntity value);
-    Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values);
-    Task<Response<TEntity?>> DeleteAsync<TId>(TId id) where TId : notnull;
-    Task<PagedResponse<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> values);
-    Task ClearAsync();
+    Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter, Type? spec = null, CancellationToken cancellationToken = default);
+    Task<Response<TEntity?>> GetByIdAsync<TId>(TId id, Type? spec = null, CancellationToken cancellationToken = default) where TId : notnull;
+    Task<Response<TEntity>> CreateAsync(TEntity value, CancellationToken cancellationToken = default);
+    Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values, CancellationToken cancellationToken = default);
+    Task<Response<TEntity>> UpdateAsync(TEntity value, Type? spec = null, CancellationToken cancellationToken = default);
+    Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values, Type? spec = null, CancellationToken cancellationToken = default);
+    Task<Response<TEntity?>> DeleteAsync<TId>(TId id, Type? spec = null, CancellationToken cancellationToken = default) where TId : notnull;
+    Task<PagedResponse<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> values, Type? spec = null, CancellationToken cancellationToken = default);
+    Task ClearAsync(CancellationToken cancellationToken = default);
 }

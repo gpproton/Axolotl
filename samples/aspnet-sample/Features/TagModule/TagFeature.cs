@@ -11,21 +11,17 @@
 using Proton.Common.AspNet.Feature;
 using Proton.Common.Enums;
 
-namespace Proton.Common.AspNetSample.Features.CategoryModule;
+namespace Proton.Common.AspNetSample.Features.TagModule;
 
-public class CategoryFeature : GenericFeature<CategoryFeature> {
+public class TagFeature : GenericFeature<TagFeature> {
     public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
         var state = new FeatureState(new List<RouteState> {
-            new (RouteType.GetAll, typeof(CategorySpec)),
+            new (RouteType.GetAll),
             new (RouteType.GetById),
-            new (RouteType.Create),
-            new (RouteType.CreateRange),
-            new (RouteType.Update),
-            new (RouteType.UpdateRange),
-            new (RouteType.Delete),
-            new (RouteType.DeleteRange)
+            new (RouteType.Create)
         });
+        var group = SetupGroup<TagFeature, Tag, Guid>(endpoints, state);
 
-        return SetupGroup<CategoryFeature, Category, Guid>(endpoints, state);
+        return group;
     }
 }

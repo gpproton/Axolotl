@@ -8,11 +8,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.AspNet.Feature;
+using Ardalis.Specification;
 
-namespace Proton.Common.AspNetSample.Features.PostModule;
+namespace Proton.Common.AspNet.Service;
 
-public class PostFeature : GenericFeature<PostFeature> {
-    public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) =>
-        SetupGroup<PostFeature, Post, Guid>(endpoints);
+public sealed class GenericSpec<TEntity> : Specification<TEntity> {
+    public GenericSpec() {
+        Query.Where(x => true);
+    }
 }

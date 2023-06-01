@@ -8,11 +8,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.AspNet.Feature;
+using Ardalis.Specification;
+using Proton.Common.AspNet.Service;
+using Proton.Common.EFCore.Interfaces;
 
-namespace Proton.Common.AspNetSample.Features.PostModule;
+namespace Proton.Common.AspNet.Helpers;
 
-public class PostFeature : GenericFeature<PostFeature> {
-    public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) =>
-        SetupGroup<PostFeature, Post, Guid>(endpoints);
+public static class GenerateSpec {
+    public static Specification<TEntity> Build<TEntity>(Type? spec, object? param = null) where TEntity : IAggregateRoot {
+        return spec == null ? 
+            new GenericSpec<TEntity>() :
+            (Specification<TEntity>)Activator.CreateInstance(spec, param)!;
+    }
 }

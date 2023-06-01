@@ -8,12 +8,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.AspNetSample.Data;
-using Proton.Common.EFCore.Interfaces;
-using Proton.Common.EFCore.Repository;
+namespace Proton.Common.AspNet.Feature;
 
-namespace Proton.Common.AspNetSample;
-
-public class GenericRepository<T> : GenericBaseRepository<T, ServiceContext> where T : class, IAggregateRoot {
-    public GenericRepository(ServiceContext context) : base(context) { }
-}
+public record FeatureState(
+    List<RouteState> State,
+    string? Path = null,
+    string? Name = null,
+    string Root = "/api/v1"
+);

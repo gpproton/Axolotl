@@ -8,14 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Ardalis.Specification;
-using Proton.Common.Filters;
-using Proton.Common.Interfaces;
+using Proton.Common.EFCore.Base;
 
-namespace Proton.Common.AspNet.Service;
+namespace Proton.Common.AspNetSample.Features.TagModule;
 
-public sealed class GenericListSpec<TEntity> : Specification<TEntity> {
-    public GenericListSpec() {
-        Query.Where(x => x != null);
-    }
+public class Tag : BaseEntity<Guid> {
+    public string Name { get; set; } = null!;
 }

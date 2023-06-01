@@ -8,15 +8,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.Enums;
+using Proton.Common.Enums;
 
-public enum EndpointType {
-    GetAll,
-    GetById,
-    Create,
-    CreateRange,
-    Update,
-    UpdateRange,
-    Delete,
-    DeleteRange
-}
+namespace Proton.Common.AspNet.Feature;
+
+public record RouteState(
+    RouteType Type,
+    Type? Spec = null,
+    string? Path = null,
+    string? Name = null,
+    string? Root = null
+    );

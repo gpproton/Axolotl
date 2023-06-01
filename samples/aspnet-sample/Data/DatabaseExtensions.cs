@@ -9,8 +9,6 @@
 // limitations under the License.
 
 using Microsoft.EntityFrameworkCore;
-using Proton.Common.EFCore.Repository;
-
 namespace Proton.Common.AspNetSample.Data;
 
 public static class DatabaseExtensions {
@@ -25,10 +23,7 @@ public static class DatabaseExtensions {
                     .UseRelationalNulls()
             ).EnableSensitiveDataLogging()
         );
-        services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
-        services.AddScoped(typeof(IReadRepository<>), typeof(GenericRepository<>));
-        services.AddHostedService<MigrationService>();
-        
+
         return services;
     }
 }

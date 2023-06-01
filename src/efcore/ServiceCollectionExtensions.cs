@@ -9,14 +9,14 @@
 // limitations under the License.
 
 using Microsoft.Extensions.DependencyInjection;
+using Proton.Common.EFCore.Repository;
 
 namespace Proton.Common.EFCore;
 
 public static class ServiceCollectionExtensions {
-    public static IServiceCollection RegisterGenericRepositories<TRepository>(this IServiceCollection services)
-    where TRepository : class {
-        // services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
-        // services.AddScoped(typeof(IReadRepository<>), typeof(GenericRepository<>));
+    public static IServiceCollection RegisterGenericRepositories(this IServiceCollection services, Type repositoryType) {
+        services.AddScoped(typeof(IRepository<>), repositoryType);
+        services.AddScoped(typeof(IReadRepository<>), repositoryType);
         
         return services;
     }

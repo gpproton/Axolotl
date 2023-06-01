@@ -8,11 +8,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.AspNet.Feature;
+namespace Proton.Common.Enums;
 
-namespace Proton.Common.AspNetSample.Features.PostModule;
-
-public class PostFeature : GenericFeature<PostFeature> {
-    public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) =>
-        SetupGroup<PostFeature, Post, Guid>(endpoints);
+public enum RouteType {
+    GetAll,
+    GetById,
+    Create,
+    CreateRange,
+    Update,
+    UpdateRange,
+    Delete,
+    DeleteRange
 }

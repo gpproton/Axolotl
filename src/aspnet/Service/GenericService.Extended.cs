@@ -11,6 +11,7 @@
 using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Proton.Common.AspNet.Helpers;
 using Proton.Common.EFCore.Interfaces;
 using Proton.Common.EFCore.Repository;
 using Proton.Common.Filters;
@@ -23,7 +24,7 @@ public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
     IGenericService<TEntity, TResponse> 
     where TEntity : class, IAggregateRoot
     where TResponse : class, IResponse {
-    public async Task<PagedResponse<TResponse>> GetAllAsync(IPageFilter? filter, Type? type) {
+    public async Task<PagedResponse<TResponse>> GetAllAsync(IPageFilter? filter, Type? spec = null, CancellationToken cancellationToken = default) {
         var check = new PageFilter {
             Page = filter!.Page ?? 1,
             Size = filter.Size ?? 25,
@@ -32,74 +33,72 @@ public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
 
         var page = (int)check.Page;
         var size = (int)check.Size;
-        var specification = type == null ? 
-            new GenericListSpec<TEntity>() : 
-            (Specification<TEntity>)Activator.CreateInstance(type, check)!;
-        var count = await repo.GetQueryable().WithSpecification(specification).CountAsync();
+        var specification = GenerateSpec.Build<TEntity>(spec, check);
+        var count = await repo.GetQueryable().WithSpecification(specification).CountAsync(cancellationToken);
         var result = await repo.GetQueryable()
             .WithSpecification(specification)
             .Take(size)
             .Skip(page - 1 * size)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
         
         var output = result.MapTo<List<TResponse>>();
 
         return new PagedResponse<TResponse>(output, page, size, count);
     }
 
-    public async Task<Response<TResponse?>> GetByIdAsync<TId>(TId id) where TId : notnull {
-        var result = await repo.GetByIdAsync(id);
+    public async Task<Response<TResponse?>> GetByIdAsync<TId>(TId id, Type? spec = null, CancellationToken cancellationToken = default) where TId : notnull {
+        var result = await repo.GetByIdAsync(id, cancellationToken);
         var output = result.MapTo<TResponse?>();
         
         return new Response<TResponse?>(output);
     }
 
-    public async Task<Response<TResponse>> CreateAsync(IResponse value) {
-        var result = await repo.AddAsync(value.MapTo<TEntity>());
+    public async Task<Response<TResponse>> CreateAsync(IResponse value, CancellationToken cancellationToken = default) {
+        var result = await repo.AddAsync(value.MapTo<TEntity>(), cancellationToken);
         var output = result.MapTo<TResponse>();
         
         return new Response<TResponse>(output);
     }
 
-    public async Task<PagedResponse<TResponse>> CreateRangeAsync(IEnumerable<IResponse> values) {
+    public async Task<PagedResponse<TResponse>> CreateRangeAsync(IEnumerable<IResponse> values, CancellationToken cancellationToken = default) {
         var convertedValues = values.MapTo<IEnumerable<TEntity>>();
-        var result = await repo.AddRangeAsync(convertedValues);
+        var result = await repo.AddRangeAsync(convertedValues, cancellationToken);
         var output = result.MapTo<IEnumerable<TResponse>>();
         
         return new PagedResponse<TResponse>(output);
     }
 
-    public async Task<Response<TResponse>> UpdateAsync(IResponse value) {
-        await repo.UpdateAsync(value.MapTo<TEntity>());
+    public async Task<Response<TResponse>> UpdateAsync(IResponse value, Type? spec = null, CancellationToken cancellationToken = default) {
+        await repo.UpdateAsync(value.MapTo<TEntity>(), cancellationToken);
         
         return new Response<TResponse>((TResponse?)value);
     }
 
-    public async Task<PagedResponse<TResponse>> UpdateRangeAsync(IEnumerable<IResponse> values) {
+    public async Task<PagedResponse<TResponse>> UpdateRangeAsync(IEnumerable<IResponse> values, Type? spec = null, CancellationToken cancellationToken = default) {
         var valueConverted = values.MapTo<IEnumerable<TEntity>>();
         var valueAggregate = valueConverted.ToList();
-        await repo.UpdateRangeAsync(valueAggregate);
+        await repo.UpdateRangeAsync(valueAggregate, cancellationToken);
         var output = valueAggregate.MapTo<IEnumerable<TResponse>>();
         
         return new PagedResponse<TResponse>(output);
     }
 
-    public async Task<Response<TResponse?>> DeleteAsync<TId>(TId id) where TId : notnull {
-        var item = await repo.GetByIdAsync(id);
-        if (item is not null) await repo.DeleteAsync(item);
+    public async Task<Response<TResponse?>> DeleteAsync<TId>(TId id, Type? spec = null, CancellationToken cancellationToken = default) where TId : notnull {
+        var item = await repo.GetByIdAsync(id, cancellationToken);
+        if (item is not null) await repo.DeleteAsync(item, cancellationToken);
         var output = item.MapTo<TResponse>();
         
         return new Response<TResponse?>(output, "", item != null);
     }
 
-    public async Task<PagedResponse<TResponse>> DeleteRangeAsync(IEnumerable<IResponse> values) {
+    public async Task<PagedResponse<TResponse>> DeleteRangeAsync(IEnumerable<IResponse> values, Type? spec = null, CancellationToken cancellationToken = default) {
         var valueConverted = values.MapTo<IEnumerable<TEntity>>();
         var valueAggregate = valueConverted.ToList();
-        await repo.DeleteRangeAsync(valueAggregate);
+        await repo.DeleteRangeAsync(valueAggregate, cancellationToken);
         var output = valueAggregate.MapTo<IEnumerable<TResponse>>();
         
         return new PagedResponse<TResponse>(output);
     }
 
-    public async Task ClearAsync() => await repo.ClearAsync();
+    public async Task ClearAsync(CancellationToken cancellationToken = default) => await repo.ClearAsync(cancellationToken);
 }
