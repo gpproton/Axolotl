@@ -8,14 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.Enums;
+using Proton.Common.EFCore.Base;
 
-namespace Proton.Common.AspNet.Feature;
+namespace Proton.Common.AspNetSample.Features.TagModule;
 
-public record RouteState(
-    RouteType Type,
-    Type? Spec = null,
-    string? Path = null,
-    string? Name = null,
-    string? Root = null
-    );
+public class Tag : BaseEntity<Guid> {
+    public string Name { get; set; } = null!;
+}

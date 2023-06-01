@@ -11,95 +11,67 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Proton.Common.AspNet.Filters;
-using Proton.Common.AspNet.Service;
 using Proton.Common.EFCore.Interfaces;
 using Proton.Common.Enums;
 using Proton.Common.Response;
 
 namespace Proton.Common.AspNet.Feature;
 
-public abstract partial class GenericFeature {
-    protected virtual IEndpointRouteBuilder SetupGroup<TEntity, TId>(
-        IEndpointRouteBuilder endpoints,
-        List<RouteType>? types = null,
-        string root = "/api/v1",
-        Type? spec = null)
-        where TEntity : class, IAggregateRoot, IResponse
-        where TId : notnull => SetupGroup<TEntity, TEntity, TId>(endpoints, types, root, spec);
-    
-    protected virtual IEndpointRouteBuilder SetupGroup<TEntity, TResponse, TId>(
-        IEndpointRouteBuilder endpoints,
-        List<RouteType>? types = null,
-        string root = "/api/v1",
-        Type? spec = null)
+public abstract partial class GenericFeature<TFeature> where TFeature : new() {
+    protected static IEndpointRouteBuilder SetupGroup<TAFeature, TEntity, TResponse, TId>(IEndpointRouteBuilder endpoints, FeatureState? state = null)
+        where TAFeature : GenericFeature<TFeature>
         where TEntity : class, IAggregateRoot, IResponse
         where TResponse : class, IResponse
         where TId : notnull {
+        var options = state ?? new FeatureState(new List<RouteState> {
+            new(RouteType.GetAll),
+            new(RouteType.GetById)
+        });
+        
         var type = typeof(TEntity);
-        var name = type.Name.ToLower();
-        var url = $"{root}/{name}";
-        var group = endpoints.MapGroup(url).WithTags(name.Capitalize());
+        var root = options.Root;
+        var name = options.Name ?? type.Name.ToLower();
+        var url = options.Path ?? $"{root}/{name}";
+        var instance = new TFeature() as TAFeature;
+        if (instance == null) return instance!.Endpoints!;
 
-        var defaults = types is null;
-        var active = types ?? new List<RouteType> { RouteType.GetAll, RouteType.GetById };
-
-        if (active.Contains(RouteType.GetAll)) {
-            group.MapGet(String.Empty, async (IGenericService<TEntity, TResponse> sv, [AsParameters] PagedFilter filter, CancellationToken cancellationToken = default) =>
-                await sv.GetAllAsync(filter, spec, cancellationToken))
-                .WithName($"GetAll{name}");
+        instance.Endpoints = endpoints.MapGroup(url).WithTags(name.Capitalize());
+        foreach (var config in options.State) {
+            switch (config.Type) {
+                case RouteType.GetAll:
+                    instance.AddGetAll<TEntity, TResponse>(config);
+                    break;
+                case RouteType.GetById:
+                    instance.AddGetById<TEntity, TResponse, TId>(config);
+                    break;
+                case RouteType.Create:
+                    instance.AddCreate<TEntity, TResponse>(config);
+                    break;
+                case RouteType.CreateRange:
+                    instance.AddCreateRange<TEntity, TResponse>(config);
+                    break;
+                case RouteType.Update:
+                    instance.AddUpdate<TEntity, TResponse>(config);
+                    break;
+                case RouteType.UpdateRange:
+                    instance.AddUpdateRange<TEntity, TResponse>(config);
+                    break;
+                case RouteType.Delete:
+                    instance.AddDelete<TEntity, TResponse, TId>(config);
+                    break;
+                case RouteType.DeleteRange:
+                    instance.AddDeleteRange<TEntity, TResponse>(config);
+                    break;
+            }
+            
         }
 
-        if (active.Contains(RouteType.GetById)) {
-            group.MapGet("/{id}", async (IGenericService<TEntity, TResponse> sv, [AsParameters] EndpointParam<TId> parameters, CancellationToken cancellationToken = default) =>
-            await sv.GetByIdAsync(parameters.Id, spec, cancellationToken)
-            ).WithName($"Get{name}ById");
-        }
-
-        if (defaults) return group;
-
-        // Create item
-        if (active.Contains(RouteType.Create)) {
-            group.MapPost(String.Empty, async (IGenericService<TEntity, TResponse> sv, TEntity value, CancellationToken cancellationToken = default) =>
-                    await sv.CreateAsync(value, cancellationToken))
-                .WithName($"Create{name}");
-        }
-
-        // Create range items
-        if (active.Contains(RouteType.CreateRange)) {
-            group.MapPost("/range", async (IGenericService<TEntity, TResponse> sv, IEnumerable<TEntity> values, CancellationToken cancellationToken = default) =>
-                    await sv.CreateRangeAsync(values, cancellationToken))
-                .WithName($"CreateRange{name}");
-        }
-
-        // Update item
-        if (active.Contains(RouteType.Update)) {
-            group.MapPut(String.Empty, async (IGenericService<TEntity, TResponse> sv, TEntity value, CancellationToken cancellationToken = default) =>
-                    await sv.UpdateAsync(value, spec, cancellationToken))
-                .WithName($"Update{name}");
-        }
-
-        // Update range items
-        if (active.Contains(RouteType.UpdateRange)) {
-            group.MapPut("/range", async (IGenericService<TEntity, TResponse> sv, IEnumerable<TEntity> values, CancellationToken cancellationToken = default) =>
-                    await sv.UpdateRangeAsync(values, spec, cancellationToken))
-                .WithName($"UpdateRange{name}");
-        }
-
-        // Delete item by id
-        if (active.Contains(RouteType.Delete)) {
-            group.MapDelete("/{id}", async (IGenericService<TEntity, TResponse> sv, [AsParameters] EndpointParam<TId> parameters, CancellationToken cancellationToken = default) =>
-                await sv.DeleteAsync(parameters.Id, spec, cancellationToken))
-            .WithName($"Delete{name}");
-        }
-
-        // Delete range items
-        if (active.Contains(RouteType.DeleteRange)) {
-            group.MapDelete("/range", async (IGenericService<TEntity, TResponse> sv, IEnumerable<TEntity> values, CancellationToken cancellationToken = default) =>
-                    await sv.DeleteRangeAsync(values, spec, cancellationToken))
-                .WithName($"DeleteRange{name}");
-        }
-
-        return group;
+        return instance.Endpoints;
     }
+
+    protected static IEndpointRouteBuilder SetupGroup<TAFeature, TEntity, TId>(IEndpointRouteBuilder endpoints, FeatureState? state = null)
+        where TAFeature : GenericFeature<TFeature>
+        where TEntity : class, IAggregateRoot, IResponse
+        where TId : notnull =>
+        SetupGroup<TAFeature, TEntity, TEntity, TId>(endpoints, state);
 }

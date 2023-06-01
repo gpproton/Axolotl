@@ -10,12 +10,46 @@
 
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using Proton.Common.EFCore.Interfaces;
 
 namespace Proton.Common.AspNet.Feature;
 
-public abstract partial class GenericFeature : IFeature {
+public abstract partial class GenericFeature<TFeature> : IFeature where  TFeature : new() {
+    private IEndpointRouteBuilder? Endpoints { get; set; }
+    
     public virtual IServiceCollection RegisterModule(IServiceCollection services) => services;
 
     public abstract IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
-    
+
+    protected GenericFeature<TFeature> AddGetAll<TEntity>(RouteState state) where TEntity : IAggregateRoot {
+        throw new NotImplementedException();
+    }
+
+    protected GenericFeature<TFeature> AddGetById<TEntity, TId>(RouteState state) where TEntity : IAggregateRoot where TId : notnull {
+        throw new NotImplementedException();
+    }
+
+    protected GenericFeature<TFeature> AddCreate<TEntity>(RouteState state) where TEntity : IAggregateRoot {
+        throw new NotImplementedException();
+    }
+
+    protected GenericFeature<TFeature> AddCreateRange<TEntity>(RouteState state) where TEntity : IAggregateRoot {
+        throw new NotImplementedException();
+    }
+
+    protected GenericFeature<TFeature> AddUpdate<TEntity>(RouteState state) where TEntity : IAggregateRoot {
+        throw new NotImplementedException();
+    }
+
+    protected GenericFeature<TFeature> AddUpdateRange<TEntity>(RouteState state) where TEntity : IAggregateRoot {
+        throw new NotImplementedException();
+    }
+
+    protected GenericFeature<TFeature> AddDelete<TEntity, TId>(RouteState state) where TEntity : IAggregateRoot where TId : notnull {
+        throw new NotImplementedException();
+    }
+
+    protected GenericFeature<TFeature> AddDeleteRange<TEntity>(RouteState state) where TEntity : IAggregateRoot {
+        throw new NotImplementedException();
+    }
 }

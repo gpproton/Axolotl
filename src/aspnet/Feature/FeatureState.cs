@@ -11,7 +11,8 @@
 namespace Proton.Common.AspNet.Feature;
 
 public record FeatureState(
-    Dictionary<string, RouteState> State,
+    List<RouteState> State,
     string? Path = null,
-    string? Name = null
+    string? Name = null,
+    string Root = "/api/v1"
 );
