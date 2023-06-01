@@ -18,33 +18,33 @@ namespace Proton.Common.AspNet.Service;
 public sealed class GenericService<TEntity>(IRepository<TEntity> repo, IGenericService<TEntity, TEntity> root) :
     IGenericService<TEntity> where TEntity : class, IAggregateRoot, IResponse {
 
-    public async Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter, Type? type) =>
-        await root.GetAllAsync(filter, type);
+    public async Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter, Type? type, CancellationToken cancellationToken = default) =>
+        await root.GetAllAsync(filter, type, cancellationToken);
 
-    public async Task<Response<TEntity?>> GetByIdAsync<TId>(TId id) where TId : notnull =>
-        await root.GetByIdAsync(id);
+    public async Task<Response<TEntity?>> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull =>
+        await root.GetByIdAsync(id, cancellationToken);
 
-    public async Task<Response<TEntity>> CreateAsync(TEntity value) =>
-        await root.CreateAsync(value);
+    public async Task<Response<TEntity>> CreateAsync(TEntity value, CancellationToken cancellationToken = default) =>
+        await root.CreateAsync(value, cancellationToken);
 
-    public async Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values) =>
-        await root.CreateRangeAsync(values);
+    public async Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values, CancellationToken cancellationToken = default) =>
+        await root.CreateRangeAsync(values, cancellationToken);
 
-    public async Task<Response<TEntity>> UpdateAsync(TEntity value) =>
-        await root.UpdateAsync(value);
+    public async Task<Response<TEntity>> UpdateAsync(TEntity value, CancellationToken cancellationToken = default) =>
+        await root.UpdateAsync(value, cancellationToken);
 
-    public async Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values) =>
-        await root.UpdateRangeAsync(values);
+    public async Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values, CancellationToken cancellationToken = default) =>
+        await root.UpdateRangeAsync(values, cancellationToken);
 
-    public async Task<Response<TEntity?>> DeleteAsync<TId>(TId id) where TId : notnull =>
-        await root.DeleteAsync(id);
+    public async Task<Response<TEntity?>> DeleteAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull =>
+        await root.DeleteAsync(id, cancellationToken);
 
-    public async Task<PagedResponse<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> values) {
+    public async Task<PagedResponse<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> values, CancellationToken cancellationToken = default) {
         IEnumerable<TEntity> aggregateRoots = values.ToList();
-        await repo.DeleteRangeAsync(aggregateRoots);
+        await repo.DeleteRangeAsync(aggregateRoots, cancellationToken);
 
         return new PagedResponse<TEntity>(aggregateRoots);
     }
 
-    public async Task ClearAsync() => await root.ClearAsync();
+    public async Task ClearAsync(CancellationToken cancellationToken = default) => await root.ClearAsync(cancellationToken);
 }
