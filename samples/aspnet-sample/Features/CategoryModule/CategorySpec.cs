@@ -19,8 +19,8 @@ public sealed class CategorySpec : Specification<Category> {
         var search = filter.Search ?? string.Empty;
         var text = search.ToLower().Split(" ").ToList().Select(x => x);
         
-        Query.AsNoTracking()
-            .Where(x =>  x.Name != String.Empty && x.Name.Length > 3 && text.Any(p => EF.Functions.Like(x.Name.ToLower(), $"%" + p + "%")))
+        Query.Where(x =>  x.Name != String.Empty && x.Name.Length > 3 && text.Any(p => EF.Functions.Like(x.Name.ToLower(), $"%" + p + "%")))
+            .AsNoTracking()
             .OrderBy(b => b.Name);
     }
 }
