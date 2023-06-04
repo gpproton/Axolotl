@@ -13,6 +13,7 @@
   <Import Project="..\..\Common.props" />
 
   <ItemGroup>
+    <PackageReference Include="Ardalis.SmartEnum.EFCore" />
     <PackageReference Include="Ardalis.Specification" />
     <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
     <PackageReference Include="EFCore.BulkExtensions" />
