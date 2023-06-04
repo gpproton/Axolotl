@@ -13,3 +13,5 @@ namespace Proton.Common.AspNet.Feature;
 internal sealed class EndpointParam<TId> where TId : notnull {
     public TId Id { get; set; } = default!;
 }
+
+public abstract class EndpointObject<TObject> where TObject : new() { }
