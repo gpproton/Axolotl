@@ -16,7 +16,6 @@ namespace Proton.Common.EFCore.Repository;
 
   public interface IRepository<TEntity> : 
     IReadRepository<TEntity>,
-    IReadRepositoryBase<TEntity>,
     IRepositoryBase<TEntity>
     where TEntity : class, IAggregateRoot, IHasKey
   {
@@ -25,7 +24,7 @@ namespace Proton.Common.EFCore.Repository;
       new Task<TEntity?> DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
       Task<TEntity?> DeleteAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull;
       new Task<IEnumerable<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
-      Task<IEnumerable<TEntity>> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull;
+      Task<int> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull;
       Task<IEnumerable<TEntity>> DeleteBySpec(ISpecification<TEntity> specification, CancellationToken cancellationToken = default);
       Task ClearAsync(CancellationToken cancellationToken = default);
   }

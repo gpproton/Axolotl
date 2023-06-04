@@ -28,7 +28,7 @@ public interface IGenericService<TEntity, TResponse>
     Task<Response<TResponse>> UpdateAsync(IResponse value, CancellationToken cancellationToken = default);
     Task<PagedResponse<TResponse>> UpdateRangeAsync(IEnumerable<IResponse> values, CancellationToken cancellationToken = default);
     Task<Response<TResponse?>> DeleteAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull;
-    Task<PagedResponse<TResponse>> DeleteRangeAsync<TId>(IEnumerable<TId> values, CancellationToken cancellationToken = default) where TId : notnull;
+    Task<Response<int>> DeleteRangeAsync<TId>(IEnumerable<TId> values, CancellationToken cancellationToken = default) where TId : notnull;
     Task<PagedResponse<TResponse>> DeleteBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class;
     Task ClearAsync(CancellationToken cancellationToken = default);
 }

@@ -17,6 +17,8 @@ namespace Proton.Common.EFCore.Base;
 public abstract class BaseEntity<TKey> : CoreEntity, IHasKey<TKey> where TKey : notnull {
     [Key]
     [Column(Order=1)]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Display(AutoGenerateField = false)]
     public TKey Id { get; set; } = default!;
 
     object IHasKey.Id {

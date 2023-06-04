@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup>
         <Title>Proton.Common</Title>
-        <Version>8.0-preview.5</Version>
+        <Version>8.0-preview.6</Version>
         <Authors>radioActive DROID</Authors>
         <Description>Personal shared utility library</Description>
         <RepositoryType>git</RepositoryType>

@@ -14,6 +14,7 @@
     <!-- EFCore packages -->
     <ItemGroup>
         <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="$(ArdalisVersion)" />
+        <PackageVersion Include="EFCore.BulkExtensions" Version="7.1.2" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfcoreVersion)" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EfcoreVersion)" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfcoreVersion)" />
@@ -28,6 +29,7 @@
     <ItemGroup>
         <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="$(AspCoreVersion)" />
         <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+        <PackageVersion Include="CoreAdmin" Version="2.7.0" />
     </ItemGroup>
 
     <!-- Test packages -->

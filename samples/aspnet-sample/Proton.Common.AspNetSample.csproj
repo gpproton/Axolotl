@@ -8,6 +8,7 @@
   <Import Project="..\Sample.props" />
 
   <ItemGroup>
+    <PackageReference Include="CoreAdmin" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Swashbuckle.AspNetCore" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
