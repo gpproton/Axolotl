@@ -8,7 +8,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Proton.Common.AspNet.Helpers;
@@ -22,7 +21,7 @@ namespace Proton.Common.AspNet.Service;
 
 public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
     IGenericService<TEntity, TResponse> 
-    where TEntity : class, IAggregateRoot
+    where TEntity : class, IAggregateRoot, IHasKey, IResponse
     where TResponse : class, IResponse {
     public async Task<PagedResponse<TResponse>> GetAllAsync(IPageFilter? filter, Type? spec = null, CancellationToken cancellationToken = default) {
         var check = new PageFilter {
@@ -46,11 +45,19 @@ public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
         return new PagedResponse<TResponse>(output, page, size, count);
     }
 
-    public async Task<Response<TResponse?>> GetByIdAsync<TId>(TId id, Type? spec = null, CancellationToken cancellationToken = default) where TId : notnull {
+    public async Task<Response<TResponse?>> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull {
         var result = await repo.GetByIdAsync(id, cancellationToken);
         var output = result.MapTo<TResponse?>();
         
         return new Response<TResponse?>(output);
+    }
+
+    public async Task<PagedResponse<TResponse>> GetBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class {
+        var specification = GenerateSpec.Build<TEntity>(spec, option);
+        var result = await repo.GetBySpec(specification, cancellationToken);
+        var output = result.MapTo<List<TResponse>>();
+
+        return new PagedResponse<TResponse>(output);
     }
 
     public async Task<Response<TResponse>> CreateAsync(IResponse value, CancellationToken cancellationToken = default) {
@@ -61,41 +68,46 @@ public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
     }
 
     public async Task<PagedResponse<TResponse>> CreateRangeAsync(IEnumerable<IResponse> values, CancellationToken cancellationToken = default) {
-        var convertedValues = values.MapTo<IEnumerable<TEntity>>();
-        var result = await repo.AddRangeAsync(convertedValues, cancellationToken);
+        var converted = values.MapTo<IEnumerable<TEntity>>().ToList();
+        var result = await repo.AddRangeAsync(converted, cancellationToken);
         var output = result.MapTo<IEnumerable<TResponse>>();
         
         return new PagedResponse<TResponse>(output);
     }
 
-    public async Task<Response<TResponse>> UpdateAsync(IResponse value, Type? spec = null, CancellationToken cancellationToken = default) {
-        await repo.UpdateAsync(value.MapTo<TEntity>(), cancellationToken);
+    public async Task<Response<TResponse>> UpdateAsync(IResponse value, CancellationToken cancellationToken = default) {
+        var result = await repo.UpdateAsync(value.MapTo<TEntity>(), cancellationToken);
+        var output = result.MapTo<TResponse>();
         
-        return new Response<TResponse>((TResponse?)value);
+        return new Response<TResponse>(output);
     }
 
-    public async Task<PagedResponse<TResponse>> UpdateRangeAsync(IEnumerable<IResponse> values, Type? spec = null, CancellationToken cancellationToken = default) {
-        var valueConverted = values.MapTo<IEnumerable<TEntity>>();
-        var valueAggregate = valueConverted.ToList();
-        await repo.UpdateRangeAsync(valueAggregate, cancellationToken);
-        var output = valueAggregate.MapTo<IEnumerable<TResponse>>();
+    public async Task<PagedResponse<TResponse>> UpdateRangeAsync(IEnumerable<IResponse> values, CancellationToken cancellationToken = default) {
+        var converted = values.MapTo<IEnumerable<TEntity>>().ToList();
+        var result = await repo.UpdateRangeAsync(converted, cancellationToken);
+        var output = result.MapTo<IEnumerable<TResponse>>();
         
         return new PagedResponse<TResponse>(output);
     }
 
-    public async Task<Response<TResponse?>> DeleteAsync<TId>(TId id, Type? spec = null, CancellationToken cancellationToken = default) where TId : notnull {
-        var item = await repo.GetByIdAsync(id, cancellationToken);
-        if (item is not null) await repo.DeleteAsync(item, cancellationToken);
-        var output = item.MapTo<TResponse>();
+    public async Task<Response<TResponse?>> DeleteAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull {
+        var result = await repo.DeleteAsync(id, cancellationToken);
+        var output = result.MapTo<TResponse?>();
         
-        return new Response<TResponse?>(output, "", item != null);
+        return new Response<TResponse?>(output, "", result != null);
     }
 
-    public async Task<PagedResponse<TResponse>> DeleteRangeAsync(IEnumerable<IResponse> values, Type? spec = null, CancellationToken cancellationToken = default) {
-        var valueConverted = values.MapTo<IEnumerable<TEntity>>();
-        var valueAggregate = valueConverted.ToList();
-        await repo.DeleteRangeAsync(valueAggregate, cancellationToken);
-        var output = valueAggregate.MapTo<IEnumerable<TResponse>>();
+    public async Task<PagedResponse<TResponse>> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull {
+        var result = await repo.DeleteRangeAsync(ids, cancellationToken);
+        var output = result.MapTo<IEnumerable<TResponse>>();
+        
+        return new PagedResponse<TResponse>(output);
+    }
+
+    public async Task<PagedResponse<TResponse>> DeleteBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class {
+        var specification = GenerateSpec.Build<TEntity>(spec, option);
+        var result = await repo.DeleteBySpec(specification, cancellationToken);
+        var output = result.MapTo<IEnumerable<TResponse>>();
         
         return new PagedResponse<TResponse>(output);
     }

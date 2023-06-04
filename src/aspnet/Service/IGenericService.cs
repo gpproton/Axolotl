@@ -17,12 +17,14 @@ namespace Proton.Common.AspNet.Service;
 
 public interface IGenericService<TEntity> where TEntity : class, IAggregateRoot, IResponse {
     Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter, Type? spec = null, CancellationToken cancellationToken = default);
-    Task<Response<TEntity?>> GetByIdAsync<TId>(TId id, Type? spec = null, CancellationToken cancellationToken = default) where TId : notnull;
+    Task<Response<TEntity?>> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull;
+    Task<PagedResponse<TEntity>> GetBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class;
     Task<Response<TEntity>> CreateAsync(TEntity value, CancellationToken cancellationToken = default);
     Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values, CancellationToken cancellationToken = default);
-    Task<Response<TEntity>> UpdateAsync(TEntity value, Type? spec = null, CancellationToken cancellationToken = default);
-    Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values, Type? spec = null, CancellationToken cancellationToken = default);
-    Task<Response<TEntity?>> DeleteAsync<TId>(TId id, Type? spec = null, CancellationToken cancellationToken = default) where TId : notnull;
-    Task<PagedResponse<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> values, Type? spec = null, CancellationToken cancellationToken = default);
+    Task<Response<TEntity>> UpdateAsync(TEntity value, CancellationToken cancellationToken = default);
+    Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values, CancellationToken cancellationToken = default);
+    Task<Response<TEntity?>> DeleteAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull;
+    Task<PagedResponse<TEntity>> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull;
+    Task<PagedResponse<TEntity>> DeleteBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class;
     Task ClearAsync(CancellationToken cancellationToken = default);
 }

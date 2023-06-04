@@ -19,12 +19,14 @@ public interface IGenericService<TEntity, TResponse>
     where TEntity : class, IAggregateRoot
     where TResponse : class, IResponse {
     Task<PagedResponse<TResponse>> GetAllAsync(IPageFilter? filter, Type? spec = null, CancellationToken cancellationToken = default);
-    Task<Response<TResponse?>> GetByIdAsync<TId>(TId id, Type? spec = null, CancellationToken cancellationToken = default) where TId : notnull;
+    Task<Response<TResponse?>> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull;
+    Task<PagedResponse<TResponse>> GetBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class;
     Task<Response<TResponse>> CreateAsync(IResponse value, CancellationToken cancellationToken = default);
     Task<PagedResponse<TResponse>> CreateRangeAsync(IEnumerable<IResponse> values, CancellationToken cancellationToken = default);
-    Task<Response<TResponse>> UpdateAsync(IResponse value, Type? spec = null, CancellationToken cancellationToken = default);
-    Task<PagedResponse<TResponse>> UpdateRangeAsync(IEnumerable<IResponse> values, Type? spec = null, CancellationToken cancellationToken = default);
-    Task<Response<TResponse?>> DeleteAsync<TId>(TId id, Type? spec = null, CancellationToken cancellationToken = default) where TId : notnull;
-    Task<PagedResponse<TResponse>> DeleteRangeAsync(IEnumerable<IResponse> values, Type? spec = null, CancellationToken cancellationToken = default);
+    Task<Response<TResponse>> UpdateAsync(IResponse value, CancellationToken cancellationToken = default);
+    Task<PagedResponse<TResponse>> UpdateRangeAsync(IEnumerable<IResponse> values, CancellationToken cancellationToken = default);
+    Task<Response<TResponse?>> DeleteAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull;
+    Task<PagedResponse<TResponse>> DeleteRangeAsync<TId>(IEnumerable<TId> values, CancellationToken cancellationToken = default) where TId : notnull;
+    Task<PagedResponse<TResponse>> DeleteBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class;
     Task ClearAsync(CancellationToken cancellationToken = default);
 }
