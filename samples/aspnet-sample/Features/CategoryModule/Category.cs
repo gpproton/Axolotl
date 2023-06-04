@@ -15,5 +15,6 @@ namespace Proton.Common.AspNetSample.Features.CategoryModule;
 
 public class Category : AuditableEntity<Guid> {
     public string Name { get; set; } = null!;
-    public virtual ICollection<Post>? Type { get; set; }
+    public virtual ICollection<Post>? Posts { get; set; }
+    public override string ToString() => Name;
 }

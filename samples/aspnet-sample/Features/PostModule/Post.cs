@@ -8,6 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System.ComponentModel.DataAnnotations;
 using Proton.Common.AspNetSample.Features.CategoryModule;
 using Proton.Common.AspNetSample.Features.TagModule;
 using Proton.Common.EFCore.Base;
@@ -16,6 +17,9 @@ namespace Proton.Common.AspNetSample.Features.PostModule;
 
 public sealed class Post : AuditableEntity<Guid> {
     public string Title { get; set; } = null!;
-    public Category Category { get; set; } = null!;
-    public ICollection<Tag> Tags { get; set; } = null!;
+    public Category? Category { get; set; }
+    [Display(AutoGenerateField = false)]
+    public Guid? CategoryId { get; set; }
+    public ICollection<Tag>? Tags { get; set; }
+    public override string ToString() => Title;
 }

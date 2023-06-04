@@ -15,5 +15,6 @@ namespace Proton.Common.AspNetSample.Features.TagModule;
 
 public class Tag : BaseEntity<Guid> {
     public string Name { get; set; } = null!;
-    public ICollection<Post> Posts { get; set; } = null!;
+    public ICollection<Post>? Posts { get; set; }
+    public override string ToString() => Name;
 }
