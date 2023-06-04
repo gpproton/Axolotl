@@ -9,6 +9,7 @@
 // limitations under the License.
 
 using System.Reflection;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.Json;
@@ -46,9 +47,27 @@ public static class ServiceCollectionExtensions {
     }
 
     public static IServiceCollection RegisterGenericServices(this IServiceCollection services) {
-        services.Configure<JsonOptions>(options => {
+        Action<JsonOptions> jsonOptions = options => {
             options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-        });
+            options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
+
+            var jsonConverters =
+                AppDomain.CurrentDomain
+                    .GetAssemblies()
+                    .Where(x => !x.IsDynamic)
+                    .SelectMany(x => x.ExportedTypes)
+                    .Where(x => x.BaseType != null)
+                    .Where(x => x.BaseType!.IsGenericType)
+                    .Where(x => x.BaseType!.BaseType == typeof(JsonConverter));
+
+            foreach (var jsonConverter in jsonConverters)
+                if (Activator.CreateInstance(jsonConverter) is JsonConverter instance)
+                    options.SerializerOptions.Converters.Add(instance);
+        };
+        
+        services.Configure(jsonOptions);
+        services.ConfigureHttpJsonOptions(jsonOptions);
+        
         services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
         services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
 
