@@ -23,4 +23,9 @@ public sealed class CategorySpec : Specification<Category> {
             .AsNoTracking()
             .OrderBy(b => b.Name);
     }
+
+    public CategorySpec(CategorySpecObject option) {
+        Query.Where(x => x.Name.Contains(option.Search))
+            .Take(option.Count);
+    }
 }

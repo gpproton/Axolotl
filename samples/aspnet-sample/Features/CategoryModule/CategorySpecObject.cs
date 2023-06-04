@@ -9,18 +9,10 @@
 // limitations under the License.
 
 using Proton.Common.AspNet.Feature;
-using Proton.Common.Enums;
 
-namespace Proton.Common.AspNetSample.Features.TagModule;
+namespace Proton.Common.AspNetSample.Features.CategoryModule;
 
-public class TagFeature : GenericFeature<TagFeature> {
-    public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
-        var state = new FeatureState(new List<RouteState> {
-            new (RouteType.GetAll),
-            new (RouteType.GetById),
-            new (RouteType.Create)
-        });
-
-        return SetupGroup<TagFeature, Tag, Guid>(endpoints, state);;
-    }
+public class CategorySpecObject : EndpointObject<CategorySpecObject> {
+    public string Search { get; set; } = String.Empty;
+    public int Count { get; set; }
 }

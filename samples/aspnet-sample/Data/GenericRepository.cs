@@ -13,6 +13,6 @@ using Proton.Common.EFCore.Repository;
 
 namespace Proton.Common.AspNetSample.Data;
 
-public class GenericRepository<T> : GenericBaseRepository<T, ServiceContext> where T : class, IAggregateRoot {
+public class GenericRepository<TEntity> : GenericBaseRepository<TEntity, ServiceContext> where TEntity : class, IAggregateRoot, IHasKey {
     public GenericRepository(ServiceContext context) : base(context) { }
 }

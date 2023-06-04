@@ -26,6 +26,12 @@ public class CategoryFeature : GenericFeature<CategoryFeature> {
             new (RouteType.DeleteRange)
         });
 
-        return SetupGroup<CategoryFeature, Category, Guid>(endpoints, state);
+        var group = SetupGroup<CategoryFeature, Category, Guid>(endpoints, state);
+        var options = new RouteState(RouteType.Any, typeof(CategorySpec));
+        
+        AddGetBySpec<Category, Category, CategorySpecObject>(group, options);
+        AddDeleteBySpec<Category, Category, CategorySpecObject>(group, options);
+
+        return GetEndpoints();
     }
 }
