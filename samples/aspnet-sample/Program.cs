@@ -33,7 +33,7 @@ builder.Services.AddCoreAdmin(new CoreAdminOptions {
         { 100, "100"},
         { 0, "All"}
     },
-    IgnoreEntityTypes = new List<Type>{ }
+    IgnoreEntityTypes = new List<Type> { }
 });
 
 var app = builder.Build();
@@ -46,12 +46,14 @@ app.UseHttpsRedirection();
 app.MapDefaultControllerRoute();
 app.UseRouting();
 app.UseStaticFiles();
+app.UseAuthorization();
 
 // Proton.Common app DI
 app.RegisterFeatureEndpoints();
 
 app.MapGet("/", () => "x").WithName("Default").WithTags("Root");
 app.UseCoreAdminCustomUrl("admin");
+app.UseCoreAdminCustomAuth((serviceProvider) => Task.FromResult(true));
 
 
 app.Run();

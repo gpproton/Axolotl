@@ -17,6 +17,8 @@ namespace Proton.Common.AspNetSample.Features.PostModule;
 
 public sealed class Post : AuditableEntity<Guid> {
     public string Title { get; set; } = null!;
+    [DataType("Markdown")]
+    public string Content { get; set; } = string.Empty;
     public Category? Category { get; set; }
     [Display(AutoGenerateField = false)]
     public Guid? CategoryId { get; set; }
