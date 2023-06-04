@@ -11,6 +11,7 @@
 namespace Proton.Common.Enums;
 
 public enum RouteType {
+    Any,
     GetAll,
     GetById,
     Create,
