@@ -10,7 +10,7 @@
 
 namespace Proton.Common.EFCore.Base;
 
-public abstract class ExtendedEntity<T> : AuditableEntity<T> {
+public abstract class ExtendedEntity<T> : AuditableEntity<T> where T : notnull {
     private Dictionary<string, Object> _attributes = new Dictionary<string, object>();
 
     public bool HasAttribute(string key) => _attributes.ContainsKey(key);

@@ -14,7 +14,4 @@ using Proton.Common.Response;
 
 namespace Proton.Common.EFCore.Base;
 
-public abstract class CoreEntity<TKey> : IHasKey<TKey>, IAggregateRoot, IResponse {
-    [Key]
-    public TKey Id { get; set; } = default!;
-}
+public abstract class CoreEntity : IAggregateRoot, IResponse { }
