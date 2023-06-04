@@ -1,0 +1,6 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@hostname=localhost
+@port=5106
+@root=api/v1
+
+GET http://{{hostname}}:{{port}}/{{root}}/category

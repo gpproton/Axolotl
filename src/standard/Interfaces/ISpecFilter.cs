@@ -8,12 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Ardalis.Specification;
+using Proton.Common.Filters;
 
-namespace Proton.Common.AspNet.Service;
+namespace Proton.Common.Interfaces;
 
-public sealed class GenericSpec<TEntity> : Specification<TEntity> {
-    public GenericSpec() {
-        Query.Where(x => true);
-    }
+public interface ISpecFilter {
+    public PageFilter Filter { get; set; }
 }

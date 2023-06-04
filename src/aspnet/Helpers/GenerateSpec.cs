@@ -11,13 +11,14 @@
 using Ardalis.Specification;
 using Proton.Common.AspNet.Service;
 using Proton.Common.EFCore.Interfaces;
+using Proton.Common.EFCore.Repository;
 
 namespace Proton.Common.AspNet.Helpers;
 
 public static class GenerateSpec {
-    public static Specification<TEntity> Build<TEntity>(Type? spec, params object[] param) where TEntity : IAggregateRoot {
+    public static ISpecification<TEntity> Build<TEntity>(Type? spec, params object[] param) where TEntity : IAggregateRoot {
         return spec == null ? 
             new GenericSpec<TEntity>() :
-            (Specification<TEntity>)Activator.CreateInstance(spec, param)!;
+            (ISpecification<TEntity>)Activator.CreateInstance(spec, param)!;
     }
 }

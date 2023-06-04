@@ -16,16 +16,26 @@ using Proton.Common.EFCore.Interfaces;
 
 namespace Proton.Common.EFCore.Repository;
 
-public abstract class GenericBaseRepository<TEntity, TContext> : RepositoryBase<TEntity>, IRepository<TEntity>
-    where TEntity : class, IAggregateRoot
+public abstract partial class GenericBaseRepository<TEntity, TContext> : RepositoryBase<TEntity>, IRepository<TEntity>
+    where TEntity : class, IAggregateRoot, IHasKey
     where TContext : DbContext {
     private readonly TContext _context;
+    
     protected GenericBaseRepository(TContext context) : base(context) => _context = context;
     public IQueryable<TEntity> GetAll(CancellationToken cancellationToken = default) =>
     _context.Set<TEntity>().AsQueryable();
     public IQueryable<TEntity> GetAll(ISpecification<TEntity> specification, CancellationToken cancellationToken = default) =>
     ApplySpecification(specification).AsQueryable();
+
+    public async Task<IEnumerable<TEntity>> GetBySpec(ISpecification<TEntity> specification,
+        CancellationToken cancellationToken = default) =>
+        await ApplySpecification(specification).AsNoTracking().ToListAsync(cancellationToken);
+
     public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> expression) => _context.Set<TEntity>().Where(expression);
+    
+    public IEnumerable<TEntity> Find(ISpecification<TEntity> specification, Expression<Func<TEntity, bool>> expression) =>
+        ApplySpecification(specification).Where(expression);
+
     public async Task<TEntity?> FirstOrDefaultAsync(CancellationToken cancellationToken = default) =>
     await _context.Set<TEntity>().FirstOrDefaultAsync(cancellationToken);
 
@@ -34,10 +44,4 @@ public abstract class GenericBaseRepository<TEntity, TContext> : RepositoryBase<
 
     public DbSet<TEntity> GetContext(CancellationToken cancellationToken = default) =>
         _context.Set<TEntity>();
-
-    public async Task ClearAsync(CancellationToken cancellationToken = default) {
-        var items = await _context.Set<TEntity>().ToListAsync(cancellationToken);
-        _context.Set<TEntity>().RemoveRange(items);
-        await SaveChangesAsync(cancellationToken);
-    }
 }

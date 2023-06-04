@@ -20,8 +20,7 @@ public class TagFeature : GenericFeature<TagFeature> {
             new (RouteType.GetById),
             new (RouteType.Create)
         });
-        var group = SetupGroup<TagFeature, Tag, Guid>(endpoints, state);
 
-        return group;
+        return SetupGroup<TagFeature, Tag, Guid>(endpoints, state);;
     }
 }

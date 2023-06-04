@@ -10,6 +10,12 @@
 
 namespace Proton.Common.EFCore.Interfaces;
 
-public interface IHasKey<T> {
-    T Id { get; set; }
+
+public interface IHasKey {
+    object Id { get; set; }
+}
+
+
+public interface IHasKey<TKey> : IHasKey where TKey : notnull {
+    new TKey Id { get; set; }
 }

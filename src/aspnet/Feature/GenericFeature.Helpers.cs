@@ -60,10 +60,9 @@ public abstract partial class GenericFeature<TFeature> where TFeature : new() {
                     instance.AddDelete<TEntity, TResponse, TId>(config);
                     break;
                 case RouteType.DeleteRange:
-                    instance.AddDeleteRange<TEntity, TResponse>(config);
+                    instance.AddDeleteRange<TEntity, TResponse, TId>(config);
                     break;
             }
-            
         }
 
         return instance.Endpoints;

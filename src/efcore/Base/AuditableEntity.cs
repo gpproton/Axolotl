@@ -13,7 +13,7 @@ using Proton.Common.EFCore.Interfaces;
 
 namespace Proton.Common.EFCore.Base;
 
-public abstract class AuditableEntity<TKey> : BaseEntity<TKey>, IAuditableEntity<TKey> {
+public abstract class AuditableEntity<TKey> : BaseEntity<TKey>, IAuditableEntity<TKey> where TKey : notnull {
     [JsonIgnore]
     public TKey? CreatedBy { get; set; }
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;

@@ -10,10 +10,15 @@
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Proton.Common.AspNet.Filters;
 using Proton.Common.AspNet.Service;
 using Proton.Common.EFCore.Interfaces;
+using Proton.Common.Interfaces;
 using Proton.Common.Response;
+
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace Proton.Common.AspNet.Feature;
 
@@ -37,9 +42,23 @@ public abstract partial class GenericFeature<TFeature> where  TFeature : new() {
             Endpoints.MapGet(state.Path ?? String.Empty + "/{id}",
                 async (IGenericService<TEntity, TResponse> sv, [AsParameters] EndpointParam<TId> parameters,
                         CancellationToken cancellationToken = default) =>
-                    await sv.GetByIdAsync(parameters.Id, state.Spec, cancellationToken)
+                    await sv.GetByIdAsync(parameters.Id, cancellationToken)
             ).WithName(name);
         }
+
+        return this;
+    }
+    
+    protected GenericFeature<TFeature> AddGetBySpec<TEntity, TResponse, TOption>(IEndpointRouteBuilder endpoints, RouteState state)
+        where TEntity : class, IAggregateRoot
+        where TResponse : class, IResponse
+        where TOption : class, ISpecFilter {
+        var name = state.Name ?? $"Get{typeof(TEntity).Name}BySpec";
+        endpoints.MapPost(state.Path ?? "/spec",
+                async (IGenericService<TEntity, TResponse> sv, [FromBody] TOption option,
+                        CancellationToken cancellationToken = default) =>
+                    await sv.GetBySpec(state.Spec!, option, cancellationToken))
+            .WithName(name);
 
         return this;
     }
@@ -61,7 +80,7 @@ public abstract partial class GenericFeature<TFeature> where  TFeature : new() {
         var name = state.Name ?? $"CreateRange{typeof(TEntity).Name}";
         if (Endpoints != null) {
             Endpoints.MapPost(state.Path ?? "/range",
-                    async (IGenericService<TEntity, TResponse> sv, IEnumerable<TResponse> values,
+                    async (IGenericService<TEntity, TResponse> sv, [FromBody] IEnumerable<TResponse> values,
                             CancellationToken cancellationToken = default) =>
                         await sv.CreateRangeAsync(values, cancellationToken))
                 .WithName(name);
@@ -76,7 +95,7 @@ public abstract partial class GenericFeature<TFeature> where  TFeature : new() {
             Endpoints.MapPut(state.Path ?? String.Empty,
                     async (IGenericService<TEntity, TResponse> sv, TResponse value,
                             CancellationToken cancellationToken = default) =>
-                        await sv.UpdateAsync(value, state.Spec, cancellationToken))
+                        await sv.UpdateAsync(value, cancellationToken))
                 .WithName(name);
         }
 
@@ -87,9 +106,9 @@ public abstract partial class GenericFeature<TFeature> where  TFeature : new() {
         var name = state.Name ?? $"UpdateRange{typeof(TEntity).Name}";
         if (Endpoints != null) {
             Endpoints.MapPut(state.Path ?? "/range",
-                    async (IGenericService<TEntity, TResponse> sv, IEnumerable<TResponse> values,
+                    async (IGenericService<TEntity, TResponse> sv, [FromBody] IEnumerable<TResponse> values,
                             CancellationToken cancellationToken = default) =>
-                        await sv.UpdateRangeAsync(values, state.Spec, cancellationToken))
+                        await sv.UpdateRangeAsync(values, cancellationToken))
                 .WithName(name);
         }
 
@@ -102,22 +121,39 @@ public abstract partial class GenericFeature<TFeature> where  TFeature : new() {
             Endpoints.MapDelete(state.Path ?? String.Empty + "/{id}",
                     async (IGenericService<TEntity, TResponse> sv, [AsParameters] EndpointParam<TId> parameters,
                             CancellationToken cancellationToken = default) =>
-                        await sv.DeleteAsync(parameters.Id, state.Spec, cancellationToken))
+                        await sv.DeleteAsync(parameters.Id, cancellationToken))
                 .WithName(name);
         }
 
         return this;
     }
 
-    protected GenericFeature<TFeature> AddDeleteRange<TEntity, TResponse>(RouteState state) where TEntity : class, IAggregateRoot where TResponse : class, IResponse {
+    protected GenericFeature<TFeature> AddDeleteRange<TEntity, TResponse, TId>(RouteState state)
+        where TEntity : class, IAggregateRoot
+        where TResponse : class, IResponse
+        where TId : notnull {
         var name = state.Name ?? $"DeleteRange{typeof(TEntity).Name}";
         if (Endpoints != null) {
             Endpoints.MapDelete(state.Path ?? "/range",
-                    async (IGenericService<TEntity, TResponse> sv, IEnumerable<TResponse> values,
+                    async (IGenericService<TEntity, TResponse> sv, [FromBody] IEnumerable<TId> ids,
                             CancellationToken cancellationToken = default) =>
-                        await sv.DeleteRangeAsync(values, state.Spec, cancellationToken))
+                        await sv.DeleteRangeAsync(ids, cancellationToken))
                 .WithName(name);
         }
+
+        return this;
+    }
+    
+    protected GenericFeature<TFeature> AddDeleteBySpec<TEntity, TResponse, TOption>(IEndpointRouteBuilder endpoints, RouteState state)
+        where TEntity : class, IAggregateRoot
+        where TResponse : class, IResponse
+        where TOption : class {
+        var name = state.Name ?? $"Delete{typeof(TEntity).Name}BySpec";
+        endpoints.MapDelete(state.Path ?? "/spec",
+                async (IGenericService<TEntity, TResponse> sv, [FromBody] TOption option,
+                        CancellationToken cancellationToken = default) =>
+                    await sv.DeleteBySpec(state.Spec!, option, cancellationToken))
+            .WithName(name);
 
         return this;
     }

@@ -8,19 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Proton.Common.EFCore.Interfaces;
+using Proton.Common.AspNet.Filters;
 
-namespace Proton.Common.EFCore.Base;
+namespace Proton.Common.AspNetSample.Features.CategoryModule;
 
-public abstract class BaseEntity<TKey> : CoreEntity, IHasKey<TKey> where TKey : notnull {
-    [Key]
-    [Column(Order=1)]
-    public TKey Id { get; set; } = default!;
-
-    object IHasKey.Id {
-        get => Id;
-        set => Id = (TKey)value;
-    }
+public sealed class CategorySpecFilter : SpecFilter {
+    
 }

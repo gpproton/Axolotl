@@ -34,7 +34,7 @@
 
     <PropertyGroup>
         <AspCoreVersion>8.0.0-preview.4.23260.4</AspCoreVersion>
-        <ArdalisVersion>6.1.0</ArdalisVersion>
+        <ArdalisVersion>7.0.0</ArdalisVersion>
         <DotnetVersion>8.0.0-preview.4.23259.5</DotnetVersion>
         <EfcoreVersion>8.0.0-preview.4.23259.3</EfcoreVersion>
         <NextendedVersion>7.0.22</NextendedVersion>
