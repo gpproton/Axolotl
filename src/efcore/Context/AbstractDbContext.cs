@@ -14,8 +14,6 @@ using Proton.Common.EFCore.Interfaces;
 namespace Proton.Common.EFCore.Context;
 
 public abstract class AbstractDbContext : DbContext {
-    private bool _;
-    
     protected AbstractDbContext() { }
     protected AbstractDbContext(DbContextOptions options) : base(options) { }
 
@@ -52,7 +50,8 @@ public abstract class AbstractDbContext : DbContext {
                         break;
                     case EntityState.Deleted:
                         entry.State = EntityState.Modified;
-                        _ = entry.References.All(e => e.IsModified = true);
+                        // ReSharper disable once UnusedVariable
+                        bool all = entry.References.All(e => e.IsModified = true);
                         entry.Property("CreatedAt").IsModified = false;
                         entry.Property("UpdatedAt").IsModified = false;
                         trackable.DeletedAt = utcNow;
