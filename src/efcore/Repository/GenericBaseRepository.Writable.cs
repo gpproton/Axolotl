@@ -39,11 +39,12 @@ public abstract partial class GenericBaseRepository<TEntity, TContext> where TEn
         return entity;
     }
 
-   
-
     public async Task<TEntity?> DeleteAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull {
         var item = await this.GetByIdAsync(id, cancellationToken);
-        if (item is not null) return await this.UpdateAsync(item, cancellationToken);
+        if (item is not null) {
+            _context.Set<TEntity>().Remove(item);
+            await SaveChangesAsync(cancellationToken);
+        }
 
         return item;
     }
