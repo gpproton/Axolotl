@@ -57,9 +57,8 @@ public abstract partial class GenericBaseRepository<TEntity, TContext> where TEn
         return deleteRangeAsync;
     }
 
-    public async Task<IEnumerable<TEntity>> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull {
-        var items = await _context.Set<TEntity>().Where(x => ids.Contains((TId)x.Id)).ToListAsync(cancellationToken);
-        _context.Set<TEntity>().RemoveRange(items);
+    public async Task<int> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull {
+        var items = await _context.Set<TEntity>().Where(x => ids.Contains((TId)x.Id)).ExecuteDeleteAsync(cancellationToken);
         await SaveChangesAsync(cancellationToken);
         
         return items;

@@ -47,7 +47,7 @@ public sealed class GenericService<TEntity>(IGenericService<TEntity, TEntity> ro
     public async Task<Response<TEntity?>> DeleteAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull =>
         await root.DeleteAsync(id, cancellationToken);
 
-    public async Task<PagedResponse<TEntity>> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull =>
+    public async Task<Response<int>> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull =>
         await root.DeleteRangeAsync(ids, cancellationToken);
 
     public async Task<PagedResponse<TEntity>> DeleteBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class =>

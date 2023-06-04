@@ -10,6 +10,8 @@
 
 using Microsoft.EntityFrameworkCore;
 using Proton.Common.AspNetSample.Features.CategoryModule;
+using Proton.Common.AspNetSample.Features.PostModule;
+using Proton.Common.AspNetSample.Features.TagModule;
 
 namespace Proton.Common.AspNetSample.Data;
 
@@ -23,7 +25,7 @@ public class MigrationService : BackgroundService {
     }
 
     protected override async Task ExecuteAsync(CancellationToken cancellationToken) {
-        _logger.LogInformation("Starting migration & seeding...");
+        _logger.LogInformation("Starting migration...");
         var sp = _scopeFactory.CreateScope().ServiceProvider;
         
         await using var context = sp.GetService<ServiceContext>();
@@ -31,17 +33,34 @@ public class MigrationService : BackgroundService {
         
         if (context.Database.IsRelational())
             await context.Database.MigrateAsync(cancellationToken);
+
+        using (var any = context.Posts.AnyAsync(cancellationToken)) {
+            if (!(await any)) {
+                _logger.LogInformation("Starting seeding...");
+                var tags = new List<Tag> {
+                    new() { Id = Guid.NewGuid(), Name = "tag-1" },
+                    new() { Id = Guid.NewGuid(), Name = "tag-2" },
+                    new() { Id = Guid.NewGuid(), Name = "tag-3" }
+                };
         
-        var anyCategory = await context.Categories.AnyAsync(cancellationToken);
-        if (!anyCategory) {
-            await context.Categories.AddRangeAsync(new List<Category> {
-                new() { Name = "test-1" },
-                new() { Name = "test-2" },
-                new() { Name = "test-3" }
-            }, cancellationToken);
+                var categories = new List<Category> {
+                    new() { Name = "category-1" },
+                    new() { Name = "category-2" },
+                    new() { Name = "category-3" }
+                };
+        
+                var posts = new List<Post> {
+                    new() { Title = "post-1", Content = "xx-xx-xx", Tags = new List<Tag> { tags[0], tags[1]} , Category = categories[0] },
+                    new() { Title = "post-2", Content = "xx-xx-xx", Tags = new List<Tag> { tags[2], tags[0]}, Category = categories[1] },
+                    new() { Title = "post-3", Content = "xx-xx-xx", Tags = new List<Tag> { tags[1], tags[2]}, Category = categories[2] }
+                };
+                
+                await context.Posts.AddRangeAsync(posts, cancellationToken);
+                await context.SaveChangesAsync(cancellationToken);
+                _logger.LogInformation("Completed seeding...");
+            }
         }
-        await context.SaveChangesAsync(cancellationToken);
-        
-        _logger.LogInformation("Completed migration & Seed process...");
+
+        _logger.LogInformation("Completed migration...");
     }
 }

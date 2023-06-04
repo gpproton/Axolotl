@@ -15,12 +15,10 @@ using Proton.Common.AspNetSample.Features.PostModule;
 using Proton.Common.AspNetSample.Features.TagModule;
 using Proton.Common.EFCore.Base;
 using Proton.Common.EFCore.Context;
-using Proton.Common.EFCore.Interfaces;
 
 namespace Proton.Common.AspNetSample.Data;
 
 public class ServiceContext : AbstractDbContext {
-    
     public ServiceContext() { }
 
     private static DbContextOptions<TContext> ChangeOptionsType<TContext>(DbContextOptions options) where TContext : DbContext

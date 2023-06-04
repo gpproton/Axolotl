@@ -98,11 +98,10 @@ public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
         return new Response<TResponse?>(output, "", result != null);
     }
 
-    public async Task<PagedResponse<TResponse>> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull {
+    public async Task<Response<int>> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull {
         var result = await repo.DeleteRangeAsync(ids, cancellationToken);
-        var output = result.MapTo<IEnumerable<TResponse>>();
         
-        return new PagedResponse<TResponse>(output);
+        return new Response<int>(result);
     }
 
     public async Task<PagedResponse<TResponse>> DeleteBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class {
