@@ -10,11 +10,17 @@
 
 namespace Proton.Common.EFCore.Interfaces;
 
-public interface IAuditableEntity<TKey> {
-    public TKey? CreatedBy { get; set; }
+public interface IAuditableEntity {
     public DateTimeOffset CreatedAt { get; set; }
-    public TKey? UpdatedBy { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
-    public TKey? DeletedBy { get; set; }
     public DateTimeOffset? DeletedAt { get; set; }
+}
+
+public interface IAuditableEntity<TKey> : IAuditableEntity {
+    public TKey? CreatedBy { get; set; }
+    public new DateTimeOffset CreatedAt { get; set; }
+    public TKey? UpdatedBy { get; set; }
+    public new DateTimeOffset? UpdatedAt { get; set; }
+    public TKey? DeletedBy { get; set; }
+    public new DateTimeOffset? DeletedAt { get; set; }
 }

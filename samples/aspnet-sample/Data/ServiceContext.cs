@@ -13,13 +13,28 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proton.Common.AspNetSample.Features.CategoryModule;
 using Proton.Common.AspNetSample.Features.PostModule;
 using Proton.Common.AspNetSample.Features.TagModule;
+using Proton.Common.EFCore.Base;
+using Proton.Common.EFCore.Context;
+using Proton.Common.EFCore.Interfaces;
 
 namespace Proton.Common.AspNetSample.Data;
 
-public class ServiceContext : DbContext {
-    public ServiceContext(DbContextOptions<ServiceContext> options) : base(options) { }
+public class ServiceContext : AbstractDbContext {
+    
+    public ServiceContext() { }
+
+    private static DbContextOptions<TContext> ChangeOptionsType<TContext>(DbContextOptions options) where TContext : DbContext
+        => (DbContextOptions<TContext>)options;
+    public ServiceContext(DbContextOptions<ServiceContext> options) : base(ChangeOptionsType<ServiceContext>(options)) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
+        base.OnModelCreating(modelBuilder);
+        
+        var entitiesAssembly = typeof (ServiceContext).Assembly;
+        modelBuilder.RegisterAllEntities<BaseEntity<Guid>>(entitiesAssembly);
+        modelBuilder.RegisterAllEntities<AuditableEntity<Guid>>(entitiesAssembly);
+        modelBuilder.RegisterSoftDeleteFilter();
+        
         if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite") {
             foreach (var entityType in modelBuilder.Model.GetEntityTypes()) {
                 var properties = entityType.ClrType.GetProperties()
