@@ -8,6 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using DotNetEd.CoreAdmin;
 using Proton.Common.AspNet;
 using Proton.Common.AspNetSample.Data;
 using Proton.Common.EFCore;
@@ -24,6 +25,16 @@ builder.Services.RegisterGenericServices();
 builder.Services.RegisterDataContext();
 builder.Services.RegisterGenericRepositories(typeof(GenericRepository<>));
 builder.Services.AddHostedService<MigrationService>();
+builder.Services.AddCoreAdmin(new CoreAdminOptions {
+    Title = "Sample Admin",
+    ShowPageSizes = true,
+    PageSizes = new Dictionary<int, string>() {
+        { 25, "25"},
+        { 100, "100"},
+        { 0, "All"}
+    },
+    IgnoreEntityTypes = new List<Type>{ }
+});
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment()) {
@@ -32,10 +43,15 @@ if (app.Environment.IsDevelopment()) {
 }
 
 app.UseHttpsRedirection();
+app.MapDefaultControllerRoute();
+app.UseRouting();
+app.UseStaticFiles();
 
 // Proton.Common app DI
 app.RegisterFeatureEndpoints();
 
 app.MapGet("/", () => "x").WithName("Default").WithTags("Root");
+app.UseCoreAdminCustomUrl("admin");
+
 
 app.Run();

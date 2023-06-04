@@ -28,6 +28,7 @@
     <ItemGroup>
         <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="$(AspCoreVersion)" />
         <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+        <PackageVersion Include="CoreAdmin" Version="2.7.0" />
     </ItemGroup>
 
     <!-- Test packages -->
