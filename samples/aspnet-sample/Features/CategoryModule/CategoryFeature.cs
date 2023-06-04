@@ -29,7 +29,7 @@ public class CategoryFeature : GenericFeature<CategoryFeature> {
         var group = SetupGroup<CategoryFeature, Category, Guid>(endpoints, state);
         var options = new RouteState(RouteType.Any, typeof(CategorySpec));
         
-        AddGetBySpec<Category, Category, CategorySpecObject>(group, options);
+        AddGetBySpec<Category, Category, CategorySpecFilter>(group, options);
         AddDeleteBySpec<Category, Category, CategorySpecObject>(group, options);
 
         return GetEndpoints();

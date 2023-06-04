@@ -8,6 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Ardalis.Specification;
 using Proton.Common.EFCore.Interfaces;
 using Proton.Common.Interfaces;
 using Proton.Common.Response;
@@ -16,6 +17,10 @@ namespace Proton.Common.AspNet.Service;
 
 public sealed class GenericService<TEntity>(IGenericService<TEntity, TEntity> root) :
     IGenericService<TEntity> where TEntity : class, IAggregateRoot, IHasKey, IResponse {
+    public Task<PagedResponse<TEntity>> PageFilter(ISpecification<TEntity> specification, int? checkPage,
+        int? checkSize,
+        CancellationToken cancellationToken = default) =>
+        root.PageFilter(specification, checkPage, checkSize, cancellationToken);
 
     public async Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter, Type? spec, CancellationToken cancellationToken = default) =>
         await root.GetAllAsync(filter, spec, cancellationToken);
@@ -24,7 +29,7 @@ public sealed class GenericService<TEntity>(IGenericService<TEntity, TEntity> ro
         await root.GetByIdAsync(id, cancellationToken);
 
     public async Task<PagedResponse<TEntity>> GetBySpec<TOption>(Type spec, TOption option,
-        CancellationToken cancellationToken = default) where TOption : class =>
+        CancellationToken cancellationToken = default) where TOption : class, ISpecFilter =>
         await root.GetBySpec(spec, option, cancellationToken);
 
     public async Task<Response<TEntity>> CreateAsync(TEntity value, CancellationToken cancellationToken = default) =>

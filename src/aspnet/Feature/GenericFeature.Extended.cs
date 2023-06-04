@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Routing;
 using Proton.Common.AspNet.Filters;
 using Proton.Common.AspNet.Service;
 using Proton.Common.EFCore.Interfaces;
+using Proton.Common.Interfaces;
 using Proton.Common.Response;
 
 // ReSharper disable MemberCanBePrivate.Global
@@ -51,10 +52,10 @@ public abstract partial class GenericFeature<TFeature> where  TFeature : new() {
     protected GenericFeature<TFeature> AddGetBySpec<TEntity, TResponse, TOption>(IEndpointRouteBuilder endpoints, RouteState state)
         where TEntity : class, IAggregateRoot
         where TResponse : class, IResponse
-        where TOption : class {
+        where TOption : class, ISpecFilter {
         var name = state.Name ?? $"Get{typeof(TEntity).Name}BySpec";
-        endpoints.MapGet(state.Path ?? "/spec",
-                async (IGenericService<TEntity, TResponse> sv, [AsParameters] TOption option,
+        endpoints.MapPost(state.Path ?? "/spec",
+                async (IGenericService<TEntity, TResponse> sv, [FromBody] TOption option,
                         CancellationToken cancellationToken = default) =>
                     await sv.GetBySpec(state.Spec!, option, cancellationToken))
             .WithName(name);

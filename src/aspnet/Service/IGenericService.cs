@@ -16,9 +16,11 @@ using Proton.Common.Response;
 namespace Proton.Common.AspNet.Service;
 
 public interface IGenericService<TEntity> where TEntity : class, IAggregateRoot, IResponse {
+    Task<PagedResponse<TEntity>> PageFilter(ISpecification<TEntity> specification, int? checkPage, int? checkSize,
+        CancellationToken cancellationToken = default);
     Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter, Type? spec = null, CancellationToken cancellationToken = default);
     Task<Response<TEntity?>> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull;
-    Task<PagedResponse<TEntity>> GetBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class;
+    Task<PagedResponse<TEntity>> GetBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class, ISpecFilter;
     Task<Response<TEntity>> CreateAsync(TEntity value, CancellationToken cancellationToken = default);
     Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values, CancellationToken cancellationToken = default);
     Task<Response<TEntity>> UpdateAsync(TEntity value, CancellationToken cancellationToken = default);

@@ -23,7 +23,7 @@ public abstract partial class GenericBaseRepository<TEntity, TContext> where TEn
 
         return entity;
     }
-
+    
     public override async Task<IEnumerable<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default) {
         IEnumerable<TEntity> updateRangeAsync = entities.ToList();
         _context.Set<TEntity>().UpdateRange(updateRangeAsync);

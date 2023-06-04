@@ -23,6 +23,10 @@ public sealed class CategorySpec : Specification<Category> {
             .AsNoTracking()
             .OrderBy(b => b.Name);
     }
+    
+    public CategorySpec(CategorySpecFilter option) {
+        Query.Where(x => x.Name.Contains(option.Filter.Search!));
+    }
 
     public CategorySpec(CategorySpecObject option) {
         Query.Where(x => x.Name.Contains(option.Search))
