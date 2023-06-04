@@ -10,20 +10,25 @@
 
 using System.Linq.Expressions;
 using Ardalis.Specification;
+using Microsoft.EntityFrameworkCore;
 using Proton.Common.EFCore.Interfaces;
 
 namespace Proton.Common.EFCore.Repository;
 
-public interface IReadRepository<T> : IReadRepositoryBase<T> where T : class, IAggregateRoot {
+public interface IReadRepository<TEntity> : IReadRepositoryBase<TEntity> where TEntity : class, IAggregateRoot {
+    IQueryable<TEntity> GetQueryable(CancellationToken cancellationToken = default (CancellationToken));
+
+    DbSet<TEntity> GetContext(CancellationToken cancellationToken = default (CancellationToken));
+    
     /// <summary>
     /// Returns the all element of a sequence, or a default value if the sequence contains no elements.
     /// </summary>
     /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The IQueryable result contains the <typeparamref name="T" />, or <see langword="null"/>.
+    /// The IQueryable result contains the <typeparamref name="TEntity" />, or <see langword="null"/>.
     /// </returns>
-    IQueryable<T> GetAll(CancellationToken cancellationToken = default);
+    IQueryable<TEntity> GetAll(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns the all element of a sequence, or a default value if the sequence contains no elements.
@@ -32,9 +37,11 @@ public interface IReadRepository<T> : IReadRepositoryBase<T> where T : class, IA
     /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The IQueryable result contains the <typeparamref name="T>" />, or <see langword="null"/>.
+    /// The IQueryable result contains the <typeparamref name="TEntity" />, or <see langword="null"/>.
     /// </returns>
-    IQueryable<T> GetAll(ISpecification<T> specification, CancellationToken cancellationToken = default);
+    IQueryable<TEntity> GetAll(ISpecification<TEntity> specification, CancellationToken cancellationToken = default);
+    
+    Task<IEnumerable<TEntity>> GetBySpec(ISpecification<TEntity> specification, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns the all element of a sequence, or a default value if the sequence contains no elements.
@@ -42,9 +49,9 @@ public interface IReadRepository<T> : IReadRepositoryBase<T> where T : class, IA
     /// <param name="expression">The Linq expression for query.</param>
     /// <returns>
     /// A task that represents the asynchronous operation.
-    /// The sequence result contains the <typeparamref name="T" />, or <see langword="null"/>.
+    /// The sequence result contains the <typeparamref name="TEntity" />, or <see langword="null"/>.
     /// </returns>
-    IEnumerable<T> Find(Expression<Func<T, bool>> expression);
+    IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> expression);
 
     /// <summary>
     /// Returns the first element of a sequence, or a default value if the sequence contains no elements.
@@ -54,5 +61,5 @@ public interface IReadRepository<T> : IReadRepositoryBase<T> where T : class, IA
     /// A task that represents the asynchronous operation.
     /// The task result contains the <typeparamref name="T?" />, or <see langword="null"/>.
     /// </returns>
-    Task<T?> FirstOrDefaultAsync(CancellationToken cancellationToken = default);
+    Task<TEntity?> FirstOrDefaultAsync(CancellationToken cancellationToken = default);
 }

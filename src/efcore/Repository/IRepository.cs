@@ -9,13 +9,23 @@
 // limitations under the License.
 
 using Ardalis.Specification;
-using Microsoft.EntityFrameworkCore;
 using Proton.Common.EFCore.Interfaces;
 
+#nullable enable
 namespace Proton.Common.EFCore.Repository;
 
-public interface IRepository<TEntity> : IReadRepository<TEntity>, IRepositoryBase<TEntity> where TEntity : class, IAggregateRoot {
-    IQueryable<TEntity> GetQueryable(CancellationToken cancellationToken = default);
-    DbSet<TEntity> GetContext(CancellationToken cancellationToken = default);
-    Task ClearAsync(CancellationToken cancellationToken = default);
-}
+  public interface IRepository<TEntity> : 
+    IReadRepository<TEntity>,
+    IReadRepositoryBase<TEntity>,
+    IRepositoryBase<TEntity>
+    where TEntity : class, IAggregateRoot, IHasKey
+  {
+      new Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
+      new Task<IEnumerable<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+      new Task<TEntity?> DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
+      Task<TEntity?> DeleteAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull;
+      new Task<IEnumerable<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+      Task<IEnumerable<TEntity>> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull;
+      Task<IEnumerable<TEntity>> DeleteBySpec(ISpecification<TEntity> specification, CancellationToken cancellationToken = default);
+      Task ClearAsync(CancellationToken cancellationToken = default);
+  }
