@@ -8,10 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.Extensions;
-using Proton.Common.Filters;
+using Axolotl.Extensions;
+using Axolotl.Filters;
 
-namespace Proton.Common.Http;
+namespace Axolotl.Http;
 
 public abstract class AbstractHttpService (HttpClient http) : BaseHttpService(http), IHttpService {
     public async Task<T> Get<T>(string uri) {

@@ -10,7 +10,7 @@
 
 using Ardalis.Specification;
 
-namespace Proton.Common.EFCore.Repository;
+namespace Axolotl.EFCore.Repository;
 
 public sealed class GenericSpec<TEntity> : Specification<TEntity> {
     public GenericSpec() {

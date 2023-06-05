@@ -11,9 +11,9 @@
 using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Proton.Common.EFCore.Interfaces;
+using Axolotl.EFCore.Interfaces;
 
-namespace Proton.Common.EFCore.Repository;
+namespace Axolotl.EFCore.Repository;
 
 public abstract partial class GenericBaseRepository<TEntity, TContext> where TEntity : class, IAggregateRoot, IHasKey
     where TContext : DbContext {

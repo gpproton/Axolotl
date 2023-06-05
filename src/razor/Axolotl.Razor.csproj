@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <PackageId>Proton.Common.Razor</PackageId>
-    <Title>Proton.Common.Razor</Title>
+    <PackageId>Axolotl.Razor</PackageId>
+    <Title>Axolotl.Razor</Title>
     <Description>Components to help simplify razor and blazor usage in .NET.</Description>
     <Summary>Components to help simplify razor and blazor usage in .NET.</Summary>
-    <PackageTags>razor;components;proton</PackageTags>
-    <AssemblyName>Proton.Common.Razor</AssemblyName>
+    <PackageTags>razor;components;axolotl</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
@@ -25,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\standard\Proton.Common.csproj" />
+    <ProjectReference Include="..\standard\Axolotl.csproj" />
   </ItemGroup>
 
 </Project>

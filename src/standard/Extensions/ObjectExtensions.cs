@@ -10,7 +10,7 @@
 
 using System.Web;
 
-namespace Proton.Common.Extensions {
+namespace Axolotl.Extensions {
     public static class ObjectExtensions {
         private static string? EncodeUrl(System.Reflection.PropertyInfo? obj) {
             object? value = obj!.GetValue(obj, null);

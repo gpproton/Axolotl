@@ -9,11 +9,11 @@
 // limitations under the License.
 
 using Ardalis.Specification;
-using Proton.Common.AspNet.Service;
-using Proton.Common.EFCore.Interfaces;
-using Proton.Common.EFCore.Repository;
+using Axolotl.AspNet.Service;
+using Axolotl.EFCore.Interfaces;
+using Axolotl.EFCore.Repository;
 
-namespace Proton.Common.AspNet.Helpers;
+namespace Axolotl.AspNet.Helpers;
 
 public static class GenerateSpec {
     public static ISpecification<TEntity> Build<TEntity>(Type? spec, params object[] param) where TEntity : IAggregateRoot {

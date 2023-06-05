@@ -8,9 +8,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.Filters;
+using Axolotl.Filters;
 
-namespace Proton.Common.Interfaces;
+namespace Axolotl.Interfaces;
 
 public interface ISpecFilter {
     public PageFilter Filter { get; set; }

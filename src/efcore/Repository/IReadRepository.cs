@@ -11,9 +11,9 @@
 using System.Linq.Expressions;
 using Ardalis.Specification;
 using Microsoft.EntityFrameworkCore;
-using Proton.Common.EFCore.Interfaces;
+using Axolotl.EFCore.Interfaces;
 
-namespace Proton.Common.EFCore.Repository;
+namespace Axolotl.EFCore.Repository;
 
 public interface IReadRepository<TEntity> : IReadRepositoryBase<TEntity> where TEntity : class, IAggregateRoot {
     IQueryable<TEntity> GetQueryable(CancellationToken cancellationToken = default (CancellationToken));

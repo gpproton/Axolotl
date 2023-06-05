@@ -8,10 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.EFCore.Interfaces;
-using Proton.Common.EFCore.Repository;
+using Axolotl.EFCore.Interfaces;
+using Axolotl.EFCore.Repository;
 
-namespace Proton.Common.AspNetSample.Data;
+namespace Axolotl.AspNetSample.Data;
 
 public class GenericRepository<TEntity> : GenericBaseRepository<TEntity, ServiceContext> where TEntity : class, IAggregateRoot, IHasKey {
     public GenericRepository(ServiceContext context) : base(context) { }

@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\efcore\Proton.Common.EFCore.csproj" />
+    <ProjectReference Include="..\..\src\efcore\Axolotl.EFCore.csproj" />
   </ItemGroup>
 
 </Project>

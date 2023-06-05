@@ -8,6 +8,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.Response;
+namespace Axolotl.Response;
 
 public class CoreResponse : IResponse { }

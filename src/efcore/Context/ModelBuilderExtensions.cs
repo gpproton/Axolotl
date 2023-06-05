@@ -10,9 +10,9 @@
 
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using Proton.Common.EFCore.Interfaces;
+using Axolotl.EFCore.Interfaces;
 
-namespace Proton.Common.EFCore.Context;
+namespace Axolotl.EFCore.Context;
 
 public static class ModelBuilderExtensions {
     public static void RegisterAllEntities<TEntity>(this ModelBuilder modelBuilder, params Assembly[] assemblies) 

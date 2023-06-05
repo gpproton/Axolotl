@@ -8,10 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.AspNet.Feature;
-using Proton.Common.Enums;
+using Axolotl.AspNet.Feature;
+using Axolotl.Enums;
 
-namespace Proton.Common.AspNetSample.Features.CategoryModule;
+namespace Axolotl.AspNetSample.Features.CategoryModule;
 
 public class CategoryFeature : GenericFeature<CategoryFeature> {
     public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {

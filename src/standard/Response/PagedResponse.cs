@@ -8,7 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.Response;
+namespace Axolotl.Response;
 
 public class PagedResponse<T> : Response<T> {
     public int Page { get; set; } = 1;

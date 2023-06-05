@@ -11,7 +11,7 @@
 using System.Net;
 using System.Net.Sockets;
 
-namespace Proton.Common.Helpers {
+namespace Axolotl.Helpers {
     public class IpHelper {
         public static string GetIpAddress() {
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());

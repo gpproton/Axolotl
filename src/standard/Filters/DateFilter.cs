@@ -8,7 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.Filters;
+namespace Axolotl.Filters;
 
 public class DateFilter : PageFilter {
     public DateTimeOffset? StartDate { get; set; } = DateTimeOffset.Now.AddDays(-1);

@@ -8,9 +8,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.AspNet.Filters;
+using Axolotl.AspNet.Filters;
 
-namespace Proton.Common.AspNetSample.Features.CategoryModule;
+namespace Axolotl.AspNetSample.Features.CategoryModule;
 
 public sealed class CategorySpecFilter : SpecFilter {
     

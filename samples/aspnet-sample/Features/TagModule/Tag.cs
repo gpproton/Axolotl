@@ -8,10 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.AspNetSample.Features.PostModule;
-using Proton.Common.EFCore.Base;
+using Axolotl.AspNetSample.Features.PostModule;
+using Axolotl.EFCore.Base;
 
-namespace Proton.Common.AspNetSample.Features.TagModule;
+namespace Axolotl.AspNetSample.Features.TagModule;
 
 public class Tag : BaseEntity<Guid> {
     public string Name { get; set; } = null!;

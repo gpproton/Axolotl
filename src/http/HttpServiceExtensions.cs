@@ -10,7 +10,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Proton.Common.Http;
+namespace Axolotl.Http;
 
 public static class HttpServiceExtensions {
     public static IServiceCollection RegisterHttpServices(this IServiceCollection services) {

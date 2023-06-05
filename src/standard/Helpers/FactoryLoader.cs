@@ -10,7 +10,7 @@
 
 using System.Reflection;
 
-namespace Proton.Common.Helpers {
+namespace Axolotl.Helpers {
     public static class FactoryLoader {
         public static IEnumerable<T> LoadClassInstances<T>(Assembly? assembly = null) =>
             ResolveAssembly<T>(assembly)

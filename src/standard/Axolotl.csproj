@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>Proton.Common</PackageId>
-    <Title>Proton.Common</Title>
+    <PackageId>Axolotl</PackageId>
+    <Title>Axolotl</Title>
     <Description>Classes and extensions to help simplify using .NET.</Description>
     <Summary>Classes and extensions to help simplify using .NET.</Summary>
-    <PackageTags>standard;library;proton</PackageTags>
-    <AssemblyName>Proton.Common</AssemblyName>
+    <PackageTags>standard;library;axolotl</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 

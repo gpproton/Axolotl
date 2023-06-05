@@ -11,14 +11,14 @@
 using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Proton.Common.AspNet.Helpers;
-using Proton.Common.EFCore.Interfaces;
-using Proton.Common.EFCore.Repository;
-using Proton.Common.Filters;
-using Proton.Common.Interfaces;
-using Proton.Common.Response;
+using Axolotl.AspNet.Helpers;
+using Axolotl.EFCore.Interfaces;
+using Axolotl.EFCore.Repository;
+using Axolotl.Filters;
+using Axolotl.Interfaces;
+using Axolotl.Response;
 
-namespace Proton.Common.AspNet.Service;
+namespace Axolotl.AspNet.Service;
 
 public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
     IGenericService<TEntity, TResponse> 

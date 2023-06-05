@@ -1,12 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>Proton.Common.AspNet</PackageId>
-    <Title>Proton.Common.AspNet</Title>
+    <PackageId>Axolotl.AspNet</PackageId>
+    <Title>Axolotl.AspNet</Title>
     <Description>Classes and extensions to help simplify using ASP.NET.</Description>
     <Summary>Classes and extensions to help simplify using ASP.NET.</Summary>
-    <PackageTags>aspnet;library;proton</PackageTags>
-    <AssemblyName>Proton.Common.AspNet</AssemblyName>
+    <PackageTags>aspnet;library;axolotl</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
@@ -31,8 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\efcore\Proton.Common.EFCore.csproj" />
-    <ProjectReference Include="..\standard\Proton.Common.csproj" />
+    <ProjectReference Include="..\efcore\Axolotl.EFCore.csproj" />
+    <ProjectReference Include="..\standard\Axolotl.csproj" />
   </ItemGroup>
 
 </Project>

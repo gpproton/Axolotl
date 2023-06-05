@@ -8,7 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.Extensions {
+namespace Axolotl.Extensions {
     public static class StringExtensions {
         public static string Truncate(this string? value, int length = 15) {
             return value == null ? string.Empty : value.Length <= length ? value : value[..length] + "...";

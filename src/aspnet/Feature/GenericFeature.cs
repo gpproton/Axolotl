@@ -10,11 +10,11 @@
 
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Proton.Common.EFCore.Interfaces;
-using Proton.Common.Interfaces;
-using Proton.Common.Response;
+using Axolotl.EFCore.Interfaces;
+using Axolotl.Interfaces;
+using Axolotl.Response;
 
-namespace Proton.Common.AspNet.Feature;
+namespace Axolotl.AspNet.Feature;
 
 public abstract partial class GenericFeature<TFeature> : IFeature where  TFeature : new() {
     protected IEndpointRouteBuilder? Endpoints { get; set; }

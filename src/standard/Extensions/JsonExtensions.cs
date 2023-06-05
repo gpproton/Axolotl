@@ -10,7 +10,7 @@
 
 using System.Text.Json;
 
-namespace Proton.Common.Extensions {
+namespace Axolotl.Extensions {
     public static class JsonExtensions {
         private static readonly JsonSerializerOptions JsonOptions = new() {
             PropertyNameCaseInsensitive = true

@@ -8,7 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.Helpers {
+namespace Axolotl.Helpers {
     public static class StringHelpers {
         public static string GetInitialsText(string?[] value) {
             if (value.Length < 2) {

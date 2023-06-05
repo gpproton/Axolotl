@@ -8,7 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.Http;
+namespace Axolotl.Http;
 
 public interface IHttpService {
     Task<T> Get<T>(string uri);

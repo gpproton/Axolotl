@@ -9,11 +9,11 @@
 // limitations under the License.
 
 using System.ComponentModel.DataAnnotations;
-using Proton.Common.AspNetSample.Features.CategoryModule;
-using Proton.Common.AspNetSample.Features.TagModule;
-using Proton.Common.EFCore.Base;
+using Axolotl.AspNetSample.Features.CategoryModule;
+using Axolotl.AspNetSample.Features.TagModule;
+using Axolotl.EFCore.Base;
 
-namespace Proton.Common.AspNetSample.Features.PostModule;
+namespace Axolotl.AspNetSample.Features.PostModule;
 
 public sealed class Post : AuditableEntity<Guid> {
     public string Title { get; set; } = null!;

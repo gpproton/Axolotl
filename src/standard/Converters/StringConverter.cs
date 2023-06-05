@@ -11,7 +11,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Proton.Common.Converters;
+namespace Axolotl.Converters;
 
 public class StringConverter : JsonConverter<string> {
     public override string Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) {

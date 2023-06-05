@@ -10,7 +10,7 @@
 
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace Proton.Common.EFCore.Converters;
+namespace Axolotl.EFCore.Converters;
 
 public class CollectionValueComparer<T> : ValueComparer<ICollection<T>> {
     public CollectionValueComparer() : base((c1, c2) => c1!.SequenceEqual(c2!),

@@ -8,7 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.EFCore.Tests;
+namespace Axolotl.EFCore.Tests;
 
 public class UnitTest1 {
     [Fact]

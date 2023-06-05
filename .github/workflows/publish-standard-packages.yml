@@ -11,7 +11,8 @@ jobs:
     env:
       BUILD_CONFIG: Release
       NUGET_URL: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-      NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
+      NUGET_GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     runs-on: ubuntu-latest
 
@@ -23,9 +24,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - path: "./src/standard/Proton.Common.csproj"
-          - path: "./src/http/Proton.Common.Http.csproj"
-          - path: "./src/efcore/Proton.Common.EFCore.csproj"
+          - path: "./src/standard/Axolotl.csproj"
+          - path: "./src/http/Axolotl.Http.csproj"
+          - path: "./src/efcore/Axolotl.EFCore.csproj"
 
     steps:
       - uses: actions/checkout@v3
@@ -49,7 +50,10 @@ jobs:
         run: dotnet pack --no-build ${{ matrix.path }} -c ${{ env.BUILD_CONFIG }} -o ./artifacts
 
       - name: Update nuget source
-        run: dotnet nuget update source -s ${{ env.NUGET_URL }} -u ${{ github.repository_owner }} -p ${{ env.NUGET_AUTH_TOKEN }} --store-password-in-clear-text github
+        run: dotnet nuget update source -s ${{ env.NUGET_URL }} -u ${{ github.repository_owner }} -p ${{ env.NUGET_GIT_TOKEN }} --store-password-in-clear-text github
 
-      - name: Publish nuget package
-        run: dotnet nuget push artifacts/*.symbols.nupkg -s ${{ env.NUGET_URL }} -k ${{ env.NUGET_AUTH_TOKEN }} --skip-duplicate
+      - name: Publish package to github
+        run: dotnet nuget push artifacts/*.symbols.nupkg -s ${{ env.NUGET_URL }} -k ${{ env.NUGET_GIT_TOKEN }} --skip-duplicate
+
+      - name: Publish package to nuget
+        run: dotnet nuget push artifacts/*.nupkg -s "https://api.nuget.org/v3/index.json" -k ${{ env.NUGET_AUTH_TOKEN }} --skip-duplicate

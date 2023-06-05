@@ -12,15 +12,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Proton.Common.AspNet.Filters;
-using Proton.Common.AspNet.Service;
-using Proton.Common.EFCore.Interfaces;
-using Proton.Common.Interfaces;
-using Proton.Common.Response;
+using Axolotl.AspNet.Filters;
+using Axolotl.AspNet.Service;
+using Axolotl.EFCore.Interfaces;
+using Axolotl.Interfaces;
+using Axolotl.Response;
 
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace Proton.Common.AspNet.Feature;
+namespace Axolotl.AspNet.Feature;
 
 public abstract partial class GenericFeature<TFeature> where TFeature : new() {
     protected GenericFeature<TFeature> AddGetAll<TEntity, TResponse>(RouteState state) where TEntity : class, IAggregateRoot where TResponse : class, IResponse {

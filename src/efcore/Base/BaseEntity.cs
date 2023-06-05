@@ -10,9 +10,9 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Proton.Common.EFCore.Interfaces;
+using Axolotl.EFCore.Interfaces;
 
-namespace Proton.Common.EFCore.Base;
+namespace Axolotl.EFCore.Base;
 
 public abstract class BaseEntity<TKey> : CoreEntity, IHasKey<TKey> where TKey : notnull {
     [Key]

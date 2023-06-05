@@ -10,9 +10,9 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using Proton.Common.EFCore.Interfaces;
+using Axolotl.EFCore.Interfaces;
 
-namespace Proton.Common.EFCore.Base {
+namespace Axolotl.EFCore.Base {
     public abstract class AuditableEntity<TKey> : BaseEntity<TKey>, IAuditableEntity<TKey> where TKey : notnull {
         [JsonIgnore]
         [Display(AutoGenerateField = false)]

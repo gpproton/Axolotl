@@ -8,7 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.AspNet.Feature;
+namespace Axolotl.AspNet.Feature;
 
 internal sealed class EndpointParam<TId> where TId : notnull {
     public TId Id { get; set; } = default!;

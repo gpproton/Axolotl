@@ -8,9 +8,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.Response;
+using Axolotl.Response;
 
-namespace Proton.Common.Http;
+namespace Axolotl.Http;
 
 public class GenericHttpService<TResponse> : IGenericHttpService<TResponse> where TResponse : class, IResponse {
     private string _path = String.Empty;
