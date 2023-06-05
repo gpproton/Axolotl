@@ -8,21 +8,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Newtonsoft.Json;
 using Proton.Common.Interfaces;
 
 namespace Proton.Common.Response;
 
 public class AuditResponse : CoreResponse, IAuditResponse {
     public DateTimeOffset CreatedAt { get; set; }
+    [JsonIgnore]
     public DateTimeOffset? UpdatedAt { get; set; }
+    [JsonIgnore]
     public DateTimeOffset? DeletedAt { get; set; }
 }
 
 public class AuditResponse<TKey> : BaseResponse<TKey>, IAuditResponse<TKey> where TKey : notnull {
+    [JsonIgnore]
     public TKey? CreatedBy { get; set; }
     public DateTimeOffset CreatedAt { get; set; }
+    [JsonIgnore]
     public TKey? UpdatedBy { get; set; }
+    [JsonIgnore]
     public DateTimeOffset? UpdatedAt { get; set; }
+    [JsonIgnore]
     public TKey? DeletedBy { get; set; }
+    [JsonIgnore]
     public DateTimeOffset? DeletedAt { get; set; }
 }
