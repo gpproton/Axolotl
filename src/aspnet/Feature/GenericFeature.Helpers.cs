@@ -27,8 +27,8 @@ public abstract partial class GenericFeature<TFeature> where TFeature : new() {
             new(RouteType.GetAll),
             new(RouteType.GetById)
         });
-        
-        var type = typeof(TEntity);
+
+        var type = typeof(TResponse);
         var root = options.Root;
         var name = options.Name ?? type.Name.ToLower();
         var url = options.Path ?? $"{root}/{name}";
