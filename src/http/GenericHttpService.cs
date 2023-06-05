@@ -12,13 +12,13 @@ using Proton.Common.Response;
 
 namespace Proton.Common.Http;
 
-public class GenericHttpService<TEntity> : IGenericHttpService<TEntity> where TEntity : class {
+public class GenericHttpService<TResponse> : IGenericHttpService<TResponse> where TResponse : class, IResponse {
     private string _path = String.Empty;
     private readonly IHttpService _http;
 
     protected GenericHttpService(IHttpService http) {
         _http = http;
-        var type = typeof(TEntity);
+        var type = typeof(TResponse);
         this.SetPath($"api/v1/{type.Name.ToLower()}");
     }
 
@@ -26,30 +26,33 @@ public class GenericHttpService<TEntity> : IGenericHttpService<TEntity> where TE
         _path = path;
     }
     
-    public async Task<PagedResponse<TEntity>> GetAllAsync(object? query = null) =>
-        await _http.Get<PagedResponse<TEntity>>(_path, query);
+    public async Task<PagedResponse<TResponse>> GetAllAsync(object? query = null, string? path = null) =>
+        await _http.Get<PagedResponse<TResponse>>(path ?? _path, query);
 
-    public async Task<Response<TEntity?>> GetByIdAsync<TId>(TId id) where TId : notnull =>
-        await _http.Get<Response<TEntity?>>($"{_path}/{id}");
+    public async Task<Response<TResponse?>> GetByIdAsync<TId>(TId id, string? path = null) where TId : notnull =>
+        await _http.Get<Response<TResponse?>>(path ?? $"{_path}/{id}");
 
-    public async Task<Response<TEntity>> CreateAsync(TEntity value) =>
-        await _http.Post<Response<TEntity>>(_path, value);
+    public async Task<PagedResponse<TResponse>> GetBySpecAsync(object? value, string? path = null) =>
+        await _http.Post<PagedResponse<TResponse>>(path ?? $"{_path}/spec", value);
 
-    public async Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values) =>
-        await _http.Post<PagedResponse<TEntity>>($"{_path}/multiple", values);
+    public async Task<Response<TResponse>> CreateAsync(TResponse value, string? path = null) =>
+        await _http.Post<Response<TResponse>>(path ?? _path, value);
 
-    public async Task<Response<TEntity>> UpdateAsync(TEntity value) =>
-        await _http.Put<Response<TEntity>>(_path, value);
+    public async Task<PagedResponse<TResponse>> CreateRangeAsync(IEnumerable<TResponse> values, string? path = null) =>
+        await _http.Post<PagedResponse<TResponse>>(path ?? $"{_path}/range", values);
 
-    public async Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values) =>
-        await _http.Put<PagedResponse<TEntity>>($"{_path}/multiple", values);
+    public async Task<Response<TResponse>> UpdateAsync(TResponse value, string? path = null) =>
+        await _http.Put<Response<TResponse>>(path ?? _path, value);
 
-    public async Task<Response<TEntity?>> DeleteAsync<TId>(TId id) where TId : notnull =>
-        await _http.Delete<Response<TEntity?>>($"{_path}/{id}");
+    public async Task<PagedResponse<TResponse>> UpdateRangeAsync(IEnumerable<TResponse> values, string? path = null) =>
+        await _http.Put<PagedResponse<TResponse>>(path ?? $"{_path}/range", values);
 
-    public async Task<PagedResponse<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> items) =>
-        await _http.Delete<PagedResponse<TEntity>>($"{_path}/multiple", items);
+    public async Task<Response<TResponse?>> DeleteAsync<TId>(TId id, string? path = null) where TId : notnull =>
+        await _http.Delete<Response<TResponse?>>(path ?? $"{_path}/{id}");
 
-    public async Task<PagedResponse<TEntity>> DeleteRangeAsync<TId>(IEnumerable<TId> ids) where TId : notnull =>
-        await _http.Delete<PagedResponse<TEntity>>($"{_path}/multiple", ids);
+    public async Task<PagedResponse<TResponse>> DeleteRangeAsync<TId>(IEnumerable<TId> ids, string? path = null) where TId : notnull =>
+        await _http.Delete<PagedResponse<TResponse>>(path ?? $"{_path}/range", ids);
+    
+    public async Task<PagedResponse<TResponse>> DeleteSpecAsync(object? items, string? path = null) =>
+        await _http.Delete<PagedResponse<TResponse>>(path ?? $"{_path}/spec", items);
 }
