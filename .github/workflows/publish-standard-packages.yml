@@ -52,8 +52,8 @@ jobs:
       - name: Update nuget source
         run: dotnet nuget update source -s ${{ env.NUGET_URL }} -u ${{ github.repository_owner }} -p ${{ env.NUGET_GIT_TOKEN }} --store-password-in-clear-text github
 
-      - name: Publish nuget package to github
+      - name: Publish package to github
         run: dotnet nuget push artifacts/*.symbols.nupkg -s ${{ env.NUGET_URL }} -k ${{ env.NUGET_GIT_TOKEN }} --skip-duplicate
 
-      - name: Publish nuget package to nuget
-        run: dotnet nuget push artifacts/*.symbols.nupkg -k ${{ env.NUGET_AUTH_TOKEN }} --skip-duplicate
+      - name: Publish package to nuget
+        run: dotnet nuget push artifacts/*.symbols.nupkg -s "nuget" -k ${{ env.NUGET_AUTH_TOKEN }} --skip-duplicate
