@@ -58,4 +58,4 @@ jobs:
         run: dotnet nuget push artifacts/*.symbols.nupkg -s ${{ env.NUGET_URL }} -k ${{ env.NUGET_GIT_TOKEN }} --skip-duplicate
 
       - name: Publish package to nuget
-        run: dotnet nuget push artifacts/*.symbols.nupkg source -s "https://api.nuget.org/v3/index.json" -k ${{ env.NUGET_AUTH_TOKEN }} --skip-duplicate
+        run: dotnet nuget push artifacts/*.nupkg source -s "https://api.nuget.org/v3/index.json" -k ${{ env.NUGET_AUTH_TOKEN }} --skip-duplicate
