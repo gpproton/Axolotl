@@ -9,7 +9,7 @@
     "ci": "dotnet r build && dotnet r test",
     "r:aspnet": "dotnet run -f net8.0 --project samples/aspnet-sample",
     "m:clean": "rm -rf samples/aspnet-sample/Migrations/* && rm ./**/*.sqlite*",
-    "m:init": "dotnet ef migrations add --project samples/aspnet-sample/Proton.Common.AspNetSample.csproj --configuration Debug Initial --output-dir Migrations",
-    "m:update": "dotnet ef database update --project samples/aspnet-sample/Proton.Common.AspNetSample.csproj --configuration Debug"
+    "m:init": "dotnet ef migrations add --project samples/aspnet-sample/Axolotl.AspNetSample.csproj --configuration Debug Initial --output-dir Migrations",
+    "m:update": "dotnet ef database update --project samples/aspnet-sample/Axolotl.AspNetSample.csproj --configuration Debug"
   }
 }

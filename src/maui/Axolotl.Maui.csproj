@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<PackageId>Proton.Common.Maui</PackageId>
-		<Title>Proton.Common.Maui</Title>
+		<PackageId>Axolotl.Maui</PackageId>
+		<Title>Axolotl.Maui</Title>
 		<Description>Components and library to help simplify MAUI usage in .NET.</Description>
 		<Summary>Components and library to help simplify MAUI usage in .NET.</Summary>
-		<PackageTags>MAUI;components;library;proton</PackageTags>
-		<AssemblyName>Proton.Common.Maui</AssemblyName>
+		<PackageTags>MAUI;components;library;axolotl</PackageTags>
+		<AssemblyName>Axolotl.Maui</AssemblyName>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
@@ -36,7 +36,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\standard\Proton.Common.csproj" />
+		<ProjectReference Include="..\standard\Axolotl.csproj" />
 	</ItemGroup>
 
 </Project>

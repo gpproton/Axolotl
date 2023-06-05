@@ -9,15 +9,15 @@
 // limitations under the License.
 
 using DotNetEd.CoreAdmin;
-using Proton.Common.AspNet;
-using Proton.Common.AspNetSample.Data;
-using Proton.Common.EFCore;
+using Axolotl.AspNet;
+using Axolotl.AspNetSample.Data;
+using Axolotl.EFCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => { });
 
-// Proton.Common services
+// Axolotl services
 builder.Services.RegisterFeatures(typeof(Program).Assembly);
 builder.Services.RegisterGenericServices();
 
@@ -48,7 +48,7 @@ app.UseRouting();
 app.UseStaticFiles();
 app.UseAuthorization();
 
-// Proton.Common app DI
+// Axolotl app DI
 app.RegisterFeatureEndpoints();
 
 app.MapGet("/", () => "x").WithName("Default").WithTags("Root");

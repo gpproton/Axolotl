@@ -24,8 +24,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - path: "./src/aspnet/Proton.Common.AspNet.csproj"
-          - path: "./src/razor/Proton.Common.Razor.csproj"
+          - path: "./src/aspnet/Axolotl.AspNet.csproj"
+          - path: "./src/razor/Axolotl.Razor.csproj"
 
     steps:
       - uses: actions/checkout@v3

@@ -12,9 +12,9 @@ using System.Linq.Expressions;
 using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Proton.Common.EFCore.Interfaces;
+using Axolotl.EFCore.Interfaces;
 
-namespace Proton.Common.EFCore.Repository;
+namespace Axolotl.EFCore.Repository;
 
 public abstract partial class GenericBaseRepository<TEntity, TContext> : RepositoryBase<TEntity>, IRepository<TEntity>
     where TEntity : class, IAggregateRoot, IHasKey

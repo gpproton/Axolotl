@@ -8,10 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.AspNetSample.Features.PostModule;
-using Proton.Common.EFCore.Base;
+using Axolotl.AspNetSample.Features.PostModule;
+using Axolotl.EFCore.Base;
 
-namespace Proton.Common.AspNetSample.Features.CategoryModule;
+namespace Axolotl.AspNetSample.Features.CategoryModule;
 
 public class Category : AuditableEntity<Guid> {
     public string Name { get; set; } = null!;

@@ -9,11 +9,11 @@
 // limitations under the License.
 
 using Ardalis.Specification;
-using Proton.Common.EFCore.Interfaces;
-using Proton.Common.Interfaces;
-using Proton.Common.Response;
+using Axolotl.EFCore.Interfaces;
+using Axolotl.Interfaces;
+using Axolotl.Response;
 
-namespace Proton.Common.AspNet.Service;
+namespace Axolotl.AspNet.Service;
 
 public interface IGenericService<TEntity> where TEntity : class, IAggregateRoot, IResponse {
     Task<PagedResponse<TEntity>> PageFilter(ISpecification<TEntity> specification, int? checkPage, int? checkSize,

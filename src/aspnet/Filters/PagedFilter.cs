@@ -10,10 +10,10 @@
 
 using System.Reflection;
 using Microsoft.AspNetCore.Http;
-using Proton.Common.Filters;
-using Proton.Common.Interfaces;
+using Axolotl.Filters;
+using Axolotl.Interfaces;
 
-namespace Proton.Common.AspNet.Filters;
+namespace Axolotl.AspNet.Filters;
 
 public class PagedFilter : PageFilter, IPageFilter {
     public PagedFilter() { }

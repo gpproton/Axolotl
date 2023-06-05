@@ -9,9 +9,9 @@
 // limitations under the License.
 
 using Microsoft.Extensions.DependencyInjection;
-using Proton.Common.EFCore.Repository;
+using Axolotl.EFCore.Repository;
 
-namespace Proton.Common.EFCore;
+namespace Axolotl.EFCore;
 
 public static class ServiceCollectionExtensions {
     public static IServiceCollection RegisterGenericRepositories(this IServiceCollection services, Type repositoryType) {

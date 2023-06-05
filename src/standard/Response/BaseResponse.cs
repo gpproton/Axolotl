@@ -8,9 +8,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.Interfaces;
+using Axolotl.Interfaces;
 
-namespace Proton.Common.Response;
+namespace Axolotl.Response;
 
 public class BaseResponse<TKey> : CoreResponse, IResponseKey<TKey> where TKey : notnull {
     object IResponseKey.Id {

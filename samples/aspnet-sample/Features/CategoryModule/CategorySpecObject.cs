@@ -8,9 +8,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.AspNet.Feature;
+using Axolotl.AspNet.Feature;
 
-namespace Proton.Common.AspNetSample.Features.CategoryModule;
+namespace Axolotl.AspNetSample.Features.CategoryModule;
 
 public class CategorySpecObject : EndpointObject<CategorySpecObject> {
     public string Search { get; set; } = String.Empty;

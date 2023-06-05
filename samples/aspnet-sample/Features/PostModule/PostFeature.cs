@@ -8,9 +8,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.AspNet.Feature;
+using Axolotl.AspNet.Feature;
 
-namespace Proton.Common.AspNetSample.Features.PostModule;
+namespace Axolotl.AspNetSample.Features.PostModule;
 
 public class PostFeature : GenericFeature<PostFeature> {
     public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) =>

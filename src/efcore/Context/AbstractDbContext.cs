@@ -9,9 +9,9 @@
 // limitations under the License.
 
 using Microsoft.EntityFrameworkCore;
-using Proton.Common.EFCore.Interfaces;
+using Axolotl.EFCore.Interfaces;
 
-namespace Proton.Common.EFCore.Context;
+namespace Axolotl.EFCore.Context;
 
 public abstract class AbstractDbContext : DbContext {
     protected AbstractDbContext() { }

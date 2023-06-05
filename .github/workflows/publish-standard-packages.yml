@@ -24,9 +24,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - path: "./src/standard/Proton.Common.csproj"
-          - path: "./src/http/Proton.Common.Http.csproj"
-          - path: "./src/efcore/Proton.Common.EFCore.csproj"
+          - path: "./src/standard/Axolotl.csproj"
+          - path: "./src/http/Axolotl.Http.csproj"
+          - path: "./src/efcore/Axolotl.EFCore.csproj"
 
     steps:
       - uses: actions/checkout@v3

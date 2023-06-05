@@ -10,7 +10,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Proton.Common.Extensions {
+namespace Axolotl.Extensions {
     public static class LazyResolutionExtension {
         public static IServiceCollection AddLazyResolution(this IServiceCollection services) {
             return services.AddTransient(

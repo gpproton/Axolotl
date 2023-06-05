@@ -9,10 +9,10 @@
 // limitations under the License.
 
 using Ardalis.Specification;
-using Proton.Common.EFCore.Interfaces;
+using Axolotl.EFCore.Interfaces;
 
 #nullable enable
-namespace Proton.Common.EFCore.Repository;
+namespace Axolotl.EFCore.Repository;
 
   public interface IRepository<TEntity> : 
     IReadRepository<TEntity>,

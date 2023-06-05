@@ -20,8 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\aspnet\Proton.Common.AspNet.csproj" />
-    <ProjectReference Include="..\..\src\efcore\Proton.Common.EFCore.csproj" />
+    <ProjectReference Include="..\..\src\aspnet\Axolotl.AspNet.csproj" />
+    <ProjectReference Include="..\..\src\efcore\Axolotl.EFCore.csproj" />
+    <ProjectReference Include="..\..\src\standard\Axolotl.csproj" />
   </ItemGroup>
 
 </Project>

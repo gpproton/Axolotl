@@ -8,7 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Proton.Common.EFCore.Base;
+namespace Axolotl.EFCore.Base;
 
 public abstract class ExtendedEntity<T> : AuditableEntity<T> where T : notnull {
     private Dictionary<string, Object> _attributes = new Dictionary<string, object>();

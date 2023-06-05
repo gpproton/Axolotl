@@ -1,19 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>Proton.Common.Http</PackageId>
-    <Title>Proton.Common.Http</Title>
+    <PackageId>Axolotl.Http</PackageId>
+    <Title>Axolotl.Http</Title>
     <Description>Classes help to simplify HTTP usage in .NET.</Description>
     <Summary>Classes help to simplify HTTP usage in .NET.</Summary>
-    <PackageTags>http;callback;proton</PackageTags>
-    <AssemblyName>Proton.Common.Http</AssemblyName>
+    <PackageTags>http;callback;axolotl</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <Import Project="..\..\Common.props" />
 
   <ItemGroup>
-    <ProjectReference Include="..\standard\Proton.Common.csproj" />
+    <ProjectReference Include="..\standard\Axolotl.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PackageId>Proton.Common.EFCore</PackageId>
-    <Title>Proton.Common.EFCore</Title>
+    <PackageId>Axolotl.EFCore</PackageId>
+    <Title>Axolotl.EFCore</Title>
     <Description>Classes and extensions to help simplify efcore usage in .NET.</Description>
     <Summary>Classes and extensions to help simplify efcore usage in .NET.</Summary>
-    <PackageTags>efcore;entity;proton</PackageTags>
-    <AssemblyName>Proton.Common.EFCore</AssemblyName>
+    <PackageTags>efcore;entity;axolotl</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
@@ -22,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\standard\Proton.Common.csproj" />
+    <ProjectReference Include="..\standard\Axolotl.csproj" />
   </ItemGroup>
 
 </Project>

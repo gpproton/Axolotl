@@ -9,11 +9,11 @@
 // limitations under the License.
 
 using Ardalis.Specification;
-using Proton.Common.EFCore.Interfaces;
-using Proton.Common.Interfaces;
-using Proton.Common.Response;
+using Axolotl.EFCore.Interfaces;
+using Axolotl.Interfaces;
+using Axolotl.Response;
 
-namespace Proton.Common.AspNet.Service;
+namespace Axolotl.AspNet.Service;
 
 public sealed class GenericService<TEntity>(IGenericService<TEntity, TEntity> root) :
     IGenericService<TEntity> where TEntity : class, IAggregateRoot, IHasKey, IResponse {

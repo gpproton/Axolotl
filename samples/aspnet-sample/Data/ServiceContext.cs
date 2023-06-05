@@ -8,15 +8,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Axolotl.AspNetSample.Features.CategoryModule;
+using Axolotl.AspNetSample.Features.PostModule;
+using Axolotl.AspNetSample.Features.TagModule;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Proton.Common.AspNetSample.Features.CategoryModule;
-using Proton.Common.AspNetSample.Features.PostModule;
-using Proton.Common.AspNetSample.Features.TagModule;
-using Proton.Common.EFCore.Base;
-using Proton.Common.EFCore.Context;
+using Axolotl.EFCore.Base;
+using Axolotl.EFCore.Context;
 
-namespace Proton.Common.AspNetSample.Data;
+namespace Axolotl.AspNetSample.Data;
 
 public class ServiceContext : AbstractDbContext {
     public ServiceContext() { }

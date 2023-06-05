@@ -9,9 +9,9 @@
 // limitations under the License.
 
 using System.ComponentModel.DataAnnotations;
-using Proton.Common.EFCore.Interfaces;
-using Proton.Common.Response;
+using Axolotl.EFCore.Interfaces;
+using Axolotl.Response;
 
-namespace Proton.Common.EFCore.Base;
+namespace Axolotl.EFCore.Base;
 
 public abstract class CoreEntity : IAggregateRoot, IResponse { }

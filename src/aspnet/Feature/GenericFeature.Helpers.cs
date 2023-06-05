@@ -11,11 +11,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Proton.Common.EFCore.Interfaces;
-using Proton.Common.Enums;
-using Proton.Common.Response;
+using Axolotl.EFCore.Interfaces;
+using Axolotl.Enums;
+using Axolotl.Response;
 
-namespace Proton.Common.AspNet.Feature;
+namespace Axolotl.AspNet.Feature;
 
 public abstract partial class GenericFeature<TFeature> where TFeature : new() {
     protected static IEndpointRouteBuilder SetupGroup<TAFeature, TEntity, TResponse, TId>(IEndpointRouteBuilder endpoints, FeatureState? state = null)

@@ -11,7 +11,7 @@
 using System.Collections.Specialized;
 using System.Web;
 
-namespace Proton.Common.Extensions {
+namespace Axolotl.Extensions {
     public static class NameValueExtensions {
         public static string ToQueryString(this NameValueCollection? source, bool removeEmptyEntries = false) {
             return source == null

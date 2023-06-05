@@ -8,9 +8,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.Response;
+using Axolotl.Response;
 
-namespace Proton.Common.Http;
+namespace Axolotl.Http;
 
 public interface IGenericHttpService<TResponse> where TResponse : class, IResponse {
     Task<PagedResponse<TResponse>> GetAllAsync(object? query = null, string? path = null);

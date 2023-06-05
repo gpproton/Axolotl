@@ -14,11 +14,11 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.DependencyInjection;
-using Proton.Common.AspNet.Feature;
-using Proton.Common.AspNet.Service;
-using Proton.Common.Helpers;
+using Axolotl.AspNet.Feature;
+using Axolotl.AspNet.Service;
+using Axolotl.Helpers;
 
-namespace Proton.Common.AspNet;
+namespace Axolotl.AspNet;
 
 public static class ServiceCollectionExtensions {
     private static readonly List<IFeature> RegisteredFeatures = new();

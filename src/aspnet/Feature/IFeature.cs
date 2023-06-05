@@ -11,7 +11,7 @@
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Proton.Common.AspNet.Feature;
+namespace Axolotl.AspNet.Feature;
 
 public interface IFeature {
     IServiceCollection RegisterModule(IServiceCollection services);

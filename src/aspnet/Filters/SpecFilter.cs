@@ -8,10 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Proton.Common.Filters;
-using Proton.Common.Interfaces;
+using Axolotl.Filters;
+using Axolotl.Interfaces;
 
-namespace Proton.Common.AspNet.Filters;
+namespace Axolotl.AspNet.Filters;
 
 public abstract class SpecFilter : ISpecFilter {
     public PageFilter Filter { get; set; } = new ();

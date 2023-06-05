@@ -1,6 +1,6 @@
 <Project>
     <PropertyGroup>
-        <Title>Proton.Common</Title>
+        <Title>Axolotl</Title>
         <Version>8.0-preview.11</Version>
         <Authors>radioActive DROID</Authors>
         <Description>Personal shared utility library</Description>
@@ -8,13 +8,13 @@
         <PackageTags>Library;Utility</PackageTags>
         <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <RepositoryUrl>https://github.com/gpproton/Proton.Common</RepositoryUrl>
-        <PackageProjectUrl>https://github.com/gpproton/Proton.Common</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/gpproton/Axolotl</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/gpproton/Axolotl</PackageProjectUrl>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <LicenseFile>$(MSBuildThisFileDirectory)LICENSE</LicenseFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <IncludeSymbols>true</IncludeSymbols>
-        <Copyright>© Proton.Common Contributors. All rights reserved.</Copyright>
+        <Copyright>© Axolotl Contributors. All rights reserved.</Copyright>
         <Features>strict</Features>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <Deterministic>true</Deterministic>

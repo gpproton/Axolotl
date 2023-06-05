@@ -1,19 +1,19 @@
-# Proton.Common
+# Axolotl
 
  A personal shared library for various types of dotnet project types
 
 
 ### Sub-packages
 
-Proton.Common:
+Axolotl:
 
-Proton.Common.Http:
+Axolotl.Http:
 
-Proton.Common.EFCore:
+Axolotl.EFCore:
 
-Proton.Common.Razor:
+Axolotl.Razor:
 
-Proton.Common.Maui:
+Axolotl.Maui:
 
 
 # Install
@@ -23,18 +23,18 @@ The framework is provided as a set of NuGet packages. In many cases you'll only 
 To install the minimum requirements:
 
 ```
-Install-Package Proton.Common
+Install-Package Axolotl
 ```
 
 To install support for serialization, AutoFixture, EF Core, Model Binding, or Dapper select the lines that apply:
 
 ```
-Install-Package Proton.Common
-Install-Package Proton.Common.Http
-Install-Package Proton.Common.EFCore
-Install-Package Proton.Common.AspNet
-Install-Package Proton.Common.Razor
-Install-Package Proton.Common.Maui
+Install-Package Axolotl
+Install-Package Axolotl.Http
+Install-Package Axolotl.EFCore
+Install-Package Axolotl.AspNet
+Install-Package Axolotl.Razor
+Install-Package Axolotl.Maui
 ```
 
 ## Asp.Net Core Samples
@@ -42,9 +42,9 @@ Install-Package Proton.Common.Maui
 ### Added required packages
 
 ```powershell
-Install-Package Proton.Common
-Install-Package Proton.Common.EFCore
-Install-Package Proton.Common.AspNet
+Install-Package Axolotl
+Install-Package Axolotl.EFCore
+Install-Package Axolotl.AspNet
 ```
 
 ### Add sample entity

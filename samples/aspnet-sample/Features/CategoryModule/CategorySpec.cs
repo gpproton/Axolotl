@@ -9,10 +9,10 @@
 // limitations under the License.
 
 using Ardalis.Specification;
+using Axolotl.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Proton.Common.Interfaces;
 
-namespace Proton.Common.AspNetSample.Features.CategoryModule;
+namespace Axolotl.AspNetSample.Features.CategoryModule;
 
 public sealed class CategorySpec : Specification<Category> {
     public CategorySpec(IPageFilter filter) {

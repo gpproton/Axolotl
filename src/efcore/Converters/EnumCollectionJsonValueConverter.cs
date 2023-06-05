@@ -11,7 +11,7 @@
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
 
-namespace Proton.Common.EFCore.Converters;
+namespace Axolotl.EFCore.Converters;
 
 public class EnumCollectionJsonValueConverter<T> : ValueConverter<ICollection<T>, string> where T : Enum {
     public EnumCollectionJsonValueConverter() : base(

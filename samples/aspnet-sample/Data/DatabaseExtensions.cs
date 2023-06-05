@@ -9,7 +9,7 @@
 // limitations under the License.
 
 using Microsoft.EntityFrameworkCore;
-namespace Proton.Common.AspNetSample.Data;
+namespace Axolotl.AspNetSample.Data;
 
 public static class DatabaseExtensions {
     public static IServiceCollection RegisterDataContext(this IServiceCollection services) {

@@ -13,7 +13,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 
-namespace Proton.Common.Http;
+namespace Axolotl.Http;
 
 public abstract class BaseHttpService(HttpClient http) {
     protected HttpRequestMessage CreateRequest(HttpMethod method, string uri, object? value = null) {
