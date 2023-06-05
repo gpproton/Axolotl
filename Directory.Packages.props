@@ -6,13 +6,18 @@
 
     <!-- Shared packages -->
     <ItemGroup>
+        <PackageVersion Include="Ardalis.SmartEnum" Version="$(ArdalisVersion)" />
+        <PackageVersion Include="Ardalis.SmartEnum.SystemTextJson" Version="$(ArdalisVersion)" />
         <PackageVersion Include="Ardalis.Specification" Version="$(ArdalisVersion)" />
+        <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(DotnetVersion)" />
         <PackageVersion Include="Microsoft.Extensions.Primitives" Version="$(DotnetVersion)" />
+        <PackageVersion Include="System.Net.Http.Json" Version="$(DotnetVersion)" />
         <PackageVersion Include="Nextended.Core" Version="$(NextendedVersion)" />
     </ItemGroup>
 
     <!-- EFCore packages -->
     <ItemGroup>
+        <PackageVersion Include="Ardalis.SmartEnum.EFCore" Version="$(ArdalisVersion)" />
         <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="$(ArdalisVersion)" />
         <PackageVersion Include="EFCore.BulkExtensions" Version="7.1.2" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfcoreVersion)" />
@@ -34,6 +39,7 @@
 
     <!-- Test packages -->
     <ItemGroup>
+        <PackageVersion Include="AutoFixture" Version="4.11.0" />
         <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
         <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(DotnetVersion)" />
         <PackageVersion Include="xunit" Version="2.4.2" />

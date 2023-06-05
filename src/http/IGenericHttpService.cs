@@ -12,14 +12,15 @@ using Proton.Common.Response;
 
 namespace Proton.Common.Http;
 
-public interface IGenericHttpService<TEntity> where TEntity : class {
-    Task<PagedResponse<TEntity>> GetAllAsync(object? query = null);
-    Task<Response<TEntity?>> GetByIdAsync<TId>(TId id) where TId : notnull;
-    Task<Response<TEntity>> CreateAsync(TEntity value);
-    Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values);
-    Task<Response<TEntity>> UpdateAsync(TEntity value);
-    Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values);
-    Task<Response<TEntity?>> DeleteAsync<TId>(TId id) where TId : notnull;
-    Task<PagedResponse<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> values);
-    Task<PagedResponse<TEntity>> DeleteRangeAsync<TId>(IEnumerable<TId> ids) where TId : notnull;
+public interface IGenericHttpService<TResponse> where TResponse : class, IResponse {
+    Task<PagedResponse<TResponse>> GetAllAsync(object? query = null, string? path = null);
+    Task<Response<TResponse?>> GetByIdAsync<TId>(TId id, string? path = null) where TId : notnull;
+    Task<PagedResponse<TResponse>> GetBySpecAsync(object? value, string? path = null);
+    Task<Response<TResponse>> CreateAsync(TResponse value, string? path = null);
+    Task<PagedResponse<TResponse>> CreateRangeAsync(IEnumerable<TResponse> values, string? path = null);
+    Task<Response<TResponse>> UpdateAsync(TResponse value, string? path = null);
+    Task<PagedResponse<TResponse>> UpdateRangeAsync(IEnumerable<TResponse> values, string? path = null);
+    Task<Response<TResponse?>> DeleteAsync<TId>(TId id, string? path = null) where TId : notnull;
+    Task<PagedResponse<TResponse>> DeleteRangeAsync<TId>(IEnumerable<TId> ids, string? path = null) where TId : notnull;
+    Task<PagedResponse<TResponse>> DeleteSpecAsync(object? values, string? path = null);
 }
