@@ -12,6 +12,7 @@ namespace Axolotl.Enums;
 
 public enum RouteType {
     Any,
+    All,
     GetAll,
     GetById,
     Create,
