@@ -32,7 +32,8 @@ public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
         if (checkSize is not null && checkSize != 0) size = (int)checkSize;
         
         var count = await repo.GetQueryable().WithSpecification(specification).CountAsync(cancellationToken);
-        var result = await repo.GetQueryable().WithSpecification(specification).Take(size).Skip(page - 1 * size).ToListAsync(cancellationToken);
+        var take = (page - 1) * size;
+        var result = await repo.GetQueryable().WithSpecification(specification).Take(size).Skip(take).ToListAsync(cancellationToken);
         var output = result.MapTo<List<TResponse>>();
 
         return new PagedResponse<TResponse>(output, page, size, count);
