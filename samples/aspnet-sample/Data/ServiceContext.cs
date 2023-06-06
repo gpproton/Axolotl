@@ -20,9 +20,6 @@ namespace Axolotl.AspNetSample.Data;
 
 public class ServiceContext : AbstractDbContext {
     public ServiceContext() { }
-
-    private static DbContextOptions<TContext> ChangeOptionsType<TContext>(DbContextOptions options) where TContext : DbContext
-        => (DbContextOptions<TContext>)options;
     public ServiceContext(DbContextOptions<ServiceContext> options) : base(ChangeOptionsType<ServiceContext>(options)) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {

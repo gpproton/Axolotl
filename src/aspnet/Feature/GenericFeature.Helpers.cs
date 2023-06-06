@@ -32,8 +32,7 @@ public abstract partial class GenericFeature<TFeature> where TFeature : new() {
         var root = options.Root;
         var name = options.Name ?? type.Name.ToLower();
         var url = options.Path ?? $"{root}/{name}";
-        var instance = new TFeature() as TAFeature;
-        if (instance == null) return instance!.Endpoints!;
+        if (new TFeature() is not TAFeature instance) return endpoints;
 
         instance.Endpoints = endpoints.MapGroup(url).WithTags(name.Capitalize());
         foreach (var config in options.State) {
