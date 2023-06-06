@@ -33,18 +33,8 @@ public class ServiceContext : AbstractDbContext {
         modelBuilder.RegisterAllEntities<AuditableEntity<Guid>>(entitiesAssembly);
         modelBuilder.RegisterSoftDeleteFilter();
         
-        if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite") {
-            foreach (var entityType in modelBuilder.Model.GetEntityTypes()) {
-                var properties = entityType.ClrType.GetProperties()
-                    .Where(p => p.PropertyType == typeof(DateTimeOffset)
-                     || p.PropertyType == typeof(DateTimeOffset?));
-                foreach (var property in properties)
-                    modelBuilder
-                        .Entity(entityType.Name)
-                        .Property(property.Name)
-                        .HasConversion(new DateTimeOffsetToBinaryConverter());
-            }
-        }
+        if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
+            modelBuilder.DateTimeOffsetToBinary();
     }
 
     public virtual DbSet<Category> Categories { get; set; } = null!;
