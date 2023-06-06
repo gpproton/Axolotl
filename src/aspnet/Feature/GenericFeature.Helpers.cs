@@ -32,9 +32,11 @@ public abstract partial class GenericFeature<TFeature> where TFeature : new() {
         var root = options.Root;
         var name = options.Name ?? type.Name.ToLower();
         var url = options.Path ?? $"{root}/{name}";
-        if (new TFeature() is not TAFeature instance) return endpoints;
-
-        instance.Endpoints = endpoints.MapGroup(url).WithTags(name.Capitalize());
+        var instance = new TFeature() as TAFeature;
+        var group = endpoints.MapGroup(url).WithTags(name.Capitalize());
+        if (instance! == null) throw new Exception("Feature instance not initialized.");
+        instance.Endpoints = group;
+        
         foreach (var config in options.State) {
             switch (config.Type) {
                 case RouteType.GetAll:
