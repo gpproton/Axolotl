@@ -16,6 +16,9 @@ namespace Axolotl.EFCore.Context;
 public abstract class AbstractDbContext : DbContext {
     protected AbstractDbContext() { }
     protected AbstractDbContext(DbContextOptions options) : base(options) { }
+    
+    protected static DbContextOptions<TContext> ChangeOptionsType<TContext>(DbContextOptions options) where TContext : DbContext
+        => (DbContextOptions<TContext>)options;
 
     public override int SaveChanges(bool acceptAllChangesOnSuccess) {
         OnBeforeSaving();
