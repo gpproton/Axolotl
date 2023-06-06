@@ -9,8 +9,10 @@
 // limitations under the License.
 
 using System.Reflection;
+using Axolotl.EFCore.Converters;
 using Microsoft.EntityFrameworkCore;
 using Axolotl.EFCore.Interfaces;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Axolotl.EFCore.Context;
 
@@ -31,9 +33,46 @@ public static class ModelBuilderExtensions {
                 entityType.AddSoftDeleteQueryFilter();
     }
 
-    public static void RegisterSqliteDateTimeOffset(this ModelBuilder modelBuilder) {
-        // if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite") {
-        //     
-        // }
+    public static void RegisterEnumConverters<TEnum>(this ModelBuilder modelBuilder, Type type)
+    where TEnum : Enum
+    {
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes()) {
+                var properties = entityType.ClrType.GetProperties()
+                    .Where(p => p.PropertyType == type);
+                foreach (var property in properties)
+                    modelBuilder
+                        .Entity(entityType.Name)
+                        .Property(property.Name)
+                        .HasConversion(new EnumCollectionJsonValueConverter<TEnum>())
+                        .Metadata.SetValueComparer(new CollectionValueComparer<TEnum>());
+            }
+    }
+    
+    public static void RegisterObjectConverters<TObject>(this ModelBuilder modelBuilder, Type type)
+        where TObject : Enum
+    {
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes()) {
+            var properties = entityType.ClrType.GetProperties()
+                .Where(p => p.PropertyType == type);
+            foreach (var property in properties)
+                modelBuilder
+                    .Entity(entityType.Name)
+                    .Property(property.Name)
+                    .HasConversion(new JsonValueConverter<TObject>())
+                    .Metadata.SetValueComparer(new CollectionValueComparer<TObject>());
+        }
+    }
+
+    public static void DateTimeOffsetToBinary(this ModelBuilder modelBuilder) {
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes()) {
+            var properties = entityType.ClrType.GetProperties()
+                .Where(p => p.PropertyType == typeof(DateTimeOffset)
+                            || p.PropertyType == typeof(DateTimeOffset?));
+            foreach (var property in properties)
+                modelBuilder
+                    .Entity(entityType.Name)
+                    .Property(property.Name)
+                    .HasConversion(new DateTimeOffsetToBinaryConverter());
+        }
     }
 }
