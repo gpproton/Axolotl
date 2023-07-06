@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup>
         <Title>Axolotl</Title>
-        <Version>8.0-preview.18</Version>
+        <Version>8.0-preview.19</Version>
         <Authors>radioActive DROID</Authors>
         <Description>Personal shared utility library</Description>
         <RepositoryType>git</RepositoryType>
@@ -33,23 +33,27 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <AspCoreVersion>8.0.0-preview.4.23260.4</AspCoreVersion>
+        <AspCoreVersion>8.0.0-preview.5.23302.2</AspCoreVersion>
         <ArdalisVersion>7.0.0</ArdalisVersion>
-        <DotnetVersion>8.0.0-preview.4.23259.5</DotnetVersion>
-        <EfcoreVersion>8.0.0-preview.4.23259.3</EfcoreVersion>
+        <DotnetVersion>8.0.0-preview.5.23280.8</DotnetVersion>
+        <EfcoreVersion>8.0.0-preview.5.23280.1</EfcoreVersion>
         <NextendedVersion>7.0.22</NextendedVersion>
-        <Net7Version>7.0.5</Net7Version>
+        <Net7Version>7.0.8</Net7Version>
     </PropertyGroup>
 
     <PropertyGroup>
         <RepoRelativeProjectDir>$([MSBuild]::MakeRelative($(RepoRoot), $(MSBuildProjectDirectory)))</RepoRelativeProjectDir>
         <!-- Define useful flags based on project name conventions -->
         <IsUnitTestProject>false</IsUnitTestProject>
-        <IsUnitTestProject Condition="$(MSBuildProjectName.EndsWith('Tests')) or $(MSBuildProjectName.EndsWith('.Test')) or $(MSBuildProjectName.EndsWith('.FunctionalTest'))">true</IsUnitTestProject>
+        <IsUnitTestProject
+            Condition="$(MSBuildProjectName.EndsWith('Tests')) or $(MSBuildProjectName.EndsWith('.Test')) or $(MSBuildProjectName.EndsWith('.FunctionalTest'))">
+            true</IsUnitTestProject>
         <IsTestAssetProject Condition="$(RepoRelativeProjectDir.Contains('testassets'))">true</IsTestAssetProject>
         <IsSampleProject Condition="$(RepoRelativeProjectDir.Contains('sample'))">true</IsSampleProject>
         <IsAnalyzersProject Condition="$(MSBuildProjectName.EndsWith('.Analyzers'))">true</IsAnalyzersProject>
-        <IsShipping Condition="'$(IsSampleProject)' == 'true' or '$(IsTestAssetProject)' == 'true' or '$(IsBenchmarkProject)' == 'true' or '$(IsUnitTestProject)' == 'true'">false</IsShipping>
+        <IsShipping
+            Condition="'$(IsSampleProject)' == 'true' or '$(IsTestAssetProject)' == 'true' or '$(IsBenchmarkProject)' == 'true' or '$(IsUnitTestProject)' == 'true'">
+            false</IsShipping>
     </PropertyGroup>
 
 </Project>
