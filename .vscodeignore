@@ -1,0 +1,10 @@
+# Ignore everything
+*
+
+# Whitelist what you need
+!.vscodeignore
+!.github
+!.config
+!src
+!samples
+!tests
