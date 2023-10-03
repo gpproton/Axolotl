@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup>
         <Title>Axolotl</Title>
-        <Version>8.0-preview.19</Version>
+        <Version>8.0-preview.20</Version>
         <Authors>radioActive DROID</Authors>
         <Description>Personal shared utility library</Description>
         <RepositoryType>git</RepositoryType>
@@ -14,7 +14,7 @@
         <LicenseFile>$(MSBuildThisFileDirectory)LICENSE</LicenseFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <IncludeSymbols>true</IncludeSymbols>
-        <Copyright>© Axolotl Contributors. All rights reserved.</Copyright>
+        <Copyright>©Axolotl Contributors. All rights reserved.</Copyright>
         <Features>strict</Features>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <Deterministic>true</Deterministic>
@@ -26,18 +26,18 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <TargetFrameworks>net8.0;net7.0</TargetFrameworks>
+        <TargetFrameworks>net8.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>preview</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup>
-        <AspCoreVersion>8.0.0-preview.5.23302.2</AspCoreVersion>
         <ArdalisVersion>7.0.0</ArdalisVersion>
-        <DotnetVersion>8.0.0-preview.5.23280.8</DotnetVersion>
-        <EfcoreVersion>8.0.0-preview.5.23280.1</EfcoreVersion>
-        <NextendedVersion>7.0.22</NextendedVersion>
+        <AspCoreVersion>8.0.0-rc.1.23421.29</AspCoreVersion>
+        <DotnetVersion>8.0.0-rc.1.23419.4</DotnetVersion>
+        <EfcoreVersion>8.0.0-rc.1.23419.6</EfcoreVersion>
+        <NextendedVersion>7.0.41</NextendedVersion>
         <Net7Version>7.0.8</Net7Version>
     </PropertyGroup>
 
