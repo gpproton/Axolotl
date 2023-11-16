@@ -13,14 +13,13 @@
         <PackageVersion Include="Microsoft.Extensions.Primitives" Version="$(DotnetVersion)" />
         <PackageVersion Include="System.Net.Http.Json" Version="$(DotnetVersion)" />
         <PackageVersion Include="Nextended.Core" Version="$(NextendedVersion)" />
-        <PackageVersion Include="OneOf" Version="3.0.243" />
     </ItemGroup>
 
     <!-- EFCore packages -->
     <ItemGroup>
         <PackageVersion Include="Ardalis.SmartEnum.EFCore" Version="$(ArdalisVersion)" />
         <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="$(ArdalisVersion)" />
-        <PackageVersion Include="EFCore.BulkExtensions" Version="8.0.0-rc.1" />
+        <PackageVersion Include="EFCore.BulkExtensions" Version="8.0.0-rc.1.2" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfcoreVersion)" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EfcoreVersion)" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfcoreVersion)" />
