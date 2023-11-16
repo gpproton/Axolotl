@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup>
         <Title>Axolotl</Title>
-        <Version>8.0-preview.20</Version>
+        <Version>8.0-rc.1</Version>
         <Authors>radioActive DROID</Authors>
         <Description>Personal shared utility library</Description>
         <RepositoryType>git</RepositoryType>
@@ -34,10 +34,10 @@
 
     <PropertyGroup>
         <ArdalisVersion>7.0.0</ArdalisVersion>
-        <AspCoreVersion>8.0.0-rc.1.23421.29</AspCoreVersion>
-        <DotnetVersion>8.0.0-rc.1.23419.4</DotnetVersion>
-        <EfcoreVersion>8.0.0-rc.1.23419.6</EfcoreVersion>
-        <NextendedVersion>7.0.41</NextendedVersion>
+        <AspCoreVersion>8.0.0</AspCoreVersion>
+        <DotnetVersion>8.0.0</DotnetVersion>
+        <EfcoreVersion>8.0.0</EfcoreVersion>
+        <NextendedVersion>7.0.47</NextendedVersion>
         <Net7Version>7.0.8</Net7Version>
     </PropertyGroup>
 
