@@ -13,7 +13,6 @@
         <PackageVersion Include="Microsoft.Extensions.Primitives" Version="$(DotnetVersion)" />
         <PackageVersion Include="System.Net.Http.Json" Version="$(DotnetVersion)" />
         <PackageVersion Include="Nextended.Core" Version="$(NextendedVersion)" />
-        <PackageVersion Include="OneOf" Version="3.0.243" />
     </ItemGroup>
 
     <!-- EFCore packages -->
