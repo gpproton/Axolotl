@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
-    <TrimmerRootAssembly>Axolotl.Razor</TrimmerRootAssembly>
     <ProjectReference Include="..\standard\Axolotl.csproj" />
   </ItemGroup>
 

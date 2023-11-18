@@ -12,7 +12,6 @@
   <Import Project="..\..\Common.props" />
 
   <ItemGroup>
-    <TrimmerRootAssembly>Axolotl.Http</TrimmerRootAssembly>
     <ProjectReference Include="..\standard\Axolotl.csproj" />
   </ItemGroup>
 

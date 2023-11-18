@@ -12,7 +12,6 @@
   <Import Project="..\..\Common.props" />
 
   <ItemGroup>
-    <TrimmerRootAssembly>Axolotl.AspNet</TrimmerRootAssembly>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <ProjectReference Include="..\efcore\Axolotl.EFCore.csproj" />
     <ProjectReference Include="..\standard\Axolotl.csproj" />

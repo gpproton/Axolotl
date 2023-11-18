@@ -12,7 +12,6 @@
   <Import Project="..\..\Common.props" />
 
   <ItemGroup>
-    <TrimmerRootAssembly>Axolotl.EFCore</TrimmerRootAssembly>
     <ProjectReference Include="..\standard\Axolotl.csproj" />
     <PackageReference Include="Ardalis.SmartEnum.EFCore" />
     <PackageReference Include="Ardalis.Specification" />
