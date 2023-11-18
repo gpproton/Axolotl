@@ -12,16 +12,14 @@
   <Import Project="..\..\Common.props" />
 
   <ItemGroup>
+    <TrimmerRootAssembly>Axolotl.EFCore</TrimmerRootAssembly>
+    <ProjectReference Include="..\standard\Axolotl.csproj" />
     <PackageReference Include="Ardalis.SmartEnum.EFCore" />
     <PackageReference Include="Ardalis.Specification" />
     <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
     <PackageReference Include="EFCore.BulkExtensions" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.Extensions.Primitives" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\standard\Axolotl.csproj" />
   </ItemGroup>
 
 </Project>
