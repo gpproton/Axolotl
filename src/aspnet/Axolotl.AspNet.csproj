@@ -12,10 +12,10 @@
   <Import Project="..\..\Common.props" />
 
   <ItemGroup>
+    <TrimmerRootAssembly>Axolotl.AspNet</TrimmerRootAssembly>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\efcore\Axolotl.EFCore.csproj" />
+    <ProjectReference Include="..\standard\Axolotl.csproj" />
     <PackageReference Include="Ardalis.Specification" />
   </ItemGroup>
 
@@ -25,13 +25,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Contains('net7'))">
-    <!-- <PackageReference Include="Microsoft.AspNetCore.OpenApi" VersionOverride="$(Net7Version)" /> -->
     <!-- <PackageReference Include="Microsoft.EntityFrameworkCore" VersionOverride="$(Net7Version)" /> -->
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\efcore\Axolotl.EFCore.csproj" />
-    <ProjectReference Include="..\standard\Axolotl.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
+    <TrimmerRootAssembly>Axolotl.Razor</TrimmerRootAssembly>
+    <ProjectReference Include="..\standard\Axolotl.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Contains('net8'))">
@@ -21,10 +23,6 @@
 
   <ItemGroup Condition="$(TargetFramework.Contains('net7'))">
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" VersionOverride="$(Net7Version)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\standard\Axolotl.csproj" />
   </ItemGroup>
 
 </Project>
