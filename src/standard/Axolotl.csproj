@@ -12,7 +12,6 @@
   <Import Project="..\..\Common.props" />
 
   <ItemGroup>
-    <TrimmerRootAssembly>Axolotl</TrimmerRootAssembly>
     <PackageReference Include="Ardalis.SmartEnum" />
     <PackageReference Include="Ardalis.SmartEnum.SystemTextJson" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />

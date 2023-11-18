@@ -23,7 +23,7 @@
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <PackageIcon>icon.jpg</PackageIcon>
-        <IsTrimmable>true</IsTrimmable>
+<!--        <IsTrimmable>true</IsTrimmable>-->
     </PropertyGroup>
 
     <PropertyGroup>
