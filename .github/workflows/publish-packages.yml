@@ -1,12 +1,11 @@
-name: Standard libraries deployment
+name: Libraries deployment
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 jobs:
-  build:
+  packages-deploy:
     env:
       BUILD_CONFIG: Release
       NUGET_URL: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
@@ -26,9 +25,14 @@ jobs:
           - path: "./src/standard/Axolotl.csproj"
           - path: "./src/http/Axolotl.Http.csproj"
           - path: "./src/efcore/Axolotl.EFCore.csproj"
+          - path: "./src/aspnet/Axolotl.AspNet.csproj"
+          - path: "./src/razor/Axolotl.Razor.csproj"
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
