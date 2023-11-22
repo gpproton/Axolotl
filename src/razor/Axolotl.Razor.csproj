@@ -14,14 +14,7 @@
   <ItemGroup>
     <SupportedPlatform Include="browser" />
     <ProjectReference Include="..\standard\Axolotl.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Contains('net8'))">
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Contains('net7'))">
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" VersionOverride="$(Net7Version)" />
   </ItemGroup>
 
 </Project>

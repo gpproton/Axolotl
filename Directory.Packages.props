@@ -19,7 +19,7 @@
     <ItemGroup>
         <PackageVersion Include="Ardalis.SmartEnum.EFCore" Version="$(ArdalisVersion)" />
         <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="$(ArdalisVersion)" />
-        <PackageVersion Include="EFCore.BulkExtensions" Version="8.0.0-rc.1.2" />
+        <PackageVersion Include="EFCore.BulkExtensions" Version="$(BulkExtensions)" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfcoreVersion)" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EfcoreVersion)" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfcoreVersion)" />
