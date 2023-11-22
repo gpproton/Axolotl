@@ -16,15 +16,8 @@
     <ProjectReference Include="..\efcore\Axolotl.EFCore.csproj" />
     <ProjectReference Include="..\standard\Axolotl.csproj" />
     <PackageReference Include="Ardalis.Specification" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Contains('net8'))">
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" VersionOverride="$(EfcoreVersion)" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Contains('net7'))">
-    <!-- <PackageReference Include="Microsoft.EntityFrameworkCore" VersionOverride="$(Net7Version)" /> -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
   </ItemGroup>
 
 </Project>
