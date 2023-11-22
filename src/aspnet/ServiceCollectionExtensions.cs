@@ -49,7 +49,6 @@ public static class ServiceCollectionExtensions {
     public static IServiceCollection RegisterGenericServices(this IServiceCollection services) {
         Action<JsonOptions> jsonOptions = options => {
             options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-            options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
 
             var jsonConverters =
                 AppDomain.CurrentDomain
