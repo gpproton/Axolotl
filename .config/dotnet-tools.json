@@ -9,7 +9,7 @@
       ]
     },
     "dotnet-ef": {
-      "version": "8.0.0-preview.4.23259.3",
+      "version": "8.0.1",
       "commands": [
         "dotnet-ef"
       ]
