@@ -10,12 +10,6 @@
 
 namespace Axolotl.EFCore.Interfaces;
 
-
-public interface IHasKey {
-    object Id { get; set; }
-}
-
-
-public interface IHasKey<TKey> : IHasKey where TKey : notnull {
-    new TKey Id { get; set; }
+public interface IHasKey<TKey> where TKey : notnull {
+    TKey Id { get; set; }
 }

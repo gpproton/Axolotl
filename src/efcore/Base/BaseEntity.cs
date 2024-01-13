@@ -20,9 +20,4 @@ public abstract class BaseEntity<TKey> : CoreEntity, IHasKey<TKey> where TKey : 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Display(AutoGenerateField = false)]
     public TKey Id { get; set; } = default!;
-
-    object IHasKey.Id {
-        get => Id;
-        set => Id = (TKey)value;
-    }
 }
