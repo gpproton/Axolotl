@@ -2,6 +2,7 @@
 
  A personal shared library for various types of dotnet project types
 
+NOTE: Issues can be created to improve documentation and fix errors
 
 ### Sub-packages
 
@@ -12,8 +13,6 @@ Axolotl.Http:
 Axolotl.EFCore:
 
 Axolotl.Razor:
-
-Axolotl.Maui:
 
 
 # Install
@@ -34,7 +33,6 @@ Install-Package Axolotl.Http
 Install-Package Axolotl.EFCore
 Install-Package Axolotl.AspNet
 Install-Package Axolotl.Razor
-Install-Package Axolotl.Maui
 ```
 
 ## Asp.Net Core Samples
@@ -69,10 +67,27 @@ public class ServiceContext : DbContext {
 }
 ```
 
+### Create your generic repository and apply DbContext
+
+```csharp
+public class GenericRepository<TEntity, TKey> : GenericBaseRepository<TEntity, ServiceContext, TKey> 
+    where TEntity : class, IAggregateRoot, IHasKey<TKey> 
+    where TKey : notnull {
+    public GenericRepository(ServiceContext context) : base(context) { }
+}
+```
+
+### Register generic repository
+
+```csharp
+builder.Services.RegisterGenericRepositories(typeof(GenericRepository<,>));
+builder.Services.RegisterGenericServices();
+```
+
 ### Create optional filter specification
 
 ```csharp
-public sealed class CategorySpec : Specification<Post> {
+public sealed class CategorySpec : Specification<Post, Guid> {
     public CategorySpec(IPageFilter filter) {
         var search = filter.Search ?? string.Empty;
         var text = search.ToLower().Split(" ").ToList().Select(x => x);
@@ -86,7 +101,7 @@ public sealed class CategorySpec : Specification<Post> {
 ### Create feature/endpoint
 
 ```csharp
-public class CategoryFeature : GenericFeature<CategoryFeature> {
+public class CategoryFeature : GenericFeature<CategoryFeature, Guid> {
     public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
         var state = new FeatureState(new List<RouteState> {
             new (RouteType.GetAll, typeof(CategorySpec)),
