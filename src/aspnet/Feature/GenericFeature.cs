@@ -16,7 +16,9 @@ using Axolotl.Response;
 
 namespace Axolotl.AspNet.Feature;
 
-public abstract partial class GenericFeature<TFeature> : IFeature where  TFeature : new() {
+public abstract partial class GenericFeature<TFeature, TKey> : IFeature
+    where TKey : notnull
+    where  TFeature : new() {
     protected IEndpointRouteBuilder? Endpoints { get; set; }
 
     protected IEndpointRouteBuilder GetEndpoints() => Endpoints!;
@@ -25,44 +27,43 @@ public abstract partial class GenericFeature<TFeature> : IFeature where  TFeatur
 
     public abstract IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints);
 
-    protected GenericFeature<TFeature> AddGetAll<TEntity>(RouteState state) where TEntity : class, IAggregateRoot, IResponse =>
+    protected GenericFeature<TFeature, TKey> AddGetAll<TEntity>(RouteState state) where TEntity : class, IAggregateRoot, IResponse =>
         this.AddGetAll<TEntity, TEntity>(state);
 
-    protected GenericFeature<TFeature> AddGetById<TEntity, TId>(RouteState state)
-        where TEntity : class, IAggregateRoot, IResponse where TId : notnull =>
-        this.AddGetById<TEntity, TEntity, TId>(state);
+    protected GenericFeature<TFeature, TKey> AddGetById<TEntity>(RouteState state)
+        where TEntity : class, IAggregateRoot, IResponse =>
+        this.AddGetById<TEntity, TEntity>(state);
 
-    protected GenericFeature<TFeature> AddGetBySpec<TEntity, TOption>(IEndpointRouteBuilder endpoints,
+    protected GenericFeature<TFeature, TKey> AddGetBySpec<TEntity, TOption>(IEndpointRouteBuilder endpoints,
         RouteState state)
         where TEntity : class, IAggregateRoot, IResponse
         where TOption : class, ISpecFilter =>
         this.AddGetBySpec<TEntity, TEntity, TOption>(endpoints, state);
 
-    protected GenericFeature<TFeature> AddCreate<TEntity>(RouteState state)
+    protected GenericFeature<TFeature, TKey> AddCreate<TEntity>(RouteState state)
         where TEntity : class, IAggregateRoot, IResponse => this.AddCreate<TEntity, TEntity>(state);
 
-    protected GenericFeature<TFeature> AddCreateRange<TEntity>(RouteState state)
+    protected GenericFeature<TFeature, TKey> AddCreateRange<TEntity>(RouteState state)
         where TEntity : class, IAggregateRoot, IResponse =>
         this.AddCreateRange<TEntity, TEntity>(state);
 
-    protected GenericFeature<TFeature> AddUpdate<TEntity>(RouteState state)
+    protected GenericFeature<TFeature, TKey> AddUpdate<TEntity>(RouteState state)
         where TEntity : class, IAggregateRoot, IResponse =>
         this.AddUpdate<TEntity, TEntity>(state);
 
-    protected GenericFeature<TFeature> AddUpdateRange<TEntity>(RouteState state)
+    protected GenericFeature<TFeature, TKey> AddUpdateRange<TEntity>(RouteState state)
         where TEntity : class, IAggregateRoot, IResponse =>
         this.AddUpdateRange<TEntity, TEntity>(state);
 
-    protected GenericFeature<TFeature> AddDelete<TEntity, TId>(RouteState state)
-        where TEntity : class, IAggregateRoot, IResponse where TId : notnull =>
-        this.AddDelete<TEntity, TEntity, TId>(state);
+    protected GenericFeature<TFeature, TKey> AddDelete<TEntity>(RouteState state)
+        where TEntity : class, IAggregateRoot, IResponse =>
+        this.AddDelete<TEntity, TEntity>(state);
 
-    protected GenericFeature<TFeature> AddDeleteRange<TEntity, TId>(RouteState state)
-        where TEntity : class, IAggregateRoot, IResponse
-        where TId : notnull =>
-        this.AddDeleteRange<TEntity, TEntity, TId>(state);
+    protected GenericFeature<TFeature, TKey> AddDeleteRange<TEntity>(RouteState state)
+        where TEntity : class, IAggregateRoot, IResponse =>
+        this.AddDeleteRange<TEntity, TEntity>(state);
 
-    public GenericFeature<TFeature> AddDeleteBySpec<TEntity, TOption>(IEndpointRouteBuilder endpoints, RouteState state)
+    public GenericFeature<TFeature, TKey> AddDeleteBySpec<TEntity, TOption>(IEndpointRouteBuilder endpoints, RouteState state)
         where TEntity : class, IAggregateRoot, IResponse
         where TOption : class =>
         this.AddDeleteBySpec<TEntity, TEntity, TOption>(endpoints, state);

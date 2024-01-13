@@ -17,12 +17,13 @@ using Axolotl.Response;
 
 namespace Axolotl.AspNet.Feature;
 
-public abstract partial class GenericFeature<TFeature> where TFeature : new() {
-    protected static IEndpointRouteBuilder SetupGroup<TAFeature, TEntity, TResponse, TId>(IEndpointRouteBuilder endpoints, FeatureState? state = null)
-        where TAFeature : GenericFeature<TFeature>
+public abstract partial class GenericFeature<TFeature, TKey>
+    where TKey : notnull
+    where TFeature : new() {
+    protected static IEndpointRouteBuilder SetupGroup<TAFeature, TEntity, TResponse>(IEndpointRouteBuilder endpoints, FeatureState? state = null)
+        where TAFeature : GenericFeature<TFeature, TKey>
         where TEntity : class, IAggregateRoot, IResponse
-        where TResponse : class, IResponse
-        where TId : notnull {
+        where TResponse : class, IResponse {
         var options = state ?? new FeatureState(new List<RouteState> {
             new(RouteType.GetAll),
             new(RouteType.GetById)
@@ -43,7 +44,7 @@ public abstract partial class GenericFeature<TFeature> where TFeature : new() {
                     instance.AddGetAll<TEntity, TResponse>(config);
                     break;
                 case RouteType.GetById:
-                    instance.AddGetById<TEntity, TResponse, TId>(config);
+                    instance.AddGetById<TEntity, TResponse>(config);
                     break;
                 case RouteType.Create:
                     instance.AddCreate<TEntity, TResponse>(config);
@@ -58,10 +59,10 @@ public abstract partial class GenericFeature<TFeature> where TFeature : new() {
                     instance.AddUpdateRange<TEntity, TResponse>(config);
                     break;
                 case RouteType.Delete:
-                    instance.AddDelete<TEntity, TResponse, TId>(config);
+                    instance.AddDelete<TEntity, TResponse>(config);
                     break;
                 case RouteType.DeleteRange:
-                    instance.AddDeleteRange<TEntity, TResponse, TId>(config);
+                    instance.AddDeleteRange<TEntity, TResponse>(config);
                     break;
             }
         }
@@ -69,9 +70,8 @@ public abstract partial class GenericFeature<TFeature> where TFeature : new() {
         return instance.Endpoints;
     }
 
-    protected static IEndpointRouteBuilder SetupGroup<TAFeature, TEntity, TId>(IEndpointRouteBuilder endpoints, FeatureState? state = null)
-        where TAFeature : GenericFeature<TFeature>
-        where TEntity : class, IAggregateRoot, IResponse
-        where TId : notnull =>
-        SetupGroup<TAFeature, TEntity, TEntity, TId>(endpoints, state);
+    protected static IEndpointRouteBuilder SetupGroup<TAFeature, TEntity>(IEndpointRouteBuilder endpoints, FeatureState? state = null)
+        where TAFeature : GenericFeature<TFeature, TKey>
+        where TEntity : class, IAggregateRoot, IResponse =>
+        SetupGroup<TAFeature, TEntity, TEntity>(endpoints, state);
 }
