@@ -15,18 +15,20 @@ using Axolotl.Response;
 
 namespace Axolotl.AspNet.Service;
 
-public interface IGenericService<TEntity> where TEntity : class, IAggregateRoot, IResponse {
+public interface IGenericService<TEntity, in TKey>
+    where TEntity : class, IAggregateRoot, IResponse
+    where TKey : notnull {
     Task<PagedResponse<TEntity>> PageFilter(ISpecification<TEntity> specification, int? checkPage, int? checkSize,
         CancellationToken cancellationToken = default);
     Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter, Type? spec = null, CancellationToken cancellationToken = default);
-    Task<Response<TEntity?>> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull;
+    Task<Response<TEntity?>> GetByIdAsync(TKey id, CancellationToken cancellationToken = default);
     Task<PagedResponse<TEntity>> GetBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class, ISpecFilter;
     Task<Response<TEntity>> CreateAsync(TEntity value, CancellationToken cancellationToken = default);
     Task<PagedResponse<TEntity>> CreateRangeAsync(IEnumerable<TEntity> values, CancellationToken cancellationToken = default);
     Task<Response<TEntity>> UpdateAsync(TEntity value, CancellationToken cancellationToken = default);
     Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values, CancellationToken cancellationToken = default);
-    Task<Response<TEntity?>> DeleteAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull;
-    Task<Response<int>> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull;
+    Task<Response<TEntity?>> DeleteAsync(TKey id, CancellationToken cancellationToken = default);
+    Task<Response<int>> DeleteRangeAsync(IEnumerable<TKey> ids, CancellationToken cancellationToken = default);
     Task<PagedResponse<TEntity>> DeleteBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class;
     Task ClearAsync(CancellationToken cancellationToken = default);
 }

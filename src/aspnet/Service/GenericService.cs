@@ -15,8 +15,10 @@ using Axolotl.Response;
 
 namespace Axolotl.AspNet.Service;
 
-public sealed class GenericService<TEntity>(IGenericService<TEntity, TEntity> root) :
-    IGenericService<TEntity> where TEntity : class, IAggregateRoot, IHasKey, IResponse {
+public sealed class GenericService<TEntity, TKey>(IGenericService<TEntity, TEntity, TKey> root) :
+    IGenericService<TEntity, TKey> 
+    where TEntity : class, IAggregateRoot, IHasKey<TKey>, IResponse
+    where TKey : notnull {
     public Task<PagedResponse<TEntity>> PageFilter(ISpecification<TEntity> specification, int? checkPage,
         int? checkSize,
         CancellationToken cancellationToken = default) =>
@@ -25,7 +27,7 @@ public sealed class GenericService<TEntity>(IGenericService<TEntity, TEntity> ro
     public async Task<PagedResponse<TEntity>> GetAllAsync(IPageFilter? filter, Type? spec, CancellationToken cancellationToken = default) =>
         await root.GetAllAsync(filter, spec, cancellationToken);
 
-    public async Task<Response<TEntity?>> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull =>
+    public async Task<Response<TEntity?>> GetByIdAsync(TKey id, CancellationToken cancellationToken = default) =>
         await root.GetByIdAsync(id, cancellationToken);
 
     public async Task<PagedResponse<TEntity>> GetBySpec<TOption>(Type spec, TOption option,
@@ -44,10 +46,10 @@ public sealed class GenericService<TEntity>(IGenericService<TEntity, TEntity> ro
     public async Task<PagedResponse<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> values, CancellationToken cancellationToken = default) =>
         await root.UpdateRangeAsync(values, cancellationToken);
 
-    public async Task<Response<TEntity?>> DeleteAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull =>
+    public async Task<Response<TEntity?>> DeleteAsync(TKey id, CancellationToken cancellationToken = default) =>
         await root.DeleteAsync(id, cancellationToken);
 
-    public async Task<Response<int>> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull =>
+    public async Task<Response<int>> DeleteRangeAsync(IEnumerable<TKey> ids, CancellationToken cancellationToken = default) =>
         await root.DeleteRangeAsync(ids, cancellationToken);
 
     public async Task<PagedResponse<TEntity>> DeleteBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class =>

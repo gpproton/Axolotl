@@ -20,10 +20,11 @@ using Axolotl.Response;
 
 namespace Axolotl.AspNet.Service;
 
-public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
-    IGenericService<TEntity, TResponse> 
-    where TEntity : class, IAggregateRoot, IHasKey, IResponse
-    where TResponse : class, IResponse {
+public class GenericService<TEntity, TResponse, TKey> (IRepository<TEntity, TKey> repo) :
+    IGenericService<TEntity, TResponse, TKey> 
+    where TEntity : class, IAggregateRoot, IHasKey<TKey>, IResponse
+    where TResponse : class, IResponse
+    where TKey : notnull {
     
     public async Task<PagedResponse<TResponse>> PageFilter(ISpecification<TEntity> specification, int? checkPage, int? checkSize, CancellationToken cancellationToken = default) {
         int page = 1;
@@ -49,7 +50,7 @@ public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
         return await PageFilter(specification, filter.Page, filter.Size, cancellationToken);
     }
 
-    public async Task<Response<TResponse?>> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull {
+    public async Task<Response<TResponse?>> GetByIdAsync(TKey id, CancellationToken cancellationToken = default) {
         var result = await repo.GetByIdAsync(id, cancellationToken);
         var output = result.MapTo<TResponse?>();
         
@@ -92,14 +93,14 @@ public class GenericService<TEntity, TResponse> (IRepository<TEntity> repo) :
         return new PagedResponse<TResponse>(output);
     }
 
-    public async Task<Response<TResponse?>> DeleteAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull {
+    public async Task<Response<TResponse?>> DeleteAsync(TKey id, CancellationToken cancellationToken = default) {
         var result = await repo.DeleteAsync(id, cancellationToken);
         var output = result.MapTo<TResponse?>();
         
         return new Response<TResponse?>(output, "", result != null);
     }
 
-    public async Task<Response<int>> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull {
+    public async Task<Response<int>> DeleteRangeAsync(IEnumerable<TKey> ids, CancellationToken cancellationToken = default) {
         var result = await repo.DeleteRangeAsync(ids, cancellationToken);
         
         return new Response<int>(result);
