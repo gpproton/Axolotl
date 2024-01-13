@@ -17,13 +17,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => { });
 
-// Axolotl services
-builder.Services.RegisterFeatures(typeof(Program).Assembly);
-builder.Services.RegisterGenericServices();
 
 // Sample services
 builder.Services.RegisterDataContext();
 builder.Services.RegisterGenericRepositories(typeof(GenericRepository<,>));
+
+// Axolotl services
+builder.Services.RegisterGenericServices();
+builder.Services.RegisterFeatures(typeof(Program).Assembly);
+
 builder.Services.AddHostedService<MigrationService>();
 builder.Services.AddCoreAdmin(new CoreAdminOptions {
     Title = "Sample Admin",
