@@ -14,17 +14,18 @@ using Axolotl.EFCore.Interfaces;
 #nullable enable
 namespace Axolotl.EFCore.Repository;
 
-  public interface IRepository<TEntity> : 
+  public interface IRepository<TEntity, in TKey> : 
     IReadRepository<TEntity>,
     IRepositoryBase<TEntity>
-    where TEntity : class, IAggregateRoot, IHasKey
+    where TEntity : class, IAggregateRoot, IHasKey<TKey>
+    where TKey : notnull
   {
       new Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
       new Task<IEnumerable<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
       new Task<TEntity?> DeleteAsync(TEntity entity, CancellationToken cancellationToken = default);
-      Task<TEntity?> DeleteAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull;
+      Task<TEntity?> DeleteAsync(TKey id, CancellationToken cancellationToken = default);
       new Task<IEnumerable<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
-      Task<int> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull;
+      Task<int> DeleteRangeAsync(IEnumerable<TKey> ids, CancellationToken cancellationToken = default);
       Task<IEnumerable<TEntity>> DeleteBySpec(ISpecification<TEntity> specification, CancellationToken cancellationToken = default);
       Task ClearAsync(CancellationToken cancellationToken = default);
   }

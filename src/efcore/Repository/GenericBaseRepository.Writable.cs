@@ -15,8 +15,9 @@ using Axolotl.EFCore.Interfaces;
 
 namespace Axolotl.EFCore.Repository;
 
-public abstract partial class GenericBaseRepository<TEntity, TContext> where TEntity : class, IAggregateRoot, IHasKey
-    where TContext : DbContext {
+public abstract partial class GenericBaseRepository<TEntity, TContext, TKey> where TEntity : class, IAggregateRoot, IHasKey<TKey>
+    where TContext : DbContext
+    where TKey : notnull{
     public override async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default) {
         _context.Set<TEntity>().Update(entity);
         await SaveChangesAsync(cancellationToken);
@@ -39,7 +40,7 @@ public abstract partial class GenericBaseRepository<TEntity, TContext> where TEn
         return entity;
     }
 
-    public async Task<TEntity?> DeleteAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull {
+    public async Task<TEntity?> DeleteAsync(TKey id, CancellationToken cancellationToken = default) {
         var item = await this.GetByIdAsync(id, cancellationToken);
         if (item is not null) {
             _context.Set<TEntity>().Remove(item);
@@ -57,8 +58,12 @@ public abstract partial class GenericBaseRepository<TEntity, TContext> where TEn
         return deleteRangeAsync;
     }
 
-    public async Task<int> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull {
-        var items = await _context.Set<TEntity>().Where(x => ids.Contains((TId)x.Id)).ExecuteDeleteAsync(cancellationToken);
+    public Task<int> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull {
+        throw new NotImplementedException();
+    }
+
+    public async Task<int> DeleteRangeAsync(IEnumerable<TKey> ids, CancellationToken cancellationToken = default) {
+        var items = await _context.Set<TEntity>().Where(x => ids.Contains(x.Id)).ExecuteDeleteAsync(cancellationToken);
         await SaveChangesAsync(cancellationToken);
         
         return items;

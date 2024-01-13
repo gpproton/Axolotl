@@ -16,9 +16,10 @@ using Axolotl.EFCore.Interfaces;
 
 namespace Axolotl.EFCore.Repository;
 
-public abstract partial class GenericBaseRepository<TEntity, TContext> : RepositoryBase<TEntity>, IRepository<TEntity>
-    where TEntity : class, IAggregateRoot, IHasKey
-    where TContext : DbContext {
+public abstract partial class GenericBaseRepository<TEntity, TContext, TKey> : RepositoryBase<TEntity>, IRepository<TEntity, TKey>
+    where TEntity : class, IAggregateRoot, IHasKey<TKey>
+    where TContext : DbContext
+    where TKey : notnull {
     private readonly TContext _context;
     
     protected GenericBaseRepository(TContext context) : base(context) => _context = context;
