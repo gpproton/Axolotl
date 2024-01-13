@@ -67,8 +67,8 @@ public static class ServiceCollectionExtensions {
         services.Configure(jsonOptions);
         services.ConfigureHttpJsonOptions(jsonOptions);
         
-        services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
         services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
+        services.AddScoped(typeof(IGenericService<,,>), typeof(GenericService<,,>));
 
         return services;
     }

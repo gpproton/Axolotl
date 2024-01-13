@@ -15,8 +15,7 @@ namespace Axolotl.EFCore;
 
 public static class ServiceCollectionExtensions {
     public static IServiceCollection RegisterGenericRepositories(this IServiceCollection services, Type repositoryType) {
-        services.AddScoped(typeof(IRepository<>), repositoryType);
-        services.AddScoped(typeof(IReadRepository<>), repositoryType);
+        services.AddScoped(typeof(IRepository<,>), repositoryType);
         
         return services;
     }
