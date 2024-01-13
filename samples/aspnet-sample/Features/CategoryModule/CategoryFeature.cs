@@ -13,20 +13,20 @@ using Axolotl.Enums;
 
 namespace Axolotl.AspNetSample.Features.CategoryModule;
 
-public class CategoryFeature : GenericFeature<CategoryFeature> {
+public class CategoryFeature : GenericFeature<CategoryFeature, Guid> {
     public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
-        var state = new FeatureState(new List<RouteState> {
-            new (RouteType.GetAll, typeof(CategorySpec)),
-            new (RouteType.GetById),
-            new (RouteType.Create),
-            new (RouteType.CreateRange),
-            new (RouteType.Update),
-            new (RouteType.UpdateRange),
-            new (RouteType.Delete),
-            new (RouteType.DeleteRange)
-        });
+        var state = new FeatureState([
+            new RouteState(RouteType.GetAll, typeof(CategorySpec)),
+            new RouteState(RouteType.GetById),
+            new RouteState(RouteType.Create),
+            new RouteState(RouteType.CreateRange),
+            new RouteState(RouteType.Update),
+            new RouteState(RouteType.UpdateRange),
+            new RouteState(RouteType.Delete),
+            new RouteState(RouteType.DeleteRange)
+        ]);
 
-        var group = SetupGroup<CategoryFeature, Category, Guid>(endpoints, state);
+        var group = SetupGroup<CategoryFeature, Category>(endpoints, state);
         var options = new RouteState(RouteType.Any, typeof(CategorySpec));
         
         AddGetBySpec<Category, Category, CategorySpecFilter>(group, options);

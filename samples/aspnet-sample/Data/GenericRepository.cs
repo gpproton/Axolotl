@@ -13,6 +13,8 @@ using Axolotl.EFCore.Repository;
 
 namespace Axolotl.AspNetSample.Data;
 
-public class GenericRepository<TEntity> : GenericBaseRepository<TEntity, ServiceContext> where TEntity : class, IAggregateRoot, IHasKey {
+public class GenericRepository<TEntity, TKey> : GenericBaseRepository<TEntity, ServiceContext, TKey> 
+    where TEntity : class, IAggregateRoot, IHasKey<TKey> 
+    where TKey : notnull {
     public GenericRepository(ServiceContext context) : base(context) { }
 }

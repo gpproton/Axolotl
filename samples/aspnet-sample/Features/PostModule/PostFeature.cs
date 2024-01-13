@@ -12,7 +12,7 @@ using Axolotl.AspNet.Feature;
 
 namespace Axolotl.AspNetSample.Features.PostModule;
 
-public class PostFeature : GenericFeature<PostFeature> {
+public class PostFeature : GenericFeature<PostFeature, Guid> {
     public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) =>
-        SetupGroup<PostFeature, Post, Guid>(endpoints);
+        SetupGroup<PostFeature, Post>(endpoints);
 }

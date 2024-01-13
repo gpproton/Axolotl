@@ -13,7 +13,7 @@ using Axolotl.Enums;
 
 namespace Axolotl.AspNetSample.Features.TagModule;
 
-public class TagFeature : GenericFeature<TagFeature> {
+public class TagFeature : GenericFeature<TagFeature, Guid> {
     public override IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
         var state = new FeatureState(new List<RouteState> {
             new (RouteType.GetAll),
@@ -21,6 +21,6 @@ public class TagFeature : GenericFeature<TagFeature> {
             new (RouteType.Create)
         });
 
-        return SetupGroup<TagFeature, Tag, Guid>(endpoints, state);;
+        return SetupGroup<TagFeature, Tag>(endpoints, state);;
     }
 }

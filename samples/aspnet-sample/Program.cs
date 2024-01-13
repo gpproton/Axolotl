@@ -23,7 +23,7 @@ builder.Services.RegisterGenericServices();
 
 // Sample services
 builder.Services.RegisterDataContext();
-builder.Services.RegisterGenericRepositories(typeof(GenericRepository<>));
+builder.Services.RegisterGenericRepositories(typeof(GenericRepository<,>));
 builder.Services.AddHostedService<MigrationService>();
 builder.Services.AddCoreAdmin(new CoreAdminOptions {
     Title = "Sample Admin",
