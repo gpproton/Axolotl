@@ -15,9 +15,7 @@
     <ProjectReference Include="..\standard\Axolotl.csproj" />
     <PackageReference Include="Ardalis.Specification" />
     <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" />
-    <PackageReference Include="EFCore.BulkExtensions" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" />
-    <PackageReference Include="Microsoft.Extensions.Primitives" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" />
   </ItemGroup>
 
 </Project>

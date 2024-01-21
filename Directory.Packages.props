@@ -21,6 +21,7 @@
         <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="$(ArdalisVersion)" />
         <PackageVersion Include="EFCore.BulkExtensions" Version="$(BulkExtensions)" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfcoreVersion)" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.Abstractions" Version="$(EfcoreVersion)" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EfcoreVersion)" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfcoreVersion)" />
     </ItemGroup>
