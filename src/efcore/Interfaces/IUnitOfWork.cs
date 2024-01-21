@@ -16,7 +16,3 @@ public interface IUnitOfWork<out TContext> where TContext : DbContext {
     TContext Context { get; }
     public Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }
-
-public interface IUnitOfWork {
-    
-}
