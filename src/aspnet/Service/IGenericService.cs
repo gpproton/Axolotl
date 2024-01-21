@@ -30,5 +30,4 @@ public interface IGenericService<TEntity, in TKey>
     Task<Response<TEntity?>> DeleteAsync(TKey id, CancellationToken cancellationToken = default);
     Task<Response<int>> DeleteRangeAsync(IEnumerable<TKey> ids, CancellationToken cancellationToken = default);
     Task<PagedResponse<TEntity>> DeleteBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class;
-    Task ClearAsync(CancellationToken cancellationToken = default);
 }

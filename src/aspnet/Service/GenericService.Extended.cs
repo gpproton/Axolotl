@@ -32,9 +32,9 @@ public class GenericService<TEntity, TResponse, TKey> (IRepository<TEntity, TKey
         if (checkPage is not null && checkPage != 0) page = (int)checkPage;
         if (checkSize is not null && checkSize != 0) size = (int)checkSize;
         
-        var count = await repo.GetQueryable().WithSpecification(specification).CountAsync(cancellationToken);
+        var count = await repo.Query(cancellationToken).WithSpecification(specification).CountAsync(cancellationToken);
         var take = (page - 1) * size;
-        var result = await repo.GetQueryable().WithSpecification(specification).Take(size).Skip(take).ToListAsync(cancellationToken);
+        var result = await repo.Query(cancellationToken).WithSpecification(specification).Take(size).Skip(take).ToListAsync(cancellationToken);
         var output = result.MapTo<List<TResponse>>();
 
         return new PagedResponse<TResponse>(output, page, size, count);
@@ -113,6 +113,4 @@ public class GenericService<TEntity, TResponse, TKey> (IRepository<TEntity, TKey
         
         return new PagedResponse<TResponse>(output);
     }
-
-    public async Task ClearAsync(CancellationToken cancellationToken = default) => await repo.ClearAsync(cancellationToken);
 }
