@@ -21,6 +21,7 @@ builder.Services.AddSwaggerGen(options => { });
 // Sample services
 builder.Services.RegisterDataContext();
 builder.Services.RegisterGenericRepositories(typeof(GenericRepository<,>));
+builder.Services.RegisterUnitOfWork<ServiceContext>();
 
 // Axolotl services
 builder.Services.RegisterGenericServices();

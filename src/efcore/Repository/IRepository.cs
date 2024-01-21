@@ -27,5 +27,4 @@ namespace Axolotl.EFCore.Repository;
       new Task<IEnumerable<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
       Task<int> DeleteRangeAsync(IEnumerable<TKey> ids, CancellationToken cancellationToken = default);
       Task<IEnumerable<TEntity>> DeleteBySpec(ISpecification<TEntity> specification, CancellationToken cancellationToken = default);
-      Task ClearAsync(CancellationToken cancellationToken = default);
   }

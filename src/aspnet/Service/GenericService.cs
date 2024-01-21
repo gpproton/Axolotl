@@ -54,6 +54,4 @@ public sealed class GenericService<TEntity, TKey>(IGenericService<TEntity, TEnti
 
     public async Task<PagedResponse<TEntity>> DeleteBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class =>
         await root.DeleteBySpec(spec, option, cancellationToken);
-
-    public async Task ClearAsync(CancellationToken cancellationToken = default) => await root.ClearAsync(cancellationToken);
 }

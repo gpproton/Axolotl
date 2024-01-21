@@ -1,4 +1,4 @@
-// Copyright 2022 - 2023 Godwin peter .O (me@godwin.dev)
+// Copyright 2022 - 2024 Godwin peter .O (me@godwin.dev)
 // 
 // Licensed under the MIT License;
 // you may not use this file except in compliance with the License.
@@ -8,12 +8,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Axolotl.EFCore.Interfaces;
-using Axolotl.EFCore.Repository;
+using Microsoft.EntityFrameworkCore;
 
-namespace Axolotl.AspNetSample.Data;
+namespace Axolotl.EFCore.Interfaces;
 
-public class GenericRepository<TEntity, TKey>(IUnitOfWork<ServiceContext> context)
-    : GenericBaseRepository<TEntity, ServiceContext, TKey>(context)
-    where TEntity : class, IAggregateRoot, IHasKey<TKey>
-    where TKey : notnull;
+public interface IUnitOfWork<out TContext> where TContext : DbContext {
+    TContext Context { get; }
+    public Task SaveChangesAsync(CancellationToken cancellationToken = default);
+}

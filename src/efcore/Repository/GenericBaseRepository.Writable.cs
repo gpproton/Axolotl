@@ -19,66 +19,58 @@ public abstract partial class GenericBaseRepository<TEntity, TContext, TKey> whe
     where TContext : DbContext
     where TKey : notnull{
     public override async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default) {
-        _context.Set<TEntity>().Update(entity);
-        await SaveChangesAsync(cancellationToken);
+        _dbSet.Update(entity);
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
 
         return entity;
     }
     
     public override async Task<IEnumerable<TEntity>> UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default) {
-        IEnumerable<TEntity> updateRangeAsync = entities.ToList();
-        _context.Set<TEntity>().UpdateRange(updateRangeAsync);
-        await SaveChangesAsync(cancellationToken);
+        var updateRangeAsync = entities.ToList();
+        _dbSet.UpdateRange(updateRangeAsync);
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
 
         return updateRangeAsync;
     }
 
     public override async Task<TEntity?> DeleteAsync(TEntity entity, CancellationToken cancellationToken = default) {
-        _context.Set<TEntity>().Remove(entity);
-        await SaveChangesAsync(cancellationToken);
+        _dbSet.Remove(entity);
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
 
         return entity;
     }
 
     public async Task<TEntity?> DeleteAsync(TKey id, CancellationToken cancellationToken = default) {
         var item = await this.GetByIdAsync(id, cancellationToken);
-        if (item is not null) {
-            _context.Set<TEntity>().Remove(item);
-            await SaveChangesAsync(cancellationToken);
-        }
+        if (item is null) return item;
+        
+        _dbSet.Remove(item);
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
 
         return item;
     }
     
     public override async Task<IEnumerable<TEntity>> DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default) {
-        IEnumerable<TEntity> deleteRangeAsync = entities.ToList();
-        _context.Set<TEntity>().RemoveRange(deleteRangeAsync);
-        await SaveChangesAsync(cancellationToken);
+        var deleteRangeAsync = entities.ToList();
+        _dbSet.RemoveRange(deleteRangeAsync);
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
 
         return deleteRangeAsync;
     }
 
-    public Task<int> DeleteRangeAsync<TId>(IEnumerable<TId> ids, CancellationToken cancellationToken = default) where TId : notnull {
-        throw new NotImplementedException();
-    }
-
     public async Task<int> DeleteRangeAsync(IEnumerable<TKey> ids, CancellationToken cancellationToken = default) {
-        var items = await _context.Set<TEntity>().Where(x => ids.Contains(x.Id)).ExecuteDeleteAsync(cancellationToken);
-        await SaveChangesAsync(cancellationToken);
+        var items = await _dbSet.Where(x => ids.Contains(x.Id)).ToListAsync(cancellationToken);
+        _dbSet.RemoveRange(items);
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
         
-        return items;
+        return items.Count;
     }
 
     public async Task<IEnumerable<TEntity>> DeleteBySpec(ISpecification<TEntity> specification, CancellationToken cancellationToken = default) {
-        var items = await _context.Set<TEntity>().WithSpecification(specification).ToListAsync(cancellationToken);
-        _context.Set<TEntity>().RemoveRange(items);
-        await SaveChangesAsync(cancellationToken);
+        var items = await _dbSet.WithSpecification(specification).ToListAsync(cancellationToken);
+        _dbSet.RemoveRange(items);
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
         
         return items;
-    }
-
-    public async Task ClearAsync(CancellationToken cancellationToken = default) {
-        await _context.Database.EnsureDeletedAsync(cancellationToken);
-        await _context.Database.EnsureDeletedAsync(cancellationToken);
     }
 }

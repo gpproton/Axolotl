@@ -16,10 +16,6 @@ using Axolotl.EFCore.Interfaces;
 namespace Axolotl.EFCore.Repository;
 
 public interface IReadRepository<TEntity> : IReadRepositoryBase<TEntity> where TEntity : class, IAggregateRoot {
-    IQueryable<TEntity> GetQueryable(CancellationToken cancellationToken = default (CancellationToken));
-
-    DbSet<TEntity> GetContext(CancellationToken cancellationToken = default (CancellationToken));
-    
     /// <summary>
     /// Returns the all element of a sequence, or a default value if the sequence contains no elements.
     /// </summary>
@@ -28,7 +24,7 @@ public interface IReadRepository<TEntity> : IReadRepositoryBase<TEntity> where T
     /// A task that represents the asynchronous operation.
     /// The IQueryable result contains the <typeparamref name="TEntity" />, or <see langword="null"/>.
     /// </returns>
-    IQueryable<TEntity> GetAll(CancellationToken cancellationToken = default);
+    IQueryable<TEntity> Query(CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Returns the all element of a sequence, or a default value if the sequence contains no elements.
@@ -39,7 +35,7 @@ public interface IReadRepository<TEntity> : IReadRepositoryBase<TEntity> where T
     /// A task that represents the asynchronous operation.
     /// The IQueryable result contains the <typeparamref name="TEntity" />, or <see langword="null"/>.
     /// </returns>
-    IQueryable<TEntity> GetAll(ISpecification<TEntity> specification, CancellationToken cancellationToken = default);
+    IQueryable<TEntity> Query(ISpecification<TEntity> specification, CancellationToken cancellationToken = default);
     
     Task<IEnumerable<TEntity>> GetBySpec(ISpecification<TEntity> specification, CancellationToken cancellationToken = default);
 
@@ -52,6 +48,8 @@ public interface IReadRepository<TEntity> : IReadRepositoryBase<TEntity> where T
     /// The sequence result contains the <typeparamref name="TEntity" />, or <see langword="null"/>.
     /// </returns>
     IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> expression);
+
+    IEnumerable<TEntity> Find(ISpecification<TEntity> specification, Expression<Func<TEntity, bool>> expression);
 
     /// <summary>
     /// Returns the first element of a sequence, or a default value if the sequence contains no elements.
