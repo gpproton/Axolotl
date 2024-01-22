@@ -80,6 +80,8 @@ public class GenericRepository<TEntity, TKey> : GenericBaseRepository<TEntity, S
 ### Register generic repository
 
 ```csharp
+services.AddDbContext<ServiceContext>(options => options.UseSqlite());
+builder.Services.RegisterUnitOfWork<ServiceContext>(pooled: false);
 builder.Services.RegisterGenericRepositories(typeof(GenericRepository<,>));
 builder.Services.RegisterGenericServices();
 ```
