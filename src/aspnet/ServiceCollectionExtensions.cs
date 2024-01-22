@@ -9,17 +9,13 @@
 // limitations under the License.
 
 using System.Reflection;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Axolotl.AspNet.Feature;
 using Axolotl.AspNet.Service;
-using Axolotl.EFCore.Implementation;
-using Axolotl.EFCore.Interfaces;
 using Axolotl.Helpers;
-using Microsoft.EntityFrameworkCore;
 
 namespace Axolotl.AspNet;
 
@@ -47,13 +43,6 @@ public static class ServiceCollectionExtensions {
         }
 
         return app;
-    }
-
-    public static IServiceCollection RegisterUnitOfWork<TContext>(this IServiceCollection services) where TContext : DbContext {
-        services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
-        services.AddScoped(typeof(IUnitOfWork<TContext>), typeof(UnitOfWork<TContext>));
-
-        return services;
     }
 
     public static IServiceCollection RegisterGenericServices(this IServiceCollection services) {
