@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
-    <PackageReference Include="Nextended.Core" />
     <PackageReference Include="System.Net.Http.Json" />
   </ItemGroup>
 
