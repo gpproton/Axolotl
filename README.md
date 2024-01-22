@@ -6,33 +6,20 @@ NOTE: Issues can be created to improve documentation and fix errors
 
 ### Sub-packages
 
-Axolotl:
-
-Axolotl.Http:
-
-Axolotl.EFCore:
-
-Axolotl.Razor:
+- Axolotl:
+- Axolotl.Http:
+- Axolotl.EFCore:
+- Axolotl.Razor:
 
 
 # Install
 
-The framework is provided as a set of NuGet packages. In many cases you'll only need the base package, but if you need efcore, razor or Maui there are implementation-specific packages available to assist.
+The framework is provided as a set of NuGet packages. In many cases you'll only need the base package, but if you need efcore or razor there are implementation-specific packages available to assist.
 
 To install the minimum requirements:
 
 ```
 Install-Package Axolotl
-```
-
-To install support for serialization, AutoFixture, EF Core, Model Binding, or Dapper select the lines that apply:
-
-```
-Install-Package Axolotl
-Install-Package Axolotl.Http
-Install-Package Axolotl.EFCore
-Install-Package Axolotl.AspNet
-Install-Package Axolotl.Razor
 ```
 
 ## Asp.Net Core Samples
@@ -55,7 +42,7 @@ public sealed class Post : AuditableEntity<Guid> {
 }
 ```
 
-### Add to context
+### Create your DB context
 
 ```csharp
 public class ServiceContext : DbContext {
@@ -77,11 +64,16 @@ public class GenericRepository<TEntity, TKey> : GenericBaseRepository<TEntity, S
 }
 ```
 
-### Register generic repository
+### Register your DB context & Unit of work
 
 ```csharp
-services.AddDbContext<ServiceContext>(options => options.UseSqlite());
+builder.Services.AddDbContext<ServiceContext>(options => options.UseSqlite());
 builder.Services.RegisterUnitOfWork<ServiceContext>(pooled: false);
+```
+
+### Register generic repository & service
+
+```csharp
 builder.Services.RegisterGenericRepositories(typeof(GenericRepository<,>));
 builder.Services.RegisterGenericServices();
 ```
