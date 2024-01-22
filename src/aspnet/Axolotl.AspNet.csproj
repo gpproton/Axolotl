@@ -15,9 +15,8 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <ProjectReference Include="..\efcore\Axolotl.EFCore.csproj" />
     <ProjectReference Include="..\standard\Axolotl.csproj" />
-    <PackageReference Include="Ardalis.Specification" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Mapster" />
   </ItemGroup>
 
 </Project>

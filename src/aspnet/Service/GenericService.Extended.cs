@@ -17,6 +17,7 @@ using Axolotl.EFCore.Repository;
 using Axolotl.Filters;
 using Axolotl.Interfaces;
 using Axolotl.Response;
+using Mapster;
 
 namespace Axolotl.AspNet.Service;
 
@@ -35,7 +36,7 @@ public class GenericService<TEntity, TResponse, TKey> (IRepository<TEntity, TKey
         var count = await repo.Query(cancellationToken).WithSpecification(specification).CountAsync(cancellationToken);
         var take = (page - 1) * size;
         var result = await repo.Query(cancellationToken).WithSpecification(specification).Take(size).Skip(take).ToListAsync(cancellationToken);
-        var output = result.MapTo<List<TResponse>>();
+        var output = result.Adapt<List<TResponse>>();
 
         return new PagedResponse<TResponse>(output, page, size, count);
     }
@@ -52,7 +53,7 @@ public class GenericService<TEntity, TResponse, TKey> (IRepository<TEntity, TKey
 
     public async Task<Response<TResponse?>> GetByIdAsync(TKey id, CancellationToken cancellationToken = default) {
         var result = await repo.GetByIdAsync(id, cancellationToken);
-        var output = result.MapTo<TResponse?>();
+        var output = result.Adapt<TResponse?>();
         
         return new Response<TResponse?>(output);
     }
@@ -64,38 +65,38 @@ public class GenericService<TEntity, TResponse, TKey> (IRepository<TEntity, TKey
     }
 
     public async Task<Response<TResponse>> CreateAsync(IResponse value, CancellationToken cancellationToken = default) {
-        var result = await repo.AddAsync(value.MapTo<TEntity>(), cancellationToken);
-        var output = result.MapTo<TResponse>();
+        var result = await repo.AddAsync(value.Adapt<TEntity>(), cancellationToken);
+        var output = result.Adapt<TResponse>();
         
         return new Response<TResponse>(output);
     }
 
     public async Task<PagedResponse<TResponse>> CreateRangeAsync(IEnumerable<IResponse> values, CancellationToken cancellationToken = default) {
-        var converted = values.MapTo<IEnumerable<TEntity>>().ToList();
+        var converted = values.Adapt<IEnumerable<TEntity>>().ToList();
         var result = await repo.AddRangeAsync(converted, cancellationToken);
-        var output = result.MapTo<IEnumerable<TResponse>>();
+        var output = result.Adapt<IEnumerable<TResponse>>();
         
         return new PagedResponse<TResponse>(output);
     }
 
     public async Task<Response<TResponse>> UpdateAsync(IResponse value, CancellationToken cancellationToken = default) {
-        var result = await repo.UpdateAsync(value.MapTo<TEntity>(), cancellationToken);
-        var output = result.MapTo<TResponse>();
+        var result = await repo.UpdateAsync(value.Adapt<TEntity>(), cancellationToken);
+        var output = result.Adapt<TResponse>();
         
         return new Response<TResponse>(output);
     }
 
     public async Task<PagedResponse<TResponse>> UpdateRangeAsync(IEnumerable<IResponse> values, CancellationToken cancellationToken = default) {
-        var converted = values.MapTo<IEnumerable<TEntity>>().ToList();
+        var converted = values.Adapt<IEnumerable<TEntity>>().ToList();
         var result = await repo.UpdateRangeAsync(converted, cancellationToken);
-        var output = result.MapTo<IEnumerable<TResponse>>();
+        var output = result.Adapt<IEnumerable<TResponse>>();
         
         return new PagedResponse<TResponse>(output);
     }
 
     public async Task<Response<TResponse?>> DeleteAsync(TKey id, CancellationToken cancellationToken = default) {
         var result = await repo.DeleteAsync(id, cancellationToken);
-        var output = result.MapTo<TResponse?>();
+        var output = result.Adapt<TResponse?>();
         
         return new Response<TResponse?>(output, "", result != null);
     }
@@ -109,7 +110,7 @@ public class GenericService<TEntity, TResponse, TKey> (IRepository<TEntity, TKey
     public async Task<PagedResponse<TResponse>> DeleteBySpec<TOption>(Type spec, TOption option, CancellationToken cancellationToken = default) where TOption : class {
         var specification = GenerateSpec.Build<TEntity>(spec, option);
         var result = await repo.DeleteBySpec(specification, cancellationToken);
-        var output = result.MapTo<IEnumerable<TResponse>>();
+        var output = result.Adapt<IEnumerable<TResponse>>();
         
         return new PagedResponse<TResponse>(output);
     }
