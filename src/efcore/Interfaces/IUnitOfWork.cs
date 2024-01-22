@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Axolotl.EFCore.Interfaces;
 
-public interface IUnitOfWork<out TContext> where TContext : DbContext {
+public interface IUnitOfWork<out TContext> : IDisposable where TContext : DbContext {
     TContext Context { get; }
     public Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }
