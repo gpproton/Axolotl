@@ -13,6 +13,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Axolotl.EFCore.Implementation;
 
-public class UnitOfWork<TContext>(TContext context) : BaseUnitOfWork<TContext> where TContext : DbContext {
-    public override TContext Context => context;
+public abstract class BaseUnitOfWork<TContext> : IUnitOfWork<TContext>
+    where TContext : DbContext  {
+    public abstract TContext Context { get; }
+    private bool _disposed = false;
+    public virtual async Task SaveChangesAsync(CancellationToken cancellationToken = default) => await Context.SaveChangesAsync(cancellationToken);
+
+    private void Dispose(bool disposing) {
+        if (_disposed) return;
+        if (disposing) Context.Dispose();
+        _disposed = true;
+    }
+
+    public virtual void Dispose() {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 }

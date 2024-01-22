@@ -8,11 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Axolotl.EFCore.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Axolotl.EFCore.Implementation;
 
-public class UnitOfWork<TContext>(TContext context) : BaseUnitOfWork<TContext> where TContext : DbContext {
-    public override TContext Context => context;
+public class PooledUnitOfWork<TContext>(IDbContextFactory<TContext> factory) : BaseUnitOfWork<TContext> where TContext : DbContext {
+    public override TContext Context => factory.CreateDbContext();
 }
