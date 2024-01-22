@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup>
         <Title>Axolotl</Title>
-        <Version>8.0.1</Version>
+        <Version>8.0.2</Version>
         <Authors>radioActive DROID</Authors>
         <Description>Personal shared utility library</Description>
         <RepositoryType>git</RepositoryType>
