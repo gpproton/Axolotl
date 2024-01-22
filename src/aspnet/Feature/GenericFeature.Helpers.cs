@@ -34,7 +34,7 @@ public abstract partial class GenericFeature<TFeature, TKey>
         var name = options.Name ?? type.Name.ToLower();
         var url = options.Path ?? $"{root}/{name}";
         var instance = new TFeature() as TAFeature;
-        var group = endpoints.MapGroup(url).WithTags(name.Capitalize());
+        var group = endpoints.MapGroup(url).WithTags(name);
         if (instance! == null) throw new Exception("Feature instance not initialized.");
         instance.Endpoints = group;
         
