@@ -6,20 +6,15 @@
 
     <!-- Shared packages -->
     <ItemGroup>
-        <PackageVersion Include="Ardalis.SmartEnum" Version="$(ArdalisVersion)" />
-        <PackageVersion Include="Ardalis.SmartEnum.SystemTextJson" Version="$(ArdalisVersion)" />
-        <PackageVersion Include="Ardalis.Specification" Version="$(ArdalisVersion)" />
         <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(DotnetVersion)" />
         <PackageVersion Include="Microsoft.Extensions.Primitives" Version="$(DotnetVersion)" />
         <PackageVersion Include="System.Net.Http.Json" Version="$(DotnetVersion)" />
-        <PackageVersion Include="Nextended.Core" Version="$(NextendedVersion)" />
+        <PackageVersion Include="Mapster" Version="7.4.0" />
     </ItemGroup>
 
     <!-- EFCore packages -->
     <ItemGroup>
-        <PackageVersion Include="Ardalis.SmartEnum.EFCore" Version="$(ArdalisVersion)" />
         <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="$(ArdalisVersion)" />
-        <PackageVersion Include="EFCore.BulkExtensions" Version="$(BulkExtensions)" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfcoreVersion)" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Abstractions" Version="$(EfcoreVersion)" />
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EfcoreVersion)" />
