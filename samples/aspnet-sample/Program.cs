@@ -17,13 +17,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => { });
 
-
-// Sample services
+// Data services
 builder.Services.RegisterDataContext();
+builder.Services.RegisterUnitOfWork<ServiceContext>(pooled: false);
 builder.Services.RegisterGenericRepositories(typeof(GenericRepository<,>));
-builder.Services.RegisterUnitOfWork<ServiceContext>();
-
-// Axolotl services
+// Axolotl AspNet services
 builder.Services.RegisterGenericServices();
 builder.Services.RegisterFeatures(typeof(Program).Assembly);
 
@@ -31,12 +29,12 @@ builder.Services.AddHostedService<MigrationService>();
 builder.Services.AddCoreAdmin(new CoreAdminOptions {
     Title = "Sample Admin",
     ShowPageSizes = true,
-    PageSizes = new Dictionary<int, string>() {
+    PageSizes = new Dictionary<int, string> {
         { 25, "25"},
         { 100, "100"},
         { 0, "All"}
     },
-    IgnoreEntityTypes = new List<Type> { }
+    IgnoreEntityTypes = new List<Type>()
 });
 
 var app = builder.Build();
@@ -56,7 +54,7 @@ app.RegisterFeatureEndpoints();
 
 app.MapGet("/", () => "x").WithName("Default").WithTags("Root");
 app.UseCoreAdminCustomUrl("admin");
-app.UseCoreAdminCustomAuth((serviceProvider) => Task.FromResult(true));
+app.UseCoreAdminCustomAuth(_ => Task.FromResult(true));
 
 
 app.Run();
