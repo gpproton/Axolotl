@@ -1,9 +1,11 @@
 {
   "sdk": {
-    "version": "8.0.100-preview.4.23260.5",
-    "rollForward": "latestFeature"
+    "version": "8.0.200",
+    "rollForward": "latestPatch"
   },
   "scripts": {
+    "docs": "cd docs && dotnet docfx docfx.json --serve",
+    "docs:publish": "cd docs && dotnet docfx docfx.json",
     "build": "dotnet build --configuration Release",
     "test": "dotnet test --configuration Release",
     "ci": "dotnet r build && dotnet r test",

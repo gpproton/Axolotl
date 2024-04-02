@@ -478,3 +478,5 @@ $RECYCLE.BIN/
 .idea
 *.sqlite*
 *.db*
+_site
+docs/api

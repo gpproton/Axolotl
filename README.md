@@ -1,6 +1,6 @@
 # Axolotl
 
- A personal shared library for various types of dotnet project types
+A personal shared library for various types of dotnet project types
 
 NOTE: Issues can be created to improve documentation and fix errors
 
