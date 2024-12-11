@@ -1,7 +1,7 @@
 <Project>
     <PropertyGroup>
         <Title>Axolotl</Title>
-        <Version>8.0.5</Version>
+        <Version>9.0.0</Version>
         <Authors>radioActive DROID</Authors>
         <Description>Personal shared utility library</Description>
         <RepositoryType>git</RepositoryType>
@@ -24,29 +24,4 @@
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <PackageIcon>icon.jpg</PackageIcon>
     </PropertyGroup>
-
-    <PropertyGroup>
-        <TargetFrameworks>net7.0;net8.0</TargetFrameworks>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <LangVersion>12.0</LangVersion>
-        <NextendedVersion>7.0.47</NextendedVersion>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-        <ArdalisVersion>7.0.0</ArdalisVersion>
-        <AspCoreVersion>7.0.14</AspCoreVersion>
-        <DotnetVersion>7.0.0</DotnetVersion>
-        <EfcoreVersion>7.0.14</EfcoreVersion>
-        <BulkExtensions>7.1.6 </BulkExtensions>
-    </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
-        <ArdalisVersion>8.0.0</ArdalisVersion>
-        <AspCoreVersion>8.0.0</AspCoreVersion>
-        <DotnetVersion>8.0.0</DotnetVersion>
-        <EfcoreVersion>8.0.0</EfcoreVersion>
-        <BulkExtensions>8.0.0</BulkExtensions>
-    </PropertyGroup>
-
 </Project>
