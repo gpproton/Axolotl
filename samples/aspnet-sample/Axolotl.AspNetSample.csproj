@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <Import Project="..\..\Common.props" />
